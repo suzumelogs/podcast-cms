@@ -260,7 +260,7 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
 
         {!buttonSearchUnderButtonCreate && (
           <ButtonSearch variant="outlined" type="submit">
-            Search
+            Tìm kiếm
           </ButtonSearch>
         )}
       </Stack>
@@ -285,7 +285,7 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
 
         {buttonSearchUnderButtonCreate && (
           <ButtonSearch variant="outlined" type="submit">
-            Search
+            Tìm kiếm
           </ButtonSearch>
         )}
       </Stack>

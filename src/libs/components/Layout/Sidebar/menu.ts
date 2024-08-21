@@ -1,6 +1,9 @@
+import BookmarksIcon from '@mui/icons-material/Bookmarks'
 import CategoryIcon from '@mui/icons-material/Category'
+import PaymentsIcon from '@mui/icons-material/Payments'
 import UserIcon from '@mui/icons-material/Person'
 import StackedLineChartIcon from '@mui/icons-material/StackedLineChart'
+import ViewStreamIcon from '@mui/icons-material/ViewStream'
 
 export type MenuType = {
   title: string
@@ -26,9 +29,27 @@ export const menus: MenuType[] = [
     active_icon: UserIcon,
   },
   {
-    href: '/movie-type',
+    href: '/categories',
     title: 'Danh mục',
     icon: CategoryIcon,
     active_icon: CategoryIcon,
+  },
+  {
+    href: '/chapters',
+    title: 'Chương',
+    icon: BookmarksIcon,
+    active_icon: BookmarksIcon,
+  },
+  {
+    href: '/episodes',
+    title: 'Tập',
+    icon: ViewStreamIcon,
+    active_icon: ViewStreamIcon,
+  },
+  {
+    href: '/pays',
+    title: 'Lịch sử thanh toán',
+    icon: PaymentsIcon,
+    active_icon: PaymentsIcon,
   },
 ]

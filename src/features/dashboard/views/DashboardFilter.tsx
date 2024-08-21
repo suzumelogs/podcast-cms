@@ -21,7 +21,7 @@ const DashboardFilter = () => {
   return (
     <Stack spacing={3}>
       <Typography color="mono.600" variant="h2">
-        List
+        Tổng quan
       </Typography>
 
       <FilterBar columns={filterColumn} buttonSearchUnderButtonCreate />

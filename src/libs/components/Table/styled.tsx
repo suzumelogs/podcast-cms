@@ -45,11 +45,11 @@ const PaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
 }))
 
 const ButtonRed = styled(Button)(({ theme }) => ({
-  borderColor: theme.palette.status.error,
-  color: theme.palette.status.error,
+  borderColor: theme.palette.primary.main,
+  color: theme.palette.primary.main,
   height: 40,
   fontSize: '14px',
-  width: 80,
+  width: 140,
   '&:hover': {
     borderColor: theme.palette.status.error,
   },

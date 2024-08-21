@@ -1,6 +1,6 @@
 'use client'
 
-import { Stack } from '@mui/material'
+import { Box, Grid, Stack } from '@mui/material'
 import { LineChart } from '@mui/x-charts'
 import { BarChart } from '@mui/x-charts/BarChart'
 
@@ -170,11 +170,78 @@ const data = [
 
 const DashboardForm = () => {
   return (
-    <>
+    <Stack width={'100%'} flexDirection={'column'} gap={14}>
+      <Grid container spacing={2} sx={{ padding: 2, backgroundColor: '#f5f5f5', borderRadius: 2 }}>
+        <Grid item xs={3} padding={2}>
+          <Box
+            sx={{
+              bgcolor: '#2b5a1d',
+              color: '#fff',
+              textAlign: 'center',
+              padding: 2,
+              borderRadius: 1,
+              boxShadow: 3,
+              fontWeight: 'bold',
+              fontSize: '1.2rem',
+            }}
+          >
+            125
+          </Box>
+        </Grid>
+        <Grid item xs={3} padding={2}>
+          <Box
+            sx={{
+              bgcolor: '#bd191c',
+              color: '#fff',
+              textAlign: 'center',
+              padding: 2,
+              borderRadius: 1,
+              boxShadow: 3,
+              fontWeight: 'bold',
+              fontSize: '1.2rem',
+            }}
+          >
+            170
+          </Box>
+        </Grid>
+        <Grid item xs={3} padding={2}>
+          <Box
+            sx={{
+              bgcolor: '#000',
+              color: '#fff',
+              textAlign: 'center',
+              padding: 2,
+              borderRadius: 1,
+              boxShadow: 3,
+              fontWeight: 'bold',
+              fontSize: '1.2rem',
+            }}
+          >
+            197
+          </Box>
+        </Grid>
+        <Grid item xs={3} padding={2}>
+          <Box
+            sx={{
+              bgcolor: '#494949',
+              color: '#fff',
+              textAlign: 'center',
+              padding: 2,
+              borderRadius: 1,
+              boxShadow: 3,
+              fontWeight: 'bold',
+              fontSize: '1.2rem',
+            }}
+          >
+            177
+          </Box>
+        </Grid>
+      </Grid>
+
       <Stack width={'100%'} flexDirection={'row'}>
         <Stack>
           <BarChart
-            colors={['#bd191c', 'blue', '#494949']}
+            colors={['#2b5a1d', '#bd191c', '#494949']}
             xAxis={[{ scaleType: 'band', data: ['group A', 'group B', 'group C'] }]}
             series={[{ data: [4, 3, 5] }, { data: [1, 6, 3] }, { data: [2, 5, 6] }]}
             width={800}
@@ -183,7 +250,7 @@ const DashboardForm = () => {
         </Stack>
         <Stack>
           <LineChart
-            colors={['#bd191c']}
+            colors={['#2b5a1d']}
             xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
             series={[
               {
@@ -195,7 +262,7 @@ const DashboardForm = () => {
           />
         </Stack>
       </Stack>
-    </>
+    </Stack>
   )
 }
 
