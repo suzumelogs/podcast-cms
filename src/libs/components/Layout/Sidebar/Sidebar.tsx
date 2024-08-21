@@ -40,7 +40,7 @@ const Sidebar = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Typography variant="h2">CN</Typography>
+        <Typography variant="h2">PODCAST</Typography>
 
         <Stack
           width={68}
@@ -50,7 +50,7 @@ const Sidebar = () => {
           alignItems="center"
         >
           <Typography variant="subtitle1" lineHeight="18px">
-            Booking
+            CMS
           </Typography>
         </Stack>
       </Stack>

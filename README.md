@@ -1,5 +1,3 @@
-# CN ADMIN - Thiều Trần Cương
-
 ## Installation
 
 Use the package manager [yarn ](https://yarnpkg.com/) to install packages in projects.
@@ -25,4 +23,5 @@ Use the package manager [yarn ](https://yarnpkg.com/) to install packages in pro
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see website.
+
 # podcast-cms

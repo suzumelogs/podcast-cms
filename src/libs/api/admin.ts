@@ -4,7 +4,7 @@ import {
   AdminUpdateInputType,
   QueryInputListAdmin,
 } from '@/features/admin'
-import { AdminResponseType } from '@/features/auth'
+import { UserResponseType } from '@/features/auth'
 import request from '../config/axios'
 import { clearObjRequest } from '../hooks'
 
@@ -57,7 +57,7 @@ export const updateAdmin = async (data: AdminUpdateInputType) => {
 
 export const getAdmin = async (id: string) => {
   try {
-    const response = await request.get<AdminResponseType>(`/show/${id}`)
+    const response = await request.get<UserResponseType>(`/show/${id}`)
 
     return response.data.data
   } catch (error) {

@@ -1,14 +1,12 @@
-'use client'
-
 import {
   ListItemButton as MuiListItemButton,
   ListItemIcon as MuiListItemIcon,
   ListItemText as MuiListItemText,
   styled,
 } from '@mui/material'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'nextjs-router-events'
+import { ElementType } from 'react'
 import { MenuType } from './menu'
 
 type StyleListItemButtonType = {
@@ -31,16 +29,11 @@ const ListItemButton: React.FC<ListItemButtonType> = ({ menu }) => {
     ? pathname === menu.href || menu.subHref === pathname.split('/')[1]
     : pathname.includes(menu.href)
 
+  const IconComponent: ElementType = isActive ? menu.active_icon : (menu.icon as any)
+
   return (
     <StyleListItemButton active={isActive} onClick={handleDirection} disabled={menu.disabled}>
-      <ListItemIcon>
-        <Image
-          width={24}
-          height={24}
-          alt={menu.title}
-          src={isActive ? menu.active_icon : menu.icon}
-        />
-      </ListItemIcon>
+      <ListItemIcon>{IconComponent && <IconComponent />}</ListItemIcon>
       <ListItemText primary={menu.title} />
     </StyleListItemButton>
   )

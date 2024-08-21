@@ -1,6 +1,6 @@
 'use client'
 
-import { login } from '@/libs/api/auth'
+import { signin } from '@/libs/api/auth'
 import { Input, InputPassword } from '@/libs/components/Form'
 import { useAuth } from '@/libs/context'
 import { ErrorTypeResponse } from '@/libs/types/axios'
@@ -9,24 +9,25 @@ import { Button, Stack, Typography } from '@mui/material'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { LoginInputSchema, LoginInputType } from './type'
+import { SigninInputSchema, SigninInputType } from './type'
 
 const Login = () => {
   const router = useRouter()
   const { setAccessToken, setAdmin } = useAuth()
-  const { control, handleSubmit, setError } = useForm<LoginInputType>({
+  const { control, handleSubmit, setError } = useForm<SigninInputType>({
     defaultValues: {
       email: '',
       password: '',
     },
-    resolver: zodResolver(LoginInputSchema),
+    resolver: zodResolver(SigninInputSchema),
   })
 
   const { mutate, isPending } = useMutation({
-    mutationFn: login,
+    mutationFn: signin,
     onSuccess: (data) => {
-      const { user, ...token } = data.data?.data
-      setAccessToken(token.access_token)
+      const { user, ...token } = data.data.data
+
+      setAccessToken(token.accessToken)
       setAdmin(user)
       router.push('/')
     },
@@ -54,7 +55,7 @@ const Login = () => {
     },
   })
 
-  const onSubmit: SubmitHandler<LoginInputType> = (data) => {
+  const onSubmit: SubmitHandler<SigninInputType> = (data) => {
     mutate(data)
   }
 
@@ -78,7 +79,7 @@ const Login = () => {
             width: 'calc(100% + 10px)',
             height: 'calc(100% + 10px)',
             background:
-              'linear-gradient(45deg, #000 0%, rgba(255, 255, 255, 1) 42%, rgba(255, 255, 255, 1) 59%, #BD191C 100%)',
+              'linear-gradient(45deg, #000 0%, rgba(255, 255, 255, 1) 42%, rgba(255, 255, 255, 1) 59%, #2b5a1d 100%)',
             borderRadius: '4px',
           },
         }}
@@ -86,16 +87,17 @@ const Login = () => {
         <Stack width="100%" bgcolor="white" height="100%" zIndex="10" padding={'32px 16px'}>
           <Stack
             display={'flex'}
-            flexDirection={'column'}
+            flexDirection={'row'}
             alignItems={'center'}
             justifyContent={'center'}
             mb={4}
           >
             <Typography variant="h2" fontWeight={500} color="base.primary">
-              CN
+              PODCAST
             </Typography>
-            <Typography variant="h2" color="grey.900" mt={2}>
-              BOOKING
+            /
+            <Typography variant="h4" color="grey.900" mt={2}>
+              CMS
             </Typography>
           </Stack>
 

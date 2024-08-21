@@ -1,9 +1,9 @@
-import { LoginInputType, LoginOutputType } from '@/features/auth'
+import { SigninInputType, SigninOutputType } from '@/features/auth'
 import request from '../config/axios'
 
-export const login = async ({ email, password }: LoginInputType) => {
+export const signin = async ({ email, password }: SigninInputType) => {
   try {
-    const res = await request.post<LoginOutputType>('/auth/login', {
+    const res = await request.post<SigninOutputType>('/auth/signin', {
       email,
       password,
     })
