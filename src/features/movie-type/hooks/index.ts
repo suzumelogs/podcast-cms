@@ -1,6 +1,0 @@
-export * from './useDeleteMovieType'
-export * from './useMovieTypeCreate'
-export * from './useMovieTypeDetail'
-export * from './useMovieTypeDetailQuery'
-export * from './useMovieTypeListQuery'
-export * from './useMovieTypeUpdate'

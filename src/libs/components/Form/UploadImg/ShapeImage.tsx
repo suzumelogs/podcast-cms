@@ -1,4 +1,3 @@
-import { CustomImage } from '@/features/real-estate/styled'
 import { Box, IconButton, styled } from '@mui/material'
 import CloseIcon from 'public/assets/svgs/close.svg'
 import { ImageResponseType } from './UploadImage'
@@ -16,8 +15,6 @@ const ShapeImage: React.FC<ShapeImageProps> = ({ onDelete, path }) => {
       <CloseButton onClick={() => onDelete(path)}>
         <CloseIcon />
       </CloseButton>
-
-      <CustomImage src={objectUrl} alt="image" width={160} height={160} />
     </BoxImage>
   )
 }

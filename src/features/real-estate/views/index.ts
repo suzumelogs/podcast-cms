@@ -1,5 +1,0 @@
-export * from './RealEstateDetail'
-export * from './RealEstateFilter'
-export * from './RealEstateFormCreate'
-export * from './RealEstateFormEdit'
-export * from './RealEstateList'
