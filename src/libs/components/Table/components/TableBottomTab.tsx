@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { ModalDelete } from '../../Modal/ModalDelete'
 import { useReactTableContext } from '../ReactTable/context'
 import { usePaginationHandler } from '../ReactTable/hooks'
-import { ButtonActionTable, ButtonRed as ButtonConfirm } from '../styled'
+import { ButtonActionTable, ButtonGreen as ButtonConfirm } from '../styled'
 
 type SelectionStateType = {
   id: string
@@ -152,7 +152,7 @@ function TableBottomTab() {
             gap={2}
           >
             <ButtonActionTable variant="outlined" onClick={handleCloseModal}>
-              Cancel
+              Hủy bỏ
             </ButtonActionTable>
 
             {hasCopyFunction && (

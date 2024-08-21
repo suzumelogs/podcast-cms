@@ -83,7 +83,7 @@ const Sidebar = () => {
         bgcolor="base.primary"
         justifyContent="center"
       >
-        <Stack direction="row" gap="18px">
+        <Stack direction="row">
           <Stack
             gap={1}
             direction="row"
@@ -113,22 +113,22 @@ const Sidebar = () => {
             </Typography>
           </Stack>
 
-          <IconButton sx={{ padding: 0 }} onClick={handleOpenModal}>
+          <IconButton sx={{ padding: 2 }} onClick={handleOpenModal}>
             <LogoutIcon />
           </IconButton>
         </Stack>
         <Typography fontSize={9} lineHeight="11px" fontWeight={500} color="base.white">
-          ©︎ xxxx CN Booking TTC.
+          ©︎ xxxx Podcast CMS.
         </Typography>
       </Stack>
 
       <Modal
         open={open}
-        title="Logout"
-        textSubmit="Submit"
+        title="Đăng xuất"
+        textSubmit="Xác nhận"
         handleSubmit={handleLogout}
         handleCloseModal={handleCloseModal}
-        description="Are you sure you want to logout?"
+        description="Bạn có chắc muốn đăng xuất chứ ?"
         isLoading={loading}
       />
     </Stack>

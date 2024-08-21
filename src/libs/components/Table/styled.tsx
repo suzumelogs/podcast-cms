@@ -44,17 +44,17 @@ const PaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
   },
 }))
 
-const ButtonRed = styled(Button)(({ theme }) => ({
+const ButtonGreen = styled(Button)(({ theme }) => ({
   borderColor: theme.palette.primary.main,
   color: theme.palette.primary.main,
   height: 40,
   fontSize: '14px',
   width: 140,
   '&:hover': {
-    borderColor: theme.palette.status.error,
+    borderColor: theme.palette.primary.main,
   },
   '&:focus': {
-    borderColor: theme.palette.status.error,
+    borderColor: theme.palette.primary.main,
   },
 }))
 
@@ -92,7 +92,7 @@ const TableCell = styled(MuiTableCell)(({ theme }) => ({
   textAlign: 'center',
 }))
 
-const ButtonSearch = styled(ButtonRed)({
+const ButtonSearch = styled(ButtonGreen)({
   marginLeft: 16,
 })
 
@@ -106,8 +106,8 @@ export {
   ButtonAction,
   ButtonActionTable,
   ButtonCreate,
+  ButtonGreen,
   ButtonPagination,
-  ButtonRed,
   ButtonSearch,
   PaginationItem,
   TableCell,

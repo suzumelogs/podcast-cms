@@ -18,12 +18,12 @@ const ButtonModal = styled(Button)({
 })
 
 const ButtonConfirm = styled(ButtonModal)(({ theme }) => ({
-  backgroundColor: theme.palette.status.error,
+  backgroundColor: theme.palette.primary.main,
   '&:hover': {
-    backgroundColor: theme.palette.status.error,
+    backgroundColor: theme.palette.primary.main,
   },
   '&:focus': {
-    backgroundColor: theme.palette.status.error,
+    backgroundColor: theme.palette.primary.main,
   },
 }))
 

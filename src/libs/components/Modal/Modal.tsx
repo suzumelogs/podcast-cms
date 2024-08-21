@@ -55,7 +55,7 @@ const Modal: React.FC<ModalProps> = ({
 
           <Stack direction="row" justifyContent="center" width="100%" spacing={2}>
             <ButtonModal variant="outlined" disabled={isLoading} onClick={handleCloseModal}>
-              {textCancel ? textCancel : 'Cancel'}
+              {textCancel ? textCancel : 'Hủy bỏ'}
             </ButtonModal>
 
             <ButtonConfirm variant="contained" disabled={isLoading} onClick={handleSubmit}>
