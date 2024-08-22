@@ -78,7 +78,7 @@ export function TableProvider<TData, Input>({
         setPagination(paginationParams)
       } else {
         setPagination({
-          page: 1,
+          page: 0,
           per_page: pagination.per_page,
         })
       }
@@ -106,7 +106,7 @@ export function TableProvider<TData, Input>({
 
       if (resetPaginationMeta) {
         resetPagination({
-          page: 1,
+          page: 0,
           per_page: pagination.per_page,
         })
       }
