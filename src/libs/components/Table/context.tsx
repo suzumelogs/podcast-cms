@@ -114,7 +114,6 @@ export function TableProvider<TData, Input>({
 
     [pagination.per_page, resetPagination],
   )
-
   const getTableData: TableContextValue<TData, Input>['getTableData'] = useCallback(
     (result: UseQueryResult<PaginationDataType<TData>>) => {
       const { data, isLoading, refetch } = result

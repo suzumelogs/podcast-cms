@@ -19,6 +19,8 @@ export const PaginationSchema = z.object({
   prev_page_url: z.string(),
   to: z.number(),
   total: z.number(),
+  page: z.number(),
+  limit: z.number(),
 })
 
 export type PaginationType = TypeOf<typeof PaginationSchema>

@@ -62,7 +62,7 @@ const ButtonCreate = styled(Button)(({ theme }) => ({
   background: theme.palette.base.primary,
   borderColor: theme.palette.base.primary,
   color: theme.palette.base.white,
-  width: 80,
+  width: 140,
   height: 40,
   padding: 0,
   fontSize: '14px',

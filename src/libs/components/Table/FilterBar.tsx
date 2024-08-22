@@ -101,7 +101,7 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
   columns,
   createPath,
   onCreate,
-  createBtnText = 'New',
+  createBtnText = 'Tạo mới',
   buttonSearchUnderButtonCreate = false,
   isDisabledCreate = false,
 }: FilterBarProps<FilterInput>) {
@@ -266,6 +266,11 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
       </Stack>
 
       <Stack spacing={2}>
+        {buttonSearchUnderButtonCreate && (
+          <ButtonSearch variant="outlined" type="submit">
+            Tìm kiếm
+          </ButtonSearch>
+        )}
         {createPath && (
           <ButtonCreate
             variant="contained"
@@ -281,12 +286,6 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
           <ButtonCreate variant="contained" startIcon={<AddIcon />} onClick={onCreate}>
             {createBtnText}
           </ButtonCreate>
-        )}
-
-        {buttonSearchUnderButtonCreate && (
-          <ButtonSearch variant="outlined" type="submit">
-            Tìm kiếm
-          </ButtonSearch>
         )}
       </Stack>
     </Stack>
