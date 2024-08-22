@@ -13,7 +13,7 @@ export const useCategoryListQuery = () => {
 
   const data = useQuery({
     queryKey: ['category-list', page, search, sort_by, column],
-    queryFn: () => getListCategories({ ...input, ...sortOptions }),
+    queryFn: () => getListCategories({ ...input, limit: input.per_page, ...sortOptions }),
   })
 
   return {
