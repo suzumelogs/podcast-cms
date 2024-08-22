@@ -17,7 +17,7 @@ export type MenuType = {
 export const menus: MenuType[] = [
   {
     href: '/',
-    title: 'Thống kê',
+    title: 'Tổng quan',
     subHref: 'dashboard',
     icon: StackedLineChartIcon,
     active_icon: StackedLineChartIcon,
