@@ -9,7 +9,7 @@ import { useMemo } from 'react'
 import { TextOverflow } from '../TextOverflow'
 
 const action: { [key: string]: string } = {
-  create: 'Create',
+  create: 'Tạo mới',
 }
 
 export type BreadcrumbType = { label: string | number; href?: string }

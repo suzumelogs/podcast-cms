@@ -9,15 +9,15 @@ type DropzoneProps = {
   haveImage?: boolean
 }
 
-export const DEFAULT_DROPZONE_WIDTH = 928
-const DROPZONE_WIDTH_WITH_IMAGE = 160
+export const DEFAULT_DROPZONE_WIDTH = 500
+const DROPZONE_WIDTH_WITH_IMAGE = 500 / 3
 
 const Dropzone = ({ getInputProps, getRootProps, haveImage }: DropzoneProps) => {
   return (
     <Stack
       {...getRootProps({ className: 'dropzone' })}
       width={haveImage ? DROPZONE_WIDTH_WITH_IMAGE : DEFAULT_DROPZONE_WIDTH}
-      minHeight={160}
+      minHeight={500 / 3}
       justifyContent="center"
       alignItems="center"
       bgcolor="grey.50"
@@ -34,7 +34,7 @@ const Dropzone = ({ getInputProps, getRootProps, haveImage }: DropzoneProps) => 
         <Image src="/assets/svgs/upload.svg" width={24} height={24} alt="choose images" />
 
         <Typography variant="body2" fontWeight={400} color="grey.500">
-          {haveImage ? '写真を選択' : '写真をドラッグ&ドロップで追加 ファイルから選択'}
+          {haveImage ? 'Chọn ảnh' : 'Thêm ảnh bằng cách kéo thả hoặc chọn từ tập tin'}
         </Typography>
       </Stack>
     </Stack>

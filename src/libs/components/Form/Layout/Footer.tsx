@@ -76,7 +76,7 @@ const Footer = ({ isPending, isDirty, closeFormPath }: FooterFormProps) => {
             disabled={isPending}
             sx={{ width: 120, padding: 0, fontSize: 16 }}
           >
-            Cancel
+            Hủy bỏ
           </Button>
 
           <ButtonSaveForm
@@ -85,7 +85,7 @@ const Footer = ({ isPending, isDirty, closeFormPath }: FooterFormProps) => {
             sx={{ width: 120, fontSize: 16 }}
             disabled={isPending}
           >
-            Save
+            Lưu
           </ButtonSaveForm>
         </Stack>
       </Paper>

@@ -11,7 +11,6 @@ import {
 } from '@mui/material'
 import { DatePickerProps } from '@mui/x-date-pickers'
 import { useRouter } from 'next/navigation'
-import AddIcon from 'public/assets/svgs/add.svg'
 import SearchIcon from 'public/assets/svgs/search.svg'
 import { useCallback } from 'react'
 import { FieldValues, Path, useForm } from 'react-hook-form'
@@ -274,7 +273,6 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
         {createPath && (
           <ButtonCreate
             variant="contained"
-            startIcon={<AddIcon />}
             onClick={() => route.push(createPath)}
             disabled={isDisabledCreate}
           >
@@ -283,7 +281,7 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
         )}
 
         {hasCreateFn && (
-          <ButtonCreate variant="contained" startIcon={<AddIcon />} onClick={onCreate}>
+          <ButtonCreate variant="contained" onClick={onCreate}>
             {createBtnText}
           </ButtonCreate>
         )}

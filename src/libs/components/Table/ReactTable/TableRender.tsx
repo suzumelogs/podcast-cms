@@ -20,7 +20,7 @@ function TableRender(): ReactElement {
     return (
       <Stack justifyContent="center" alignItems="center" height="60vh">
         <Typography variant="h3" color="mono.600">
-          No data!
+          Không có dữ liệu!
         </Typography>
       </Stack>
     )

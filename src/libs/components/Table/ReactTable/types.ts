@@ -11,7 +11,7 @@ import {
 import React, { CSSProperties } from 'react'
 
 export type ActionConfig<T extends RowData> = {
-  onDetail?: (id: string | number, row: Row<T>) => void
+  onDetail?: (_id: string | number, row: Row<T>) => void
   disabledDetail?: boolean
   detailIcon?: React.ReactNode
   renderLeft?: (row: Row<T>) => React.ReactNode

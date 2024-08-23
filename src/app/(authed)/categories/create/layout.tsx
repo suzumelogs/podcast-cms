@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Sách',
+  title: 'Tạo mới',
 }
 
 export default function Page({ children }: { children: React.ReactNode }) {

@@ -3,10 +3,8 @@
 import { Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import CopyIcon from 'public/assets/svgs/copy.svg'
-import DeleteIcon from 'public/assets/svgs/delete.svg'
-import EditIcon from 'public/assets/svgs/edit.svg'
 import { BreadcrumbType, Breadcrumbs } from '../../BreadCrumbs'
-import { ButtonAction } from './styled'
+import { ButtonAction, ButtonDelete } from './styled'
 
 interface HeaderProps {
   title: string
@@ -54,23 +52,17 @@ const Header = (props: HeaderProps) => {
           {editPath && (
             <ButtonAction
               variant="outlined"
-              startIcon={<EditIcon />}
               onClick={() => router.push(editPath)}
               disabled={isPending}
             >
-              Edit
+              Chỉnh sửa
             </ButtonAction>
           )}
 
           {deleteFunction && (
-            <ButtonAction
-              variant="outlined"
-              startIcon={<DeleteIcon />}
-              onClick={deleteFunction}
-              disabled={isPending}
-            >
-              Del
-            </ButtonAction>
+            <ButtonDelete variant="outlined" onClick={deleteFunction} disabled={isPending}>
+              Xóa
+            </ButtonDelete>
           )}
         </Stack>
       </Stack>

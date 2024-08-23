@@ -1,7 +1,8 @@
+import { base } from '@/libs/config/theme'
+import InfoIcon from '@mui/icons-material/Info'
 import { IconButton, Stack } from '@mui/material'
 import { RowData } from '@tanstack/react-table'
 import { usePathname, useRouter } from 'next/navigation'
-import DetailIcon from 'public/assets/svgs/detail.svg'
 import { ActionConfig, ReactTableCellProps } from '../ReactTable/types'
 import { ButtonAction } from '../styled'
 
@@ -13,7 +14,7 @@ function ActionCell<T extends RowData, TValue = unknown>({
   const meta = table.options.meta
   const pathname = usePathname()
   const actionConfig = meta?.action as ActionConfig<T>
-  const id = (row.original as { id: never }).id
+  const _id = (row.original as { _id: never })._id
 
   const detailConfig = actionConfig.onDetail
   const hasDetailConfig = detailConfig && typeof detailConfig === 'function'
@@ -21,9 +22,9 @@ function ActionCell<T extends RowData, TValue = unknown>({
 
   const onDetail = () => {
     if (hasDetailConfig) {
-      detailConfig(id as string, row)
+      detailConfig(_id as string, row)
     } else {
-      router.push(`${pathname}/${id}/detail`)
+      router.push(`${pathname}/${_id}/detail`)
     }
   }
 
@@ -35,7 +36,7 @@ function ActionCell<T extends RowData, TValue = unknown>({
         <ButtonAction onClick={onDetail}>
           {actionConfig.detailIcon || (
             <IconButton>
-              <DetailIcon />
+              <InfoIcon style={{ fill: base.primary }} fontSize="small" />
             </IconButton>
           )}
         </ButtonAction>

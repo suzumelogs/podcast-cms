@@ -24,10 +24,9 @@ export type CategoryListType = PaginationType & {
 }
 
 export type CategoryDetailType = {
-  id?: string
+  _id?: string
   name?: string
   description?: string
-  imageUrl?: string
   createdAt?: string
   updatedAt?: string
 }
@@ -45,14 +44,13 @@ export type QueryInputCategoryDetailType = {
 export const CategoryCreateInputSchema = z.object({
   name: z.string().optional(),
   description: z.string().optional(),
-  imageUrl: z.string().optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
 })
 
 export const CategoryUpdateInputSchema = CategoryCreateInputSchema.extend({
-  id: z.string(),
+  _id: z.string(),
 })
 
-export type MovieFormatCreateInputType = TypeOf<typeof CategoryCreateInputSchema>
-export type MovieFormatUpdateInputType = TypeOf<typeof CategoryUpdateInputSchema>
+export type CategoryCreateInputType = TypeOf<typeof CategoryCreateInputSchema>
+export type CategoryUpdateInputType = TypeOf<typeof CategoryUpdateInputSchema>
