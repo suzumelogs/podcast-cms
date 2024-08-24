@@ -1,130 +1,125 @@
-import { statusColors } from '@/libs/config/theme'
-import { Stack, Typography } from '@mui/material'
-import { useCallback, useMemo, useState } from 'react'
-import { FileRejection, useDropzone } from 'react-dropzone'
-import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
-import { DEFAULT_DROPZONE_WIDTH, Dropzone } from './Dropzone'
-import { ShapeImage } from './ShapeImage'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import { Box, IconButton, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import React, { useCallback, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
+import { useController } from 'react-hook-form'
 
-type UploadFileProps<F extends FieldValues> = UseControllerProps<F> &
-  Omit<UseControllerProps<F>, 'defaultValue'> & {
-    multiple?: boolean
-    disabled?: boolean
-    onDeleteImage?: (id: string) => void
-    onAddImage?: (file: File[]) => void
-    loading?: boolean
-  }
+const DropzoneContainer = styled(Box)(({ theme }) => ({
+  border: `2px dashed ${theme.palette.grey[400]}`,
+  borderRadius: theme.shape.borderRadius,
+  padding: theme.spacing(3),
+  textAlign: 'center',
+  cursor: 'pointer',
+  backgroundColor: theme.palette.grey[50],
+  transition: 'border-color 0.3s, background-color 0.3s',
+  '&:hover': {
+    borderColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.grey[100],
+  },
+}))
 
-export type ImageResponseType = {
-  file_path: string
-  id: string
-}
+const DropzoneText = styled(Typography)(({ theme }) => ({
+  color: theme.palette.grey[700],
+  fontSize: theme.typography.body2.fontSize,
+}))
 
-export const UploadImage = <F extends FieldValues>({
-  control,
+const ImagePreview = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  display: 'inline-block',
+  width: '100%',
+  borderRadius: theme.shape.borderRadius,
+  overflow: 'hidden',
+}))
+
+const RemoveButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  top: theme.spacing(1),
+  right: theme.spacing(1),
+  borderRadius: theme.shape.borderRadius,
+  padding: theme.spacing(0.5),
+  '&:hover': {
+    backgroundColor: theme.palette.error.dark,
+  },
+}))
+
+const UploadImage = ({
   name,
-  multiple = true,
-  onDeleteImage,
-  onAddImage,
-}: UploadFileProps<F>) => {
+  control,
+  defaultValue,
+  helperText,
+  controlProps,
+  width = '100%',
+  padding,
+  sx,
+  ...props
+}: {
+  name: string
+  control: any
+  defaultValue?: any
+  helperText?: string | JSX.Element
+  controlProps?: any
+  width?: string
+  padding?: string
+  sx?: any
+  [key: string]: any
+}) => {
   const {
-    field: { onChange, value },
+    field: { onChange, value, name: fieldName },
     fieldState: { error },
-  } = useController({ name, control })
-  const [errorState, setError] = useState<string[]>([])
+  } = useController({ name, control, defaultValue })
 
-  const onDrop = (_acceptedFiles: File[]) => {
-    const data = multiple ? _acceptedFiles.map((file) => file) : _acceptedFiles[0]
+  const [image, setImage] = useState<File | null>(value ?? null)
 
-    if (onAddImage) {
-      onAddImage(_acceptedFiles)
-    }
-    if (multiple) onChange([...(value || []), ...(data as File[])])
-    else onChange(data)
-    setError([])
-  }
-
-  const onDelete = useCallback(
-    (path: ImageResponseType | File) => {
-      if ('id' in path && 'file_path' in path) {
-        const data = value as ImageResponseType[]
-        const newData = data.filter((item) => item.id !== path.id)
-
-        onChange(newData)
-        if (onDeleteImage) {
-          onDeleteImage(path.id)
-        }
-      } else {
-        const data = value as File[]
-        const newData = data.filter((item) => item !== path)
-        onChange(newData)
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      if (acceptedFiles.length > 0) {
+        const file = acceptedFiles[0]
+        setImage(file) // Lưu File object vào state
+        onChange(file) // Lưu File object vào value của react-hook-form
       }
     },
-    [onChange, value, onDeleteImage],
+    [onChange],
   )
-
-  const onReject = (files: FileRejection[]) => {
-    const dataErr: string[] = []
-    files.forEach((file) =>
-      file.errors.forEach((err) => {
-        dataErr.push(err.message)
-      }),
-    )
-    setError(dataErr)
-  }
 
   const { getRootProps, getInputProps } = useDropzone({
-    onDrop: onDrop,
-    accept: {
-      'image/jpeg': ['.jpeg', '.png'],
-    },
-    multiple,
-    onDropRejected: onReject,
+    accept: 'image/*',
+    onDrop,
+    multiple: false,
   })
 
-  const previews = useMemo(() => {
-    if (multiple) {
-      const files = value as (ImageResponseType | File)[]
+  const handleRemoveImage = (event: React.MouseEvent) => {
+    event.stopPropagation() // Prevents click from being propagated to DropzoneContainer
+    setImage(null)
+    onChange(null)
+  }
 
-      return (
-        files && files.map((file, key) => <ShapeImage key={key} path={file} onDelete={onDelete} />)
-      )
-    }
-    return []
-  }, [multiple, value, onDelete])
-
-  const haveImage = value && (value as string[]).length > 0
-
-  return haveImage ? (
-    <Stack spacing={1}>
-      <Stack direction="row" gap={2} width={DEFAULT_DROPZONE_WIDTH} flexWrap="wrap">
-        {previews}
-
-        <Dropzone getInputProps={getInputProps} getRootProps={getRootProps} haveImage />
-      </Stack>
-
-      {errorState &&
-        errorState.map((err, idx) => (
-          <Typography key={idx} variant="subtitle1" color={statusColors.error}>
-            {err}
-          </Typography>
-        ))}
-
+  return (
+    <Box width={width} padding={padding} sx={sx}>
+      <DropzoneContainer {...getRootProps()}>
+        <input {...getInputProps()} id={fieldName} hidden />
+        {!image ? (
+          <DropzoneText variant="body2">Kéo và thả hình ảnh vào đây hoặc nhấp để chọn</DropzoneText>
+        ) : (
+          <ImagePreview>
+            <img
+              src={URL.createObjectURL(image)}
+              alt="Preview"
+              style={{ width: '100%', height: 'auto' }}
+            />
+            <RemoveButton color="error" onClick={handleRemoveImage}>
+              <DeleteOutlineIcon />
+            </RemoveButton>
+          </ImagePreview>
+        )}
+      </DropzoneContainer>
       {error && (
-        <Typography variant="subtitle1" color={statusColors.error}>
-          {error.message as string}
+        <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+          {helperText || error.message}
         </Typography>
       )}
-    </Stack>
-  ) : (
-    <Stack spacing={1} width={DEFAULT_DROPZONE_WIDTH}>
-      <Dropzone getInputProps={getInputProps} getRootProps={getRootProps} />
-
-      {error && (
-        <Typography variant="subtitle1" color={statusColors.error} textAlign="center">
-          {error.message as string}
-        </Typography>
-      )}
-    </Stack>
+    </Box>
   )
 }
+
+export { UploadImage }
