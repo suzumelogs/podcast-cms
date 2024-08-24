@@ -1,9 +1,9 @@
 'use client'
 
 import { DetailItem } from '@/features/article/components'
-import { FormLayout, Input } from '@/libs/components/Form'
+import { FormLayout, Input, UploadImage } from '@/libs/components/Form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Stack } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -24,11 +24,13 @@ const CategoryForm = () => {
     defaultValues: {
       name: '',
       description: '',
+      file: '',
     },
     resolver: zodResolver(CategoryCreateInputSchema),
     values: {
       name: categoryDetail?.name || '',
       description: categoryDetail?.description || '',
+      imageUrl: categoryDetail?.imageUrl || '',
     },
   })
 
@@ -93,6 +95,20 @@ const CategoryForm = () => {
               rows={3}
               fullWidth
             />
+          </Stack>
+          <Stack direction={'row'} gap={1}>
+            <Stack
+              minWidth={120}
+              padding="4px 8px"
+              bgcolor="base.white"
+              justifyContent="center"
+              sx={{ height: 44 }}
+            >
+              <Typography variant="body2" color="grey.500">
+                Hình ảnh
+              </Typography>
+            </Stack>
+            <UploadImage name="file" control={control} />
           </Stack>
         </Stack>
       </Stack>

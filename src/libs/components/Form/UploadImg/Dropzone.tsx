@@ -9,7 +9,7 @@ type DropzoneProps = {
   haveImage?: boolean
 }
 
-export const DEFAULT_DROPZONE_WIDTH = 500
+export const DEFAULT_DROPZONE_WIDTH = '100%'
 const DROPZONE_WIDTH_WITH_IMAGE = 500 / 3
 
 const Dropzone = ({ getInputProps, getRootProps, haveImage }: DropzoneProps) => {

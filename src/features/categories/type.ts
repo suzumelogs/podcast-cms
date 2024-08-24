@@ -27,6 +27,7 @@ export type CategoryDetailType = {
   _id?: string
   name?: string
   description?: string
+  imageUrl?: string
   createdAt?: string
   updatedAt?: string
 }
@@ -44,6 +45,8 @@ export type QueryInputCategoryDetailType = {
 export const CategoryCreateInputSchema = z.object({
   name: z.string().optional(),
   description: z.string().optional(),
+  file: z.string().optional(),
+  imageUrl: z.string().optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
 })

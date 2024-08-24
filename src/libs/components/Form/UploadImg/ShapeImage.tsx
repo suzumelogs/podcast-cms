@@ -15,6 +15,7 @@ const ShapeImage: React.FC<ShapeImageProps> = ({ onDelete, path }) => {
       <CloseButton onClick={() => onDelete(path)}>
         <CloseIcon />
       </CloseButton>
+      <CustomImage src={objectUrl} alt="image" width={160} height={160} />
     </BoxImage>
   )
 }
@@ -37,4 +38,12 @@ const CloseButton = styled(IconButton)(({ theme }) => ({
   '&:hover': {
     background: theme.palette.base.primary,
   },
+}))
+
+const CustomImage = styled('img')(({ theme }) => ({
+  border: `1px solid ${theme.palette.base.separate_contents}`,
+  width: 160,
+  height: 160,
+  borderRadius: 4,
+  objectFit: 'contain',
 }))
