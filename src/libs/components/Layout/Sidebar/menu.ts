@@ -29,7 +29,7 @@ export const menus: MenuType[] = [
     active_icon: UserIcon,
   },
   {
-    href: '/categories',
+    href: '/books',
     title: 'Sách',
     icon: CategoryIcon,
     active_icon: CategoryIcon,

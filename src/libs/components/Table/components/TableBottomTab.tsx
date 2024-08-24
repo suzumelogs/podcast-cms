@@ -57,7 +57,7 @@ export const defaultActionApi = {
     delete: () => {},
     title: '',
   },
-  categories: {
+  books: {
     delete: () => {},
     title: '',
   },

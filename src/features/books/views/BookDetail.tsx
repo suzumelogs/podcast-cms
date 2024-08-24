@@ -7,25 +7,25 @@ import { formatDate } from '@/utils/format'
 import { Stack } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { useCategoryDetailQuery, useDeleteCategory } from '../hooks'
+import { useBookDetailQuery, useDeleteBook } from '../hooks'
 
-const CategoryDetail = () => {
-  const { categoriesId } = useParams()
+const BookDetail = () => {
+  const { booksId } = useParams()
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const handleOpenModal = () => setOpen(true)
   const handleCloseModal = () => setOpen(false)
-  const { deleteMovieFormat } = useDeleteCategory()
+  const { deleteBook } = useDeleteBook()
 
-  const handleDeleteMovieFormat = () => {
-    deleteMovieFormat(categoriesId as string, {
+  const handleDeleteBook = () => {
+    deleteBook(booksId as string, {
       onSuccess: () => {
-        router.push('/categories')
+        router.push('/books')
       },
     })
   }
 
-  const { data, isLoading } = useCategoryDetailQuery(categoriesId as string)
+  const { data, isLoading } = useBookDetailQuery(booksId as string)
   return (
     <Stack spacing={10}>
       <Stack spacing={4}>
@@ -63,7 +63,7 @@ const CategoryDetail = () => {
       <Modal
         handleCloseModal={handleCloseModal}
         open={open}
-        handleSubmit={handleDeleteMovieFormat}
+        handleSubmit={handleDeleteBook}
         textSubmit="Đồng ý"
         description={`Bạn có thực sự muốn xóa sách chứ ?`}
         title="Xóa sách"
@@ -72,4 +72,4 @@ const CategoryDetail = () => {
   )
 }
 
-export { CategoryDetail }
+export { BookDetail }

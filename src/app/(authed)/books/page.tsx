@@ -1,11 +1,11 @@
-import { CategoryFilter, CategoryList } from '@/features/categories'
+import { BookFilter, BookList } from '@/features/books'
 import { TableProvider } from '@/libs/components/Table'
 
 export default function Page() {
   return (
     <TableProvider>
-      <CategoryFilter />
-      <CategoryList />
+      <BookFilter />
+      <BookList />
     </TableProvider>
   )
 }

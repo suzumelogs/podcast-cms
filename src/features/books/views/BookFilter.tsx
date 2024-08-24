@@ -3,10 +3,10 @@
 import { FilterBar, FilterColumn } from '@/libs/components/Table/FilterBar'
 import { ExVoid } from '@/libs/types/utils'
 import { Stack, Typography } from '@mui/material'
-import { CategorySearchInputType } from '../type'
+import { BookSearchInputType } from '../type'
 
-const CategoryFilter = () => {
-  const filterColumn: FilterColumn<ExVoid<CategorySearchInputType>>[] = [
+const BookFilter = () => {
+  const filterColumn: FilterColumn<ExVoid<BookSearchInputType>>[] = [
     {
       field: 'search',
       type: 'text',
@@ -19,19 +19,16 @@ const CategoryFilter = () => {
       },
     },
   ]
+
   return (
     <Stack spacing={3}>
       <Typography color="mono.600" variant="h2">
         Danh sách
       </Typography>
 
-      <FilterBar
-        columns={filterColumn}
-        createPath="categories/create"
-        buttonSearchUnderButtonCreate
-      />
+      <FilterBar columns={filterColumn} createPath="books/create" buttonSearchUnderButtonCreate />
     </Stack>
   )
 }
 
-export { CategoryFilter }
+export { BookFilter }

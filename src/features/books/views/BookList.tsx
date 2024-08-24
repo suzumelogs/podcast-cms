@@ -5,14 +5,14 @@ import { formatDate } from '@/utils/format'
 import { Stack } from '@mui/material'
 import { ColumnDef } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
-import { useCategoryListQuery } from '../hooks'
-import { CategoryType } from '../type'
+import { useBookListQuery } from '../hooks'
+import { BookType } from '../type'
 
-const CategoryList = () => {
-  const { tableData } = useCategoryListQuery()
+const BookList = () => {
+  const { tableData } = useBookListQuery()
   const router = useRouter()
 
-  const columns: ColumnDef<CategoryType>[] = [
+  const columns: ColumnDef<BookType>[] = [
     {
       header: 'ID',
       accessorFn: (row, index) => index + 1,
@@ -61,21 +61,17 @@ const CategoryList = () => {
           padding: '0 8px',
         },
       },
-      cell: ({ row }) => {
-        return (
-          <>
-            <Stack flexDirection={'row'} alignItems={'center'} columnGap={1}>
-              <Stack
-                width={'40px'}
-                height={'40px'}
-                component={'img'}
-                borderRadius={'2px'}
-                src={'https://demofree.sirv.com/nope-not-here.jpg'}
-              />
-            </Stack>
-          </>
-        )
-      },
+      cell: ({ row }) => (
+        <Stack flexDirection={'row'} alignItems={'center'} columnGap={1}>
+          <Stack
+            width={'40px'}
+            height={'40px'}
+            component={'img'}
+            borderRadius={'2px'}
+            src={row.original?.url ?? 'https://demofree.sirv.com/nope-not-here.jpg'}
+          />
+        </Stack>
+      ),
     },
     {
       header: 'Mô tả',
@@ -104,9 +100,7 @@ const CategoryList = () => {
           textAlign: 'start',
         },
       },
-      cell: ({ row }) => {
-        return formatDate(row.original.createdAt as string)
-      },
+      cell: ({ row }) => formatDate(row.original.createdAt as string),
     },
     {
       header: 'Ngày cập nhật',
@@ -119,11 +113,10 @@ const CategoryList = () => {
           textAlign: 'start',
         },
       },
-      cell: ({ row }) => {
-        return formatDate(row.original.createdAt as string)
-      },
+      cell: ({ row }) => formatDate(row.original.updatedAt as string),
     },
   ]
+
   return (
     <ReactTable
       {...tableData}
@@ -131,11 +124,11 @@ const CategoryList = () => {
       action={{
         disabledDetail: false,
         onDetail: (_id) => {
-          router.push(`/categories/${_id}/detail`)
+          router.push(`/books/${_id}/detail`)
         },
       }}
     />
   )
 }
 
-export { CategoryList }
+export { BookList }

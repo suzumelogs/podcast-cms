@@ -1,10 +1,10 @@
-import { createCategory } from '@/libs/api/categories'
+import { updateBook } from '@/libs/api/books'
 import { ErrorTypeResponse } from '@/libs/types/axios'
 import { useMutation } from '@tanstack/react-query'
 import { UseFormSetError } from 'react-hook-form'
-import { CategoryCreateInputType } from '../type'
+import { BookUpdateInputType } from '../type'
 
-export const useCategoryCreate = (setError: UseFormSetError<CategoryCreateInputType>) => {
+export const useBookUpdate = (setError: UseFormSetError<BookUpdateInputType>) => {
   const handleMutationError = (error: ErrorTypeResponse) => {
     const { data: responseData } = error.response || {}
     const errorValidation = responseData?.errors
@@ -12,14 +12,13 @@ export const useCategoryCreate = (setError: UseFormSetError<CategoryCreateInputT
     if (errorValidation) {
       Object.entries(errorValidation).forEach(([key, message]) => {
         if (message) {
-          setError(key as keyof CategoryCreateInputType, { message })
+          setError(key as keyof BookUpdateInputType, { message })
         }
       })
     }
   }
-
   const mutation = useMutation({
-    mutationFn: createCategory,
+    mutationFn: updateBook,
     onError: handleMutationError,
   })
 

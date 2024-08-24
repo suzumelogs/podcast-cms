@@ -7,54 +7,54 @@ import { Stack, Typography } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useCategoryCreate, useCategoryDetail, useCategoryUpdate } from '../hooks'
-import { CategoryCreateInputSchema, CategoryCreateInputType } from '../type'
+import { useBookCreate, useBookDetail, useBookUpdate } from '../hooks'
+import { BookCreateInputSchema, BookCreateInputType } from '../type'
 
-const CategoryForm = () => {
+const BookForm = () => {
   const router = useRouter()
-  const { categoryId } = useParams()
-  const { data: categoryDetail } = useCategoryDetail(categoryId as string)
+  const { bookId } = useParams()
+  const { data: bookDetail } = useBookDetail(bookId as string)
 
   const {
     control,
     handleSubmit,
     setError,
     formState: { isDirty },
-  } = useForm<CategoryCreateInputType>({
+  } = useForm<BookCreateInputType>({
     defaultValues: {
       name: '',
       description: '',
       file: '',
     },
-    resolver: zodResolver(CategoryCreateInputSchema),
+    resolver: zodResolver(BookCreateInputSchema),
     values: {
-      name: categoryDetail?.name || '',
-      description: categoryDetail?.description || '',
-      imageUrl: categoryDetail?.imageUrl || '',
+      name: bookDetail?.name || '',
+      description: bookDetail?.description || '',
+      url: bookDetail?.url || '',
     },
   })
 
-  const { mutate: createCategory } = useCategoryCreate(setError)
-  const { mutate: updateCategory } = useCategoryUpdate(setError)
+  const { mutate: createBook } = useBookCreate(setError)
+  const { mutate: updateBook } = useBookUpdate(setError)
 
-  const onSubmit: SubmitHandler<CategoryCreateInputType> = (data) => {
-    if (categoryId) {
-      updateCategory(
-        { _id: categoryId as string, ...data },
+  const onSubmit: SubmitHandler<BookCreateInputType> = (data) => {
+    if (bookId) {
+      updateBook(
+        { _id: bookId as string, ...data },
         {
           onSuccess: () => {
             enqueueSnackbar('Cập nhật sách thành công', { variant: 'success' })
-            router.push(`/categories/${categoryId}/detail`)
+            router.push(`/books/${bookId}/detail`)
           },
         },
       )
       return
     }
 
-    createCategory(data, {
+    createBook(data, {
       onSuccess: () => {
         enqueueSnackbar('Thêm mới sách thành công', { variant: 'success' })
-        router.push('/categories')
+        router.push('/books')
       },
     })
   }
@@ -62,7 +62,7 @@ const CategoryForm = () => {
   return (
     <FormLayout
       onSubmit={handleSubmit(onSubmit)}
-      title={categoryId ? 'Cập nhật' : 'Tạo mới'}
+      title={bookId ? 'Cập nhật' : 'Tạo mới'}
       isDirty={isDirty}
     >
       <Stack direction="row">
@@ -70,7 +70,7 @@ const CategoryForm = () => {
           <Stack direction={{ xs: 'column', lg: 'row' }} gap={4} alignItems={{ lg: 'center' }}>
             <DetailItem
               label="ID"
-              value={categoryDetail?._id || '-'}
+              value={bookDetail?._id || '-'}
               valueSx={{ width: { xs: '100%', lg: 500 } }}
             />
           </Stack>
@@ -116,4 +116,4 @@ const CategoryForm = () => {
   )
 }
 
-export { CategoryForm }
+export { BookForm }
