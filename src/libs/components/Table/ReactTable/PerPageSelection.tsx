@@ -23,7 +23,7 @@ const PerPageSelect = () => {
           typeof handleChangePagination === 'function' &&
             handleChangePagination({
               page: 1,
-              per_page: Number(e.target.value),
+              limit: Number(e.target.value),
             })
         }}
         MenuProps={{

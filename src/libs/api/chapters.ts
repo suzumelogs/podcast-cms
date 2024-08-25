@@ -10,12 +10,12 @@ import request from '../config/axios'
 import { clearObjRequest } from '../hooks'
 
 export const getListChapters = async (params: ChapterListQueryInputType) => {
-  const { page, per_page } = params
+  const { page, limit } = params
   try {
     const response = await request.get<ChapterListType>('/chapters', {
       params: {
         page,
-        limit: per_page,
+        limit: limit,
       },
     })
     return response.data

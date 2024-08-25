@@ -50,7 +50,7 @@ export const ArticleInputSchema = z.object({
   search: z.string().optional(),
   status: z.number().optional(),
   page: z.number().optional(),
-  per_page: z.number().optional(),
+  limit: z.number().optional(),
 })
 
 export type ArticleListType = {
@@ -81,7 +81,7 @@ export type ArticleCreateInputType = TypeOf<typeof ArticleCreateInputSchema>
 export type ArticleUpdateInputType = TypeOf<typeof ArticleUpdateInputSchema>
 export type QueryInputListArticle = {
   page?: number
-  per_page?: number
+  limit?: number
   search?: string
   sort_by?: string
   column?: string

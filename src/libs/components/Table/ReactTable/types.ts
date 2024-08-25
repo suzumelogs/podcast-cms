@@ -47,6 +47,7 @@ export interface TableProperties<T extends RowData> extends TableOptions<T> {
   paginate?: PaginationParams
   hiddenPagination?: boolean
   onCopy?: (id: string | number) => void
+  next: number
 }
 
 export interface ReactTableContextValue<T> {
@@ -62,11 +63,12 @@ export interface ReactTableContextValue<T> {
   freeContainerHeight?: boolean
   hiddenPagination?: boolean
   onCopy?: (id: string | number) => void
+  next: number
 }
 
 export type PaginationParams = {
   page: number
-  per_page: number
+  limit: number
 }
 
 export type MakePaginationOptional<T> = Omit<Exclude<T, void>, 'page' | 'limit'> &

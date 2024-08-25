@@ -11,7 +11,7 @@ export type MovieFormatType = {
 export type MovieFormatSearchInputType = {
   search?: string
   page?: string
-  per_page?: string
+  limit?: string
 } & PaginationType
 
 export type MovieFormatListQueryInputType = {

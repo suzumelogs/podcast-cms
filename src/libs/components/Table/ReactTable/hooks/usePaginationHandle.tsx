@@ -17,7 +17,7 @@ export const usePaginationHandler = () => {
     if (!manualPagination) return
     if (typeof handleChangePagination === 'function') {
       instance.resetRowSelection()
-      handleChangePagination({ page: paginationParams?.page, per_page: pageSize })
+      handleChangePagination({ page: paginationParams?.page, limit: pageSize })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleChangePagination, manualPagination, pageIndex, pageSize])
@@ -27,10 +27,10 @@ export const usePaginationHandler = () => {
     if (!manualPagination) return
     if (
       paginationParams &&
-      (paginationParams.page !== pageIndex + 1 || paginationParams?.per_page !== pageSize)
+      (paginationParams.page !== pageIndex + 1 || paginationParams?.limit !== pageSize)
     ) {
       setPageIndex(paginationParams.page - 1)
-      setPageSize(paginationParams.per_page)
+      setPageSize(paginationParams.limit)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setPageIndex, paginationParams, setPageSize, manualPagination])

@@ -7,7 +7,7 @@ import { MakePaginationOptional, PaginationProps } from './ReactTable/types'
 
 type PaginationParams = {
   page: number
-  per_page: number
+  limit: number
 }
 
 type SortParams = {
@@ -62,7 +62,7 @@ export function TableProvider<TData, Input>({
 }: React.PropsWithChildren<TableProviderProps<Input>>) {
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
-    per_page: 10,
+    limit: 10,
   })
 
   const [params, setParams] = useState<Input>(initialParams as Input)
@@ -79,7 +79,7 @@ export function TableProvider<TData, Input>({
       } else {
         setPagination({
           page: 1,
-          per_page: pagination.per_page,
+          limit: pagination.limit,
         })
       }
     },
@@ -107,12 +107,12 @@ export function TableProvider<TData, Input>({
       if (resetPaginationMeta) {
         resetPagination({
           page: 1,
-          per_page: pagination.per_page,
+          limit: pagination.limit,
         })
       }
     },
 
-    [pagination.per_page, resetPagination],
+    [pagination.limit, resetPagination],
   )
   const getTableData: TableContextValue<TData, Input>['getTableData'] = useCallback(
     (result: UseQueryResult<PaginationDataType<TData>>) => {
@@ -121,7 +121,7 @@ export function TableProvider<TData, Input>({
       return {
         paginationProps: {
           paginationParams: pagination,
-          pageCount: data?.last_page,
+          pageCount: data?.limit,
           total: data?.total,
           handleChangePagination,
           manualPagination: true,

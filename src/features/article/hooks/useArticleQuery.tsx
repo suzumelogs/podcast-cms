@@ -10,7 +10,7 @@ export function useArticleQuery() {
     queryKey: [
       'articles',
       input.page,
-      input.per_page,
+      input.limit,
       input.search,
       input.status,
       sortOptions?.sort_by,

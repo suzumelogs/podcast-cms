@@ -10,10 +10,11 @@ export const useBookListQuery = () => {
 
   const data = useQuery({
     queryKey: ['book-list', page, filter, limit, sort_by, column],
-    queryFn: () => getListBooks({ ...input, limit: input.per_page, ...sortOptions }),
+    queryFn: () => getListBooks({ ...input, limit, ...sortOptions }),
   })
 
   return {
     tableData: getTableData(data),
+    next: data.data?.pagination?.totalPages || 0,
   }
 }

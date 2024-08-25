@@ -48,6 +48,7 @@ function ReactTableWithRef<T extends RowData>(
     tableProps,
     freeContainerHeight,
     hiddenPagination,
+    next,
     ...useTableOptions
   } = props
   const columns = useColumns(originalColumns, action, selection)
@@ -98,6 +99,7 @@ function ReactTableWithRef<T extends RowData>(
       freeContainerHeight,
       hiddenPagination,
       onCopy,
+      next,
     }),
     [
       instance,
@@ -110,6 +112,7 @@ function ReactTableWithRef<T extends RowData>(
       pagiMeta,
       hiddenPagination,
       onCopy,
+      next,
     ],
   )
 

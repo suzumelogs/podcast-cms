@@ -25,7 +25,7 @@ export type UserSearchInputType = {
   is_active?: string | number
   role?: string | number
   page?: string
-  per_page?: string
+  limit?: string
 } & PaginationType
 
 export type UserListQueryInputType = {

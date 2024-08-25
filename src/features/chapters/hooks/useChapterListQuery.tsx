@@ -13,7 +13,7 @@ export const useChapterListQuery = () => {
 
   const data = useQuery({
     queryKey: ['chapters-list', page, search, sort_by, column],
-    queryFn: () => getListChapters({ ...input, limit: input.per_page, ...sortOptions }),
+    queryFn: () => getListChapters({ ...input, limit: input.limit, ...sortOptions }),
   })
 
   return {

@@ -13,6 +13,7 @@ export type BookType = {
 export type BookSearchInputType = PaginationType & {
   filter?: string
   page?: string
+  next?: string
 }
 
 export type BookListQueryInputType = BookSearchInputType & {
@@ -20,9 +21,10 @@ export type BookListQueryInputType = BookSearchInputType & {
   sortBy?: 'asc' | 'desc'
 }
 
-export type BookListType = PaginationType & {
+export type BookListType = {
   data: BookType[]
-}
+  pagination: PaginationType
+} & PaginationType
 
 export type BookDetailType = {
   _id?: string

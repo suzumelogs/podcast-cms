@@ -8,11 +8,11 @@ export const useMovieFormatListQuery = () => {
     MovieFormatType,
     MovieFormatSearchInputType
   >()
-  const { page, per_page, search } = input
+  const { page, limit, search } = input
   const { sort_by, column } = sortOptions || {}
 
   const data = useQuery({
-    queryKey: ['movieFormatList', page, per_page, search, sort_by, column],
+    queryKey: ['movieFormatList', page, limit, search, sort_by, column],
     queryFn: () => getListMovieFormat({ ...input, ...sortOptions }),
   })
 

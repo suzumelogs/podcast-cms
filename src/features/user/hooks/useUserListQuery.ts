@@ -5,11 +5,11 @@ import { UserSearchInputType, UserType } from '..'
 
 export const useUserListQuery = () => {
   const { input, getTableData, sortOptions } = useTableContext<UserType, UserSearchInputType>()
-  const { page, per_page, search, is_active, role } = input
+  const { page, limit, search, is_active, role } = input
   const { sort_by, column } = sortOptions || {}
 
   const data = useQuery({
-    queryKey: ['userList', page, per_page, search, sort_by, column, is_active, role],
+    queryKey: ['userList', page, limit, search, sort_by, column, is_active, role],
     queryFn: () => getListUser({ ...input, ...sortOptions }),
   })
 
