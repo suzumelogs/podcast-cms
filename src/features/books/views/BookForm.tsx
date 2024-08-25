@@ -33,8 +33,8 @@ const BookForm = () => {
 
   useEffect(() => {
     if (bookDetail) {
-      setValue('name', bookDetail.name)
-      setValue('description', bookDetail.description)
+      setValue('name', bookDetail.name as string)
+      setValue('description', bookDetail.description as string)
     }
   }, [setValue, bookDetail])
 

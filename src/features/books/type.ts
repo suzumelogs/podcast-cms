@@ -46,8 +46,15 @@ export type QueryInputBookDetailType = {
 }
 
 export const BookCreateInputSchema = z.object({
-  name: z.string().optional(),
-  description: z.string().optional(),
+  name: z
+    .string()
+    .min(1, { message: 'Tên sách là bắt buộc' })
+    .max(100, { message: 'Tên sách không được dài quá 100 ký tự' }),
+
+  description: z
+    .string()
+    .min(1, { message: 'Mô tả là bắt buộc' })
+    .max(500, { message: 'Mô tả không được dài quá 500 ký tự' }),
   file: z.instanceof(File).nullable(),
   url: z.string().optional(),
   createdAt: z.string().optional(),
