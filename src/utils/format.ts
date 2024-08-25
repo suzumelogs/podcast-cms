@@ -5,7 +5,7 @@ export const formatDateTime = (date: string | null | undefined) => {
 }
 
 export const formatDate = (date: string | null | undefined) => {
-  return date ? format(new Date(date), 'yyyy/MM/dd') : '-'
+  return date ? format(new Date(date), 'dd/MM/yyyy') : '-'
 }
 
 export const formatRequestDate = (date: string | Date | undefined) => {

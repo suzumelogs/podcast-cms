@@ -1,6 +1,6 @@
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import { Box, Pagination, Stack } from '@mui/material'
-import NextIcon from 'public/assets/svgs/next.svg'
-import PrevIcon from 'public/assets/svgs/previous.svg'
 import { SIDE_BAR_WIDTH } from '../../Layout/Sidebar'
 import { ButtonPagination, PaginationItem } from '../styled'
 import { PerPageSelect } from './PerPageSelection'
@@ -67,8 +67,8 @@ const TablePagination = () => {
                 ),
               }}
               slots={{
-                previous: PrevIcon,
-                next: NextIcon,
+                previous: KeyboardArrowLeftIcon,
+                next: KeyboardArrowRightIcon,
               }}
               {...item}
             />
