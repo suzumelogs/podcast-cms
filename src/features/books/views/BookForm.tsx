@@ -38,8 +38,8 @@ const BookForm = () => {
     }
   }, [setValue, bookDetail])
 
-  const { mutate: createBook } = useBookCreate(setError)
-  const { mutate: updateBook } = useBookUpdate(setError)
+  const { mutate: createBook, isPending: isPendingCreate } = useBookCreate(setError)
+  const { mutate: updateBook, isPending: isPendingUpdate } = useBookUpdate(setError)
 
   const onSubmit: SubmitHandler<BookCreateInputType> = (data) => {
     const submitData = { ...data, _id: booksId as string }
@@ -63,6 +63,7 @@ const BookForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       title={booksId ? 'Cập nhật' : 'Tạo mới'}
       isDirty={isDirty}
+      submitLoading={isPendingCreate || isPendingUpdate}
     >
       <Stack direction="row">
         <Stack spacing={1} width={{ xs: '100%', lg: '50%' }}>
