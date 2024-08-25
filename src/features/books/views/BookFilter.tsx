@@ -8,9 +8,9 @@ import { BookSearchInputType } from '../type'
 const BookFilter = () => {
   const filterColumn: FilterColumn<ExVoid<BookSearchInputType>>[] = [
     {
-      field: 'search',
+      field: 'filter',
       type: 'text',
-      placeholder: 'Search',
+      placeholder: 'Tìm kiếm',
       defaultValue: '',
       sx: { width: 240 },
       fieldOptions: {

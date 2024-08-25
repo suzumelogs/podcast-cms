@@ -11,7 +11,7 @@ export type BookType = {
 }
 
 export type BookSearchInputType = PaginationType & {
-  search?: string
+  filter?: string
   page?: string
 }
 

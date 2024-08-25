@@ -9,12 +9,13 @@ import {
 import request from '../config/axios'
 
 export const getListBooks = async (params: BookListQueryInputType) => {
-  const { page, per_page } = params
+  const { page, per_page, filter } = params
   try {
     const response = await request.get<BookListType>('/books', {
       params: {
         page,
         limit: per_page,
+        filter,
       },
     })
     return response.data
