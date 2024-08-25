@@ -6,63 +6,62 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Stack, Typography } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
+import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useBookCreate, useBookDetail, useBookUpdate } from '../hooks'
 import { BookCreateInputSchema, BookCreateInputType } from '../type'
 
 const BookForm = () => {
   const router = useRouter()
-  const { bookId } = useParams()
-  const { data: bookDetail } = useBookDetail(bookId as string)
+  const { booksId } = useParams()
+  const { data: bookDetail } = useBookDetail(booksId as string)
 
   const {
     control,
     handleSubmit,
     setError,
+    setValue,
     formState: { isDirty },
   } = useForm<BookCreateInputType>({
     defaultValues: {
       name: '',
       description: '',
-      file: '',
+      file: null,
     },
     resolver: zodResolver(BookCreateInputSchema),
-    values: {
-      name: bookDetail?.name || '',
-      description: bookDetail?.description || '',
-      url: bookDetail?.url || '',
-    },
   })
+
+  useEffect(() => {
+    if (bookDetail) {
+      setValue('name', bookDetail.name)
+      setValue('description', bookDetail.description)
+    }
+  }, [setValue, bookDetail])
 
   const { mutate: createBook } = useBookCreate(setError)
   const { mutate: updateBook } = useBookUpdate(setError)
 
   const onSubmit: SubmitHandler<BookCreateInputType> = (data) => {
-    if (bookId) {
-      updateBook(
-        { _id: bookId as string, ...data },
-        {
-          onSuccess: () => {
-            enqueueSnackbar('Cập nhật sách thành công', { variant: 'success' })
-            router.push(`/books/${bookId}/detail`)
-          },
-        },
-      )
-      return
+    const submitData = { ...data, _id: booksId as string }
+
+    const successCallback = () => {
+      enqueueSnackbar(booksId ? 'Cập nhật sách thành công' : 'Thêm mới sách thành công', {
+        variant: 'success',
+      })
+      router.push(booksId ? `/books/${booksId}/detail` : '/books')
     }
 
-    createBook(data, {
-      onSuccess: () => {
-        enqueueSnackbar('Thêm mới sách thành công', { variant: 'success' })
-        router.push('/books')
-      },
-    })
+    if (booksId) {
+      updateBook(submitData, { onSuccess: successCallback })
+    } else {
+      createBook(data, { onSuccess: successCallback })
+    }
   }
 
   return (
     <FormLayout
       onSubmit={handleSubmit(onSubmit)}
-      title={bookId ? 'Cập nhật' : 'Tạo mới'}
+      title={booksId ? 'Cập nhật' : 'Tạo mới'}
       isDirty={isDirty}
     >
       <Stack direction="row">

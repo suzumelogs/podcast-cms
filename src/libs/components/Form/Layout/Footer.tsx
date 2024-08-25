@@ -94,10 +94,10 @@ const Footer = ({ isPending, isDirty, closeFormPath }: FooterFormProps) => {
         open={openModal}
         handleCloseModal={handleCloseModal}
         handleSubmit={handleCloseForm}
-        textSubmit="保存せず閉じる"
-        title="データが保存されていません"
-        description="入力中のデータは全て破棄されますが、よろしいですか？"
-        textCancel="入力に戻る"
+        textSubmit="Đóng mà không lưu"
+        title="Không có dữ liệu nào được lưu"
+        description="Tất cả dữ liệu được nhập sẽ bị loại bỏ. Bạn có chắc chắn không?"
+        textCancel="Quay lại"
       />
     </>
   )

@@ -6,6 +6,7 @@ import { Modal } from '@/libs/components/Modal'
 import { formatDate } from '@/utils/format'
 import { Stack } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
+import { enqueueSnackbar } from 'notistack'
 import { useState } from 'react'
 import { useBookDetailQuery, useDeleteBook } from '../hooks'
 
@@ -20,6 +21,9 @@ const BookDetail = () => {
   const handleDeleteBook = () => {
     deleteBook(booksId as string, {
       onSuccess: () => {
+        enqueueSnackbar('Xoá sách thành công', {
+          variant: 'success',
+        })
         router.push('/books')
       },
     })
@@ -53,6 +57,16 @@ const BookDetail = () => {
               <DetailItem
                 label="Ngày cập nhật"
                 value={formatDate(data?.updatedAt as string)}
+                isPending={isLoading}
+              />
+            </Stack>
+            <Stack direction="row" gap={4}>
+              <DetailItem
+                image={{
+                  src: data?.url as string,
+                  alt: 'Image book',
+                }}
+                label="Hình ảnh"
                 isPending={isLoading}
               />
             </Stack>

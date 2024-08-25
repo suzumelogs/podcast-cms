@@ -7,7 +7,6 @@ import {
   QueryInputBookDetailType,
 } from '@/features/books'
 import request from '../config/axios'
-import { clearObjRequest } from '../hooks'
 
 export const getListBooks = async (params: BookListQueryInputType) => {
   const { page, per_page } = params
@@ -35,8 +34,13 @@ export const getBook = async (_id: string) => {
 
 export const createBook = async (data: BookCreateInputType) => {
   try {
-    const response = await request.post('/books', { ...data })
+    const formData = new FormData()
+    formData.append('name', data.name as string)
+    formData.append('description', data.description as string)
+    if (data.url) formData.append('url', data.url)
+    if (data.file) formData.append('file', data.file)
 
+    const response = await request.post('/books', formData)
     return response.data
   } catch (error) {
     throw error
@@ -46,13 +50,14 @@ export const createBook = async (data: BookCreateInputType) => {
 export const updateBook = async (data: BookUpdateInputType) => {
   try {
     const { _id, ...dataRequest } = data
-    const cleanedRequest = clearObjRequest({
-      ...dataRequest,
-    })
 
-    const response = await request.put(`/books/${_id}`, {
-      ...cleanedRequest,
-    })
+    const formData = new FormData()
+    if (dataRequest.name) formData.append('name', dataRequest.name as string)
+    if (dataRequest.description) formData.append('description', dataRequest.description as string)
+    if (dataRequest.url) formData.append('url', dataRequest.url)
+    if (dataRequest.file) formData.append('file', dataRequest.file)
+
+    const response = await request.patch(`/books/${_id}`, formData)
     return response.data
   } catch (error) {
     throw error

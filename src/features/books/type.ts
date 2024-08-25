@@ -28,7 +28,7 @@ export type BookDetailType = {
   _id?: string
   name?: string
   description?: string
-  url?: string
+  url?: string | undefined
   createdAt?: string
   updatedAt?: string
 }
@@ -46,7 +46,7 @@ export type QueryInputBookDetailType = {
 export const BookCreateInputSchema = z.object({
   name: z.string().optional(),
   description: z.string().optional(),
-  file: z.string().optional(),
+  file: z.instanceof(File).nullable(),
   url: z.string().optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),

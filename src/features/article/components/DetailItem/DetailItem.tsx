@@ -1,6 +1,6 @@
 import { StatusColorType, StatusTag } from '@/libs/components/StatusTag'
 import { statusColors } from '@/libs/config/theme'
-import { Skeleton, Stack, SxProps, Typography } from '@mui/material'
+import { Box, Skeleton, Stack, SxProps, Typography } from '@mui/material'
 import { YoutubeIframe } from '..'
 
 type DetailItemProps = {
@@ -17,6 +17,10 @@ type DetailItemProps = {
   }
   youtube?: {
     url: string
+  }
+  image?: {
+    src: string
+    alt?: string
   }
 }
 
@@ -57,7 +61,7 @@ const DefaultContent = ({ value, sx }: { value: string | number | []; sx?: SxPro
 }
 
 const DetailItem = (props: DetailItemProps) => {
-  const { label, value, youtube, status, isPending, valueSx, labelSx, textUnderLine } = props
+  const { label, value, youtube, status, isPending, valueSx, labelSx, textUnderLine, image } = props
   const valueSxTextUnderLine = textUnderLine
     ? { color: statusColors.assistant, textDecoration: 'underline', textUnderlineOffset: '2px' }
     : {}
@@ -80,6 +84,21 @@ const DetailItem = (props: DetailItemProps) => {
         <Skeleton variant="text" width={336} height={44} />
       ) : (
         <Stack width={320} height="auto" justifyContent="center">
+          {image && (
+            <Box
+              component="img"
+              src={image.src}
+              alt={image.alt || 'Image'}
+              sx={{
+                maxWidth: '100%',
+                maxHeight: 200,
+                objectFit: 'contain',
+                marginBottom: 1,
+                border: '1px solid #ccc',
+              }}
+            />
+          )}
+
           {youtube && <YoutubeIframe youtubeId={youtube.url} style={{ marginLeft: 0 }} />}
 
           {status && <StatusTag color={status.color} text={status.text} width={status.width} />}

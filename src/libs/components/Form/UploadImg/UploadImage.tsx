@@ -75,21 +75,22 @@ const UploadImage = ({
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
         const file = acceptedFiles[0]
-        setImage(file) // Lưu File object vào state
-        onChange(file) // Lưu File object vào value của react-hook-form
+        setImage(file)
+        onChange(file)
       }
     },
     [onChange],
   )
 
   const { getRootProps, getInputProps } = useDropzone({
+    // @ts-ignore
     accept: 'image/*',
     onDrop,
     multiple: false,
   })
 
   const handleRemoveImage = (event: React.MouseEvent) => {
-    event.stopPropagation() // Prevents click from being propagated to DropzoneContainer
+    event.stopPropagation()
     setImage(null)
     onChange(null)
   }
