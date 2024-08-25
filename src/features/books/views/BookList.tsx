@@ -9,9 +9,8 @@ import { useBookListQuery } from '../hooks'
 import { BookType } from '../type'
 
 const BookList = () => {
-  const { tableData, next } = useBookListQuery()
+  const { tableData, totalPages } = useBookListQuery()
   const router = useRouter()
-  console.log(next)
 
   const columns: ColumnDef<BookType>[] = [
     {
@@ -122,7 +121,7 @@ const BookList = () => {
     <ReactTable
       {...tableData}
       columns={columns}
-      next={next}
+      next={totalPages}
       action={{
         disabledDetail: false,
         onDetail: (_id) => {

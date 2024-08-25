@@ -8,9 +8,9 @@ import { ChapterSearchInputType } from '../type'
 const ChapterFilter = () => {
   const filterColumn: FilterColumn<ExVoid<ChapterSearchInputType>>[] = [
     {
-      field: 'search',
+      field: 'filter',
       type: 'text',
-      placeholder: 'Search',
+      placeholder: 'Tìm kiếm',
       defaultValue: '',
       sx: { width: 240 },
       fieldOptions: {
@@ -19,10 +19,11 @@ const ChapterFilter = () => {
       },
     },
   ]
+
   return (
     <Stack spacing={3}>
       <Typography color="mono.600" variant="h2">
-        Danh sách chương
+        Danh sách
       </Typography>
 
       <FilterBar

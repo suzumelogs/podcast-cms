@@ -1,4 +1,3 @@
-import { getListChapters } from '@/libs/api/chapters'
 import { useTableContext } from '@/libs/components/Table'
 import { useQuery } from '@tanstack/react-query'
 import { ChapterSearchInputType, ChapterType } from '../type'
@@ -8,15 +7,16 @@ export const useChapterListQuery = () => {
     ChapterType,
     ChapterSearchInputType
   >()
-  const { page, search } = input
+  const { page, limit, filter } = input
   const { sort_by, column } = sortOptions || {}
 
   const data = useQuery({
-    queryKey: ['chapters-list', page, search, sort_by, column],
-    queryFn: () => getListChapters({ ...input, limit: input.limit, ...sortOptions }),
+    queryKey: ['chapter-list', page, filter, limit, sort_by, column],
+    queryFn: () => getListChapters({ ...input, limit, ...sortOptions }),
   })
 
   return {
     tableData: getTableData(data),
+    totalPages: data.data?.pagination?.totalPages || 0,
   }
 }

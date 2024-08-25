@@ -9,7 +9,7 @@ import { useChapterListQuery } from '../hooks'
 import { ChapterType } from '../type'
 
 const ChapterList = () => {
-  const { tableData } = useChapterListQuery()
+  const { tableData, totalPages } = useChapterListQuery()
   const router = useRouter()
 
   const columns: ColumnDef<ChapterType>[] = [
@@ -32,7 +32,7 @@ const ChapterList = () => {
       },
     },
     {
-      header: 'Tên chương',
+      header: 'Tên sách',
       accessorKey: 'name',
       meta: {
         headStyle: {
@@ -61,21 +61,17 @@ const ChapterList = () => {
           padding: '0 8px',
         },
       },
-      cell: ({ row }) => {
-        return (
-          <>
-            <Stack flexDirection={'row'} alignItems={'center'} columnGap={1}>
-              <Stack
-                width={'40px'}
-                height={'40px'}
-                component={'img'}
-                borderRadius={'2px'}
-                src={'https://demofree.sirv.com/nope-not-here.jpg'}
-              />
-            </Stack>
-          </>
-        )
-      },
+      cell: ({ row }) => (
+        <Stack flexDirection={'row'} alignItems={'center'} columnGap={1}>
+          <Stack
+            width={'40px'}
+            height={'40px'}
+            component={'img'}
+            borderRadius={'2px'}
+            src={row.original?.url ?? 'https://demofree.sirv.com/nope-not-here.jpg'}
+          />
+        </Stack>
+      ),
     },
     {
       header: 'Mô tả',
@@ -104,9 +100,7 @@ const ChapterList = () => {
           textAlign: 'start',
         },
       },
-      cell: ({ row }) => {
-        return formatDate(row.original.createdAt as string)
-      },
+      cell: ({ row }) => formatDate(row.original.createdAt as string),
     },
     {
       header: 'Ngày cập nhật',
@@ -119,19 +113,19 @@ const ChapterList = () => {
           textAlign: 'start',
         },
       },
-      cell: ({ row }) => {
-        return formatDate(row.original.createdAt as string)
-      },
+      cell: ({ row }) => formatDate(row.original.updatedAt as string),
     },
   ]
+
   return (
     <ReactTable
       {...tableData}
       columns={columns}
+      next={totalPages}
       action={{
         disabledDetail: false,
         onDetail: (_id) => {
-          router.push(`/chapters/${_id}/detail`)
+          router.push(`/books/${_id}/detail`)
         },
       }}
     />

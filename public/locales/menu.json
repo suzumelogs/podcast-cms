@@ -10,5 +10,6 @@
   "movies": "Movie",
   "persons": "Person",
   "person-movie": "Person movie",
-  "books": "Sách"
+  "books": "Sách",
+  "chapters": "Chương"
 }

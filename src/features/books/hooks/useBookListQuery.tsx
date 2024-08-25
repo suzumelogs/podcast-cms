@@ -15,6 +15,6 @@ export const useBookListQuery = () => {
 
   return {
     tableData: getTableData(data),
-    next: data.data?.pagination?.totalPages || 0,
+    totalPages: data.data?.pagination?.totalPages || 0,
   }
 }

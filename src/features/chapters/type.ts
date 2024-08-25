@@ -5,13 +5,15 @@ export type ChapterType = {
   _id?: string
   name?: string
   description?: string
+  url?: string
   createdAt?: string
   updatedAt?: string
 }
 
 export type ChapterSearchInputType = PaginationType & {
-  search?: string
+  filter?: string
   page?: string
+  next?: string
 }
 
 export type ChapterListQueryInputType = ChapterSearchInputType & {
@@ -19,14 +21,16 @@ export type ChapterListQueryInputType = ChapterSearchInputType & {
   sortBy?: 'asc' | 'desc'
 }
 
-export type ChapterListType = PaginationType & {
+export type ChapterListType = {
   data: ChapterType[]
-}
+  pagination: PaginationType
+} & PaginationType
 
 export type ChapterDetailType = {
   _id?: string
   name?: string
   description?: string
+  url?: string | undefined
   createdAt?: string
   updatedAt?: string
 }
@@ -42,8 +46,17 @@ export type QueryInputChapterDetailType = {
 }
 
 export const ChapterCreateInputSchema = z.object({
-  name: z.string().optional(),
-  description: z.string().optional(),
+  name: z
+    .string()
+    .min(1, { message: 'Tên chương là bắt buộc' })
+    .max(100, { message: 'Tên chương không được dài quá 100 ký tự' }),
+
+  description: z
+    .string()
+    .min(1, { message: 'Mô tả là bắt buộc' })
+    .max(500, { message: 'Mô tả không được dài quá 500 ký tự' }),
+  file: z.instanceof(File).nullable(),
+  url: z.string().optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
 })

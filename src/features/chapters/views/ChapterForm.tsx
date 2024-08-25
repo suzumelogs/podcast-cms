@@ -1,11 +1,12 @@
 'use client'
 
 import { DetailItem } from '@/features/article/components'
-import { FormLayout, Input } from '@/libs/components/Form'
+import { FormLayout, Input, UploadImage } from '@/libs/components/Form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Stack } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
+import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useChapterCreate, useChapterDetail, useChapterUpdate } from '../hooks'
 import { ChapterCreateInputSchema, ChapterCreateInputType } from '../type'
@@ -19,42 +20,42 @@ const ChapterForm = () => {
     control,
     handleSubmit,
     setError,
+    setValue,
     formState: { isDirty },
   } = useForm<ChapterCreateInputType>({
     defaultValues: {
       name: '',
       description: '',
+      file: null,
     },
     resolver: zodResolver(ChapterCreateInputSchema),
-    values: {
-      name: chapterDetail?.name || '',
-      description: chapterDetail?.description || '',
-    },
   })
 
-  const { mutate: createChapter } = useChapterCreate(setError)
-  const { mutate: updateChapter } = useChapterUpdate(setError)
+  useEffect(() => {
+    if (chapterDetail) {
+      setValue('name', chapterDetail.name as string)
+      setValue('description', chapterDetail.description as string)
+    }
+  }, [setValue, chapterDetail])
+
+  const { mutate: createChapter, isPending: isPendingCreate } = useChapterCreate(setError)
+  const { mutate: updateChapter, isPending: isPendingUpdate } = useChapterUpdate(setError)
 
   const onSubmit: SubmitHandler<ChapterCreateInputType> = (data) => {
-    if (chaptersId) {
-      updateChapter(
-        { _id: chaptersId as string, ...data },
-        {
-          onSuccess: () => {
-            enqueueSnackbar('Cập nhật chương thành công', { variant: 'success' })
-            router.push(`/chapters/${chaptersId}/detail`)
-          },
-        },
-      )
-      return
+    const submitData = { ...data, _id: chaptersId as string }
+
+    const successCallback = () => {
+      enqueueSnackbar(chaptersId ? 'Cập nhật sách thành công' : 'Thêm mới sách thành công', {
+        variant: 'success',
+      })
+      router.push(chaptersId ? `/chapters/${chaptersId}/detail` : '/chapters')
     }
 
-    createChapter(data, {
-      onSuccess: () => {
-        enqueueSnackbar('Thêm mới chương thành công', { variant: 'success' })
-        router.push('/chapter')
-      },
-    })
+    if (chaptersId) {
+      updateChapter(submitData, { onSuccess: successCallback })
+    } else {
+      createChapter(data, { onSuccess: successCallback })
+    }
   }
 
   return (
@@ -62,6 +63,7 @@ const ChapterForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       title={chaptersId ? 'Cập nhật' : 'Tạo mới'}
       isDirty={isDirty}
+      submitLoading={isPendingCreate || isPendingUpdate}
     >
       <Stack direction="row">
         <Stack spacing={1} width={{ xs: '100%', lg: '50%' }}>
@@ -93,6 +95,20 @@ const ChapterForm = () => {
               rows={3}
               fullWidth
             />
+          </Stack>
+          <Stack direction={'row'} gap={1}>
+            <Stack
+              minWidth={120}
+              padding="4px 8px"
+              bgcolor="base.white"
+              justifyContent="center"
+              sx={{ height: 44 }}
+            >
+              <Typography variant="body2" color="grey.500">
+                Hình ảnh
+              </Typography>
+            </Stack>
+            <UploadImage name="file" control={control} />
           </Stack>
         </Stack>
       </Stack>
