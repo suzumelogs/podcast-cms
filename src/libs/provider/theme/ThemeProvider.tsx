@@ -59,7 +59,10 @@ function ThemeProvider({ children, options }: ThemeProviderProps) {
   return (
     <CacheProvider value={cache}>
       <MuiThemeProvider theme={defaultTheme}>
-        <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }} />
+        <SnackbarProvider
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          autoHideDuration={3000}
+        />
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <CssBaseline />
 
