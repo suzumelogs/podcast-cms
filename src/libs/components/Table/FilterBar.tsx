@@ -126,7 +126,7 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
     Object.entries(data).forEach(([name, value]) => {
       const column = getColumnByField(columns, name as keyof FilterInput)
 
-      handleFilter(column, `{"name": {"$regex": "${value}"}}`)
+      handleFilter(column, `{"name": {"$regex": "${value}", "$options": "i"}}`)
     })
   }
 
