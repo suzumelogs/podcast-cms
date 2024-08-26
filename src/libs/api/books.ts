@@ -86,3 +86,12 @@ export const deleteBook = async (bookId: string) => {
     throw error
   }
 }
+
+export const getBookValueLabels = async () => {
+  try {
+    const response = await request.get('/books/value-labels/book')
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}

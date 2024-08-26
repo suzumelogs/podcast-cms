@@ -1,7 +1,8 @@
 'use client'
 
 import { DetailItem } from '@/features/article/components'
-import { FormLayout, Input, UploadImage } from '@/libs/components/Form'
+import { useBookValueLabel } from '@/features/books/hooks'
+import { FormLayout, Input, Select, UploadImage } from '@/libs/components/Form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Stack, Typography } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
@@ -27,6 +28,7 @@ const ChapterForm = () => {
       name: '',
       description: '',
       file: null,
+      bookId: '',
     },
     resolver: zodResolver(ChapterCreateInputSchema),
   })
@@ -35,17 +37,19 @@ const ChapterForm = () => {
     if (chapterDetail) {
       setValue('name', chapterDetail.name as string)
       setValue('description', chapterDetail.description as string)
+      setValue('bookId', chapterDetail.bookId as string)
     }
   }, [setValue, chapterDetail])
 
   const { mutate: createChapter, isPending: isPendingCreate } = useChapterCreate(setError)
   const { mutate: updateChapter, isPending: isPendingUpdate } = useChapterUpdate(setError)
+  const { data: BOOKS } = useBookValueLabel()
 
   const onSubmit: SubmitHandler<ChapterCreateInputType> = (data) => {
     const submitData = { ...data, _id: chaptersId as string }
 
     const successCallback = () => {
-      enqueueSnackbar(chaptersId ? 'Cập nhật sách thành công' : 'Thêm mới sách thành công', {
+      enqueueSnackbar(chaptersId ? 'Cập nhật chương thành công' : 'Thêm mới chương thành công', {
         variant: 'success',
       })
       router.push(chaptersId ? `/chapters/${chaptersId}/detail` : '/chapters')
@@ -93,6 +97,17 @@ const ChapterForm = () => {
               placeholder="Mô tả"
               multiline
               rows={3}
+              fullWidth
+            />
+          </Stack>
+          <Stack direction={{ xs: 'column', lg: 'row' }} gap={4}>
+            <Select
+              control={control}
+              name="bookId"
+              label="Sách"
+              labelLeft
+              placeholder="Sách"
+              options={BOOKS}
               fullWidth
             />
           </Stack>

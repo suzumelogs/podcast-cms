@@ -38,6 +38,7 @@ export const createChapter = async (data: ChapterCreateInputType) => {
     const formData = new FormData()
     formData.append('name', data.name as string)
     formData.append('description', data.description as string)
+    formData.append('bookId', data.bookId as string)
     if (data.url) formData.append('url', data.url)
     if (data.file) formData.append('file', data.file)
 
@@ -55,6 +56,7 @@ export const updateChapter = async (data: ChapterUpdateInputType) => {
     const formData = new FormData()
     if (dataRequest.name) formData.append('name', dataRequest.name as string)
     if (dataRequest.description) formData.append('description', dataRequest.description as string)
+    if (dataRequest.bookId) formData.append('bookId', dataRequest.bookId as string)
     if (dataRequest.url) formData.append('url', dataRequest.url)
     if (dataRequest.file) formData.append('file', dataRequest.file)
 
@@ -80,7 +82,7 @@ export const getChapterDetail = async ({ column, chapterId }: QueryInputChapterD
 
 export const deleteChapter = async (chapterId: string) => {
   try {
-    const response = await request.delete(`/categories/${chapterId}`)
+    const response = await request.delete(`/chapters/${chapterId}`)
     return response.data
   } catch (error) {
     throw error

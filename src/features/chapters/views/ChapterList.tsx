@@ -32,7 +32,7 @@ const ChapterList = () => {
       },
     },
     {
-      header: 'Tên sách',
+      header: 'Tên chương',
       accessorKey: 'name',
       meta: {
         headStyle: {
@@ -49,7 +49,7 @@ const ChapterList = () => {
     },
     {
       header: 'Hình ảnh',
-      accessorKey: 'imageUrl',
+      accessorKey: 'url',
       meta: {
         headStyle: {
           padding: '0 8px',
@@ -125,7 +125,7 @@ const ChapterList = () => {
       action={{
         disabledDetail: false,
         onDetail: (_id) => {
-          router.push(`/books/${_id}/detail`)
+          router.push(`/chapters/${_id}/detail`)
         },
       }}
     />

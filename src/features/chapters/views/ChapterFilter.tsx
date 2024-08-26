@@ -23,7 +23,7 @@ const ChapterFilter = () => {
   return (
     <Stack spacing={3}>
       <Typography color="mono.600" variant="h2">
-        Danh sách
+        Danh sách chương
       </Typography>
 
       <FilterBar

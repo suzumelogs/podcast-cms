@@ -6,6 +6,7 @@ export type ChapterType = {
   name?: string
   description?: string
   url?: string
+  bookId?: string
   createdAt?: string
   updatedAt?: string
 }
@@ -31,6 +32,7 @@ export type ChapterDetailType = {
   name?: string
   description?: string
   url?: string | undefined
+  bookId?: string
   createdAt?: string
   updatedAt?: string
 }
@@ -57,6 +59,12 @@ export const ChapterCreateInputSchema = z.object({
     .max(500, { message: 'Mô tả không được dài quá 500 ký tự' }),
   file: z.instanceof(File).nullable(),
   url: z.string().optional(),
+  bookId: z
+    .string()
+    .min(1, { message: 'Mã sách là bắt buộc' })
+    .length(24, { message: 'bookId phải có độ dài 24 ký tự' })
+    .regex(/^[0-9a-fA-F]{24}$/, { message: 'Mã sách phải là một ObjectId hợp lệ' })
+    .optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
 })
