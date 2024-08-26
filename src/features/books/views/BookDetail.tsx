@@ -79,7 +79,7 @@ const BookDetail = () => {
         open={open}
         handleSubmit={handleDeleteBook}
         textSubmit="Đồng ý"
-        description={`Bạn có thực sự muốn xóa sách chứ ?`}
+        description={`Bạn có thực sự muốn xóa sách này chứ ?`}
         title="Xóa sách"
       />
     </Stack>

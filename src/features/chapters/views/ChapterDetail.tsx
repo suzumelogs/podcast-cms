@@ -41,7 +41,7 @@ const ChapterDetail = () => {
               <DetailItem label="ID" value={data?._id} isPending={isLoading} />
             </Stack>
             <Stack direction="row" gap={4}>
-              <DetailItem label="Tên sách" value={data?.name} isPending={isLoading} />
+              <DetailItem label="Tên chương" value={data?.name} isPending={isLoading} />
             </Stack>
             <Stack direction="row" gap={4}>
               <DetailItem label="Mô tả" value={data?.description} isPending={isLoading} />
@@ -79,8 +79,8 @@ const ChapterDetail = () => {
         open={open}
         handleSubmit={handleDeleteChapter}
         textSubmit="Đồng ý"
-        description={`Bạn có thực sự muốn xóa sách chứ ?`}
-        title="Xóa sách"
+        description={`Bạn có thực sự muốn xóa chương này chứ ?`}
+        title="Xóa chương"
       />
     </Stack>
   )
