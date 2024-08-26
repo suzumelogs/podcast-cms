@@ -1,18 +1,10 @@
-import {
-  RealEstateCreateInputType,
-  RealEstateDeleteInputType,
-  RealEstateDetailType,
-  RealEstateListType,
-  RealEstateQueryInputType,
-  RealEstateUpdateInputType,
-} from '@/features/real-estate/type'
 import { formatRequestDate } from '@/utils/format'
 import request from '../config/axios'
 import { clearObjRequest } from '../hooks'
 
-export const getRealEstates = async (params: RealEstateQueryInputType) => {
+export const getRealEstates = async (params: any) => {
   try {
-    const response = await request.get<RealEstateListType>('/properties/list', { params })
+    const response = await request.get<any>('/properties/list', { params })
 
     return response.data
   } catch (error) {
@@ -22,14 +14,14 @@ export const getRealEstates = async (params: RealEstateQueryInputType) => {
 
 export const getRealEstate = async (id: string) => {
   try {
-    const response = await request.get<RealEstateDetailType>(`/properties/detail/${id}`)
+    const response = await request.get<any>(`/properties/detail/${id}`)
     return response.data.data
   } catch (error) {
     throw error
   }
 }
 
-export const deleteRealEstates = async (ids: RealEstateDeleteInputType) => {
+export const deleteRealEstates = async (ids: any) => {
   try {
     const response = await request.post('/properties/delete', { ids })
     return response.data
@@ -47,7 +39,7 @@ export const deleteRealEstate = async (id: string) => {
   }
 }
 
-export const createRealEstate = async (data: RealEstateCreateInputType) => {
+export const createRealEstate = async (data: any) => {
   try {
     const formData = new FormData()
     const keysToFormatDate = ['construction', 'lease_from', 'lease_to']
@@ -73,7 +65,7 @@ export const createRealEstate = async (data: RealEstateCreateInputType) => {
   }
 }
 
-export const updateRealEstate = async (data: RealEstateUpdateInputType) => {
+export const updateRealEstate = async (data: any) => {
   try {
     const formData = new FormData()
     const dataRequest = clearObjRequest(data)
@@ -102,7 +94,7 @@ export const updateRealEstate = async (data: RealEstateUpdateInputType) => {
 
 export const getRealEstateDetail = async (id: string) => {
   try {
-    const response = await request.get<RealEstateDetailType>(`/properties/detail/${id}`)
+    const response = await request.get<any>(`/properties/detail/${id}`)
     return response.data.data
   } catch (error) {
     throw error

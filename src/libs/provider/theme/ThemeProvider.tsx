@@ -57,6 +57,7 @@ function ThemeProvider({ children, options }: ThemeProviderProps) {
   })
 
   return (
+    // @ts-ignore
     <CacheProvider value={cache}>
       <MuiThemeProvider theme={defaultTheme}>
         <SnackbarProvider

@@ -1,4 +1,4 @@
-import { HAS_ASSETS_OPTIONS, INCOME_OPTIONS, WILLINGNESS_OPTIONS } from '../options'
+import { HAS_ASSETS_OPTIONS, INCOME_OPTIONS } from '../options'
 
 export const convertTextHasAssets = (hasAssets: string | number | null | undefined) => {
   return hasAssets !== null && hasAssets !== undefined ? (hasAssets === 1 ? '有り' : 1) : '-'
@@ -9,7 +9,7 @@ export const convertIsPaidText = (isPaid: string | number | undefined | null) =>
 }
 
 export const convertWillingText = (willing: number | undefined) => {
-  return willing ? WILLINGNESS_OPTIONS[willing - 1].label : '-'
+  return willing ? '-' : '-'
 }
 
 export const convertIncomeText = (income: number | undefined) => {

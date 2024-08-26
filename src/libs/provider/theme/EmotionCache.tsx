@@ -62,5 +62,6 @@ export function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionCacheProv
     )
   })
 
+  // @ts-ignore
   return <CacheProvider value={cache}>{children}</CacheProvider>
 }

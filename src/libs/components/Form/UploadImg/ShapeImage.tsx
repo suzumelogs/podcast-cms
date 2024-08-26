@@ -1,10 +1,9 @@
 import { Box, IconButton, styled } from '@mui/material'
 import CloseIcon from 'public/assets/svgs/close.svg'
-import { ImageResponseType } from './UploadImage'
 
 type ShapeImageProps = {
-  onDelete: (path: ImageResponseType | File) => void
-  path: File | ImageResponseType
+  onDelete: (path: any | File) => void
+  path: File | any
 }
 
 const ShapeImage: React.FC<ShapeImageProps> = ({ onDelete, path }) => {

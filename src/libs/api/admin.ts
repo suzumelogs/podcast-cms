@@ -1,16 +1,10 @@
-import {
-  AdminCreateInputType,
-  AdminListType,
-  AdminUpdateInputType,
-  QueryInputListAdmin,
-} from '@/features/admin'
 import { UserResponseType } from '@/features/auth'
 import request from '../config/axios'
 import { clearObjRequest } from '../hooks'
 
-export const listAdmin = async (params: QueryInputListAdmin) => {
+export const listAdmin = async (params: any) => {
   try {
-    const response = await request.get<AdminListType>('/list', {
+    const response = await request.get<any>('/list', {
       params,
     })
 
@@ -20,7 +14,7 @@ export const listAdmin = async (params: QueryInputListAdmin) => {
   }
 }
 
-export const createAdmin = async (data: AdminCreateInputType) => {
+export const createAdmin = async (data: any) => {
   try {
     const response = await request.post(`/registration`, data)
 
@@ -42,7 +36,7 @@ export const deleteAdmins = async (ids: string[]) => {
   }
 }
 
-export const updateAdmin = async (data: AdminUpdateInputType) => {
+export const updateAdmin = async (data: any) => {
   try {
     const { id, ...dataUpdate } = data
     const adminData = clearObjRequest(dataUpdate)
