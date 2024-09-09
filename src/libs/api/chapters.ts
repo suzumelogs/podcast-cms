@@ -91,7 +91,7 @@ export const deleteChapter = async (chapterId: string) => {
 
 export const getChapterValueLabels = async () => {
   try {
-    const response = await request.get('/books/value-labels/chapter')
+    const response = await request.get('/chapters/value-labels/chapter')
     return response.data
   } catch (error) {
     throw error

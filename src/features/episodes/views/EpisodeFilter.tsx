@@ -28,7 +28,7 @@ const EpisodeFilter = () => {
 
       <FilterBar
         columns={filterColumn}
-        createPath="chapters/create"
+        createPath="episodes/create"
         buttonSearchUnderButtonCreate
       />
     </Stack>

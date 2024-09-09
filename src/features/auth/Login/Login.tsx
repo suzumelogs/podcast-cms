@@ -79,7 +79,7 @@ const Login = () => {
             width: 'calc(100% + 10px)',
             height: 'calc(100% + 10px)',
             background:
-              'linear-gradient(45deg, #000 0%, rgba(255, 255, 255, 1) 42%, rgba(255, 255, 255, 1) 59%, #2b5a1d 100%)',
+              'linear-gradient(45deg, #000 0%, rgba(255, 255, 255, 1) 42%, rgba(255, 255, 255, 1) 59%, #08826D 100%)',
             borderRadius: '4px',
           },
         }}
@@ -93,7 +93,7 @@ const Login = () => {
             mb={4}
           >
             <Typography variant="h2" fontWeight={500} color="base.primary">
-              PODCAST
+              Vua Sach
             </Typography>
             /
             <Typography variant="h4" color="grey.900" mt={2}>
