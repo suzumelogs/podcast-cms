@@ -10,7 +10,7 @@ import { AddControlProps, InputControl } from '../Input/InputControl'
 
 type SelectOption = {
   label: string
-  value: unknown
+  value: string | unknown
 }
 
 export type RadioProps<T extends FieldValues> = UseControllerProps<T> &
@@ -25,7 +25,7 @@ export type RadioProps<T extends FieldValues> = UseControllerProps<T> &
 
 export type RadioOptions = {
   label: string
-  value: unknown
+  value: string | unknown
 }
 
 function RadioGroup<T extends FieldValues>({
@@ -44,12 +44,11 @@ function RadioGroup<T extends FieldValues>({
   const {
     field: { ref, value, onChange },
     fieldState: { error },
-  } = useController({ name, control, defaultValue })
+  } = useController({ name, control, defaultValue: defaultValue?.toString() }) // Chuyển đổi defaultValue thành chuỗi
 
   const onRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const radioValue = (event.target as HTMLInputElement).value
-
-    onChange(Number(radioValue))
+    const radioValue = event.target.value
+    onChange(radioValue === 'true') // Chuyển đổi giá trị chuỗi thành boolean
   }
 
   return (
@@ -64,7 +63,7 @@ function RadioGroup<T extends FieldValues>({
       <MuiRadioGroup
         {...props}
         ref={ref}
-        value={value}
+        value={value ? 'true' : 'false'} // Chuyển đổi giá trị boolean thành chuỗi
         onChange={onRadioChange}
         sx={{
           gap: 2,

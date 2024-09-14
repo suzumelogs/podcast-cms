@@ -1,7 +1,7 @@
 'use client'
 
 import { DetailItem } from '@/features/article/components'
-import { FormLayout, Input, UploadImage } from '@/libs/components/Form'
+import { FormLayout, Input, RadioGroup, UploadImage } from '@/libs/components/Form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Stack, Typography } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
@@ -10,6 +10,11 @@ import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useBookCreate, useBookDetail, useBookUpdate } from '../hooks'
 import { BookCreateInputSchema, BookCreateInputType } from '../type'
+
+const options = [
+  { label: 'Có', value: 'true' },
+  { label: 'Không', value: 'false' },
+]
 
 const BookForm = () => {
   const router = useRouter()
@@ -25,16 +30,21 @@ const BookForm = () => {
   } = useForm<BookCreateInputType>({
     defaultValues: {
       name: '',
+      author: '',
       description: '',
       file: null,
+      isPremium: true,
     },
     resolver: zodResolver(BookCreateInputSchema),
   })
 
   useEffect(() => {
     if (bookDetail) {
-      setValue('name', bookDetail.name as string)
-      setValue('description', bookDetail.description as string)
+      const { name, author, description, isPremium } = bookDetail
+      setValue('name', name as string)
+      setValue('author', author as string)
+      setValue('description', description as string)
+      setValue('isPremium', isPremium ? true : false)
     }
   }, [setValue, bookDetail])
 
@@ -52,6 +62,8 @@ const BookForm = () => {
     }
 
     if (booksId) {
+      console.log(submitData)
+
       updateBook(submitData, { onSuccess: successCallback })
     } else {
       createBook(data, { onSuccess: successCallback })
@@ -66,7 +78,7 @@ const BookForm = () => {
       submitLoading={isPendingCreate || isPendingUpdate}
     >
       <Stack direction="row">
-        <Stack spacing={1} width={{ xs: '100%', lg: '50%' }}>
+        <Stack spacing={2} width={{ xs: '100%', lg: '50%' }}>
           <Stack direction={{ xs: 'column', lg: 'row' }} gap={4} alignItems={{ lg: 'center' }}>
             <DetailItem
               label="ID"
@@ -74,6 +86,7 @@ const BookForm = () => {
               valueSx={{ width: { xs: '100%', lg: 500 } }}
             />
           </Stack>
+
           <Stack direction={{ xs: 'column', lg: 'row' }} gap={4}>
             <Input
               control={control}
@@ -84,6 +97,18 @@ const BookForm = () => {
               fullWidth
             />
           </Stack>
+
+          <Stack direction={{ xs: 'column', lg: 'row' }} gap={4}>
+            <Input
+              control={control}
+              name="author"
+              label="Tác giả"
+              labelLeft
+              placeholder="Tác giả"
+              fullWidth
+            />
+          </Stack>
+
           <Stack direction={{ xs: 'column', lg: 'row' }} gap={4}>
             <Input
               control={control}
@@ -96,7 +121,8 @@ const BookForm = () => {
               fullWidth
             />
           </Stack>
-          <Stack direction={'row'} gap={1}>
+
+          <Stack direction="row" gap={1}>
             <Stack
               minWidth={120}
               padding="4px 8px"
@@ -109,6 +135,16 @@ const BookForm = () => {
               </Typography>
             </Stack>
             <UploadImage name="file" control={control} />
+          </Stack>
+
+          <Stack direction={{ xs: 'column', lg: 'row' }} gap={4} marginTop={4}>
+            <RadioGroup
+              control={control}
+              name="isPremium"
+              label="Trả phí"
+              options={options}
+              defaultValue="true"
+            />
           </Stack>
         </Stack>
       </Stack>

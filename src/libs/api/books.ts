@@ -8,6 +8,17 @@ import {
 } from '@/features/books'
 import request from '../config/axios'
 
+const formData = (data: BookCreateInputType | BookUpdateInputType | any): FormData => {
+  const formData = new FormData()
+  if ('name' in data) formData.append('name', data.name as string)
+  if ('author' in data) formData.append('author', data.author as string)
+  if ('description' in data) formData.append('description', data.description as string)
+  if ('isPremium' in data) formData.append('isPremium', data.isPremium)
+  if ('url' in data && data.url) formData.append('url', data.url)
+  if ('file' in data && data.file) formData.append('file', data.file)
+  return formData
+}
+
 export const getListBooks = async (params: BookListQueryInputType) => {
   const { page, limit, filter } = params
   try {
@@ -35,13 +46,8 @@ export const getBook = async (_id: string) => {
 
 export const createBook = async (data: BookCreateInputType) => {
   try {
-    const formData = new FormData()
-    formData.append('name', data.name as string)
-    formData.append('description', data.description as string)
-    if (data.url) formData.append('url', data.url)
-    if (data.file) formData.append('file', data.file)
-
-    const response = await request.post('/books', formData)
+    const formDataReq = formData(data)
+    const response = await request.post('/books', formDataReq)
     return response.data
   } catch (error) {
     throw error
@@ -51,14 +57,8 @@ export const createBook = async (data: BookCreateInputType) => {
 export const updateBook = async (data: BookUpdateInputType) => {
   try {
     const { _id, ...dataRequest } = data
-
-    const formData = new FormData()
-    if (dataRequest.name) formData.append('name', dataRequest.name as string)
-    if (dataRequest.description) formData.append('description', dataRequest.description as string)
-    if (dataRequest.url) formData.append('url', dataRequest.url)
-    if (dataRequest.file) formData.append('file', dataRequest.file)
-
-    const response = await request.patch(`/books/${_id}`, formData)
+    const formDataReq = formData(dataRequest)
+    const response = await request.patch(`/books/${_id}`, formDataReq)
     return response.data
   } catch (error) {
     throw error

@@ -92,7 +92,7 @@ const DetailItem = (props: DetailItemProps) => {
               sx={{
                 maxWidth: '100%',
                 maxHeight: 200,
-                objectFit: 'contain',
+                objectFit: 'cover',
                 marginBottom: 1,
                 border: '1px solid #ccc',
               }}

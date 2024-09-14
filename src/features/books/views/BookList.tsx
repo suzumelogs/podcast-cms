@@ -1,7 +1,7 @@
 'use client'
 
+import { StatusTag } from '@/libs/components/StatusTag'
 import { ReactTable } from '@/libs/components/Table'
-import { formatDate } from '@/utils/format'
 import { Stack } from '@mui/material'
 import { ColumnDef } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
@@ -12,21 +12,26 @@ const BookList = () => {
   const { tableData, totalPages } = useBookListQuery()
   const router = useRouter()
 
+  const commonCellStyle = {
+    fontSize: 14,
+    lineHeight: '20px',
+    fontWeight: 400,
+    padding: '0 16px',
+  }
+
   const columns: ColumnDef<BookType>[] = [
     {
       header: 'ID',
       accessorFn: (row, index) => index + 1,
       meta: {
-        width: 56,
+        width: 80,
         headStyle: {
-          padding: '0 24px',
+          padding: '0 16px',
         },
         cellStyle: {
-          width: 56,
+          ...commonCellStyle,
           textAlign: 'center',
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
+          width: 80,
           padding: '0 8px',
         },
       },
@@ -39,11 +44,21 @@ const BookList = () => {
           padding: '0 16px',
         },
         cellStyle: {
-          width: 200,
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
+          ...commonCellStyle,
+          width: 250,
+        },
+      },
+    },
+    {
+      header: 'Tác giả',
+      accessorKey: 'author',
+      meta: {
+        headStyle: {
           padding: '0 16px',
+        },
+        cellStyle: {
+          ...commonCellStyle,
+          width: 200,
         },
       },
     },
@@ -55,19 +70,18 @@ const BookList = () => {
           padding: '0 8px',
         },
         cellStyle: {
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
           padding: '0 8px',
+          textAlign: 'center',
+          width: 100,
         },
       },
       cell: ({ row }) => (
-        <Stack flexDirection={'row'} alignItems={'center'} columnGap={1}>
+        <Stack flexDirection="row" alignItems="center" columnGap={1}>
           <Stack
-            width={'40px'}
-            height={'40px'}
-            component={'img'}
-            borderRadius={'2px'}
+            width="40px"
+            height="40px"
+            component="img"
+            borderRadius="2px"
             src={row.original?.url ?? 'https://demofree.sirv.com/nope-not-here.jpg'}
           />
         </Stack>
@@ -81,39 +95,32 @@ const BookList = () => {
           padding: '0 8px',
         },
         cellStyle: {
-          width: '200px',
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          padding: '0 8px',
+          ...commonCellStyle,
+          width: 300,
         },
       },
     },
     {
-      header: 'Ngày tạo',
-      accessorKey: 'createdAt',
+      header: 'Trả phí',
+      accessorKey: 'isPremium',
       meta: {
+        width: 180,
+        headStyle: {
+          padding: '0 16px',
+        },
         cellStyle: {
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          textAlign: 'start',
+          ...commonCellStyle,
+          width: 180,
         },
       },
-      cell: ({ row }) => formatDate(row.original.createdAt as string),
-    },
-    {
-      header: 'Ngày cập nhật',
-      accessorKey: 'updatedAt',
-      meta: {
-        cellStyle: {
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          textAlign: 'start',
-        },
+      cell: ({ row }) => {
+        return (
+          <StatusTag
+            text={row.original.isPremium == true ? 'Có' : 'Không'}
+            color={row.original.isPremium == true ? 'green' : 'red'}
+          />
+        )
       },
-      cell: ({ row }) => formatDate(row.original.updatedAt as string),
     },
   ]
 

@@ -33,14 +33,14 @@ const Sidebar = () => {
       }}
     >
       <Stack
-        width={68}
+        width={100}
         height={120}
         color="base.primary"
         gap={2}
         justifyContent="center"
         alignItems="center"
       >
-        <Typography variant="h2">PODCAST</Typography>
+        <Typography variant="h2">Vua Sach</Typography>
 
         <Stack
           width={68}
