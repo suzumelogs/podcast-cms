@@ -1,6 +1,7 @@
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import { Box, IconButton, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import Image from 'next/image' // Import Image từ next/image
 import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useController } from 'react-hook-form'
@@ -103,11 +104,7 @@ const UploadImage = ({
           <DropzoneText variant="body2">Kéo và thả hình ảnh vào đây hoặc nhấp để chọn</DropzoneText>
         ) : (
           <ImagePreview>
-            <img
-              src={URL.createObjectURL(image)}
-              alt="Preview"
-              style={{ width: '100%', height: 'auto' }}
-            />
+            <Image src={URL.createObjectURL(image)} alt="Preview" layout="fill" objectFit="cover" />
             <RemoveButton color="error" onClick={handleRemoveImage}>
               <DeleteOutlineIcon />
             </RemoveButton>
