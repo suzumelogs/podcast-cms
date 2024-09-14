@@ -29,7 +29,7 @@ export type BookListQueryInputType = BookSearchInputType & {
 export type BookListType = {
   data: BookType[]
   pagination: PaginationType
-}
+} & PaginationType
 
 export type BookDetailType = {
   _id?: string
