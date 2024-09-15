@@ -1,7 +1,7 @@
 'use client'
 
+import { StatusTag } from '@/libs/components/StatusTag'
 import { ReactTable } from '@/libs/components/Table'
-import { formatDate } from '@/utils/format'
 import { Stack } from '@mui/material'
 import { ColumnDef } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
@@ -11,6 +11,13 @@ import { ChapterType } from '../type'
 const ChapterList = () => {
   const { tableData, totalPages } = useChapterListQuery()
   const router = useRouter()
+
+  const commonCellStyle = {
+    fontSize: 14,
+    lineHeight: '20px',
+    fontWeight: 400,
+    padding: '0 16px',
+  }
 
   const columns: ColumnDef<ChapterType>[] = [
     {
@@ -32,42 +39,38 @@ const ChapterList = () => {
       },
     },
     {
-      header: 'Tên chương',
+      header: 'Tên sách',
       accessorKey: 'name',
       meta: {
         headStyle: {
           padding: '0 16px',
         },
         cellStyle: {
-          width: 200,
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          padding: '0 16px',
+          ...commonCellStyle,
+          width: 250,
         },
       },
     },
     {
       header: 'Hình ảnh',
-      accessorKey: 'url',
+      accessorKey: 'imageUrl',
       meta: {
         headStyle: {
           padding: '0 8px',
         },
         cellStyle: {
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
           padding: '0 8px',
+          textAlign: 'center',
+          width: 100,
         },
       },
       cell: ({ row }) => (
-        <Stack flexDirection={'row'} alignItems={'center'} columnGap={1}>
+        <Stack flexDirection="row" alignItems="center" columnGap={1}>
           <Stack
-            width={'40px'}
-            height={'40px'}
-            component={'img'}
-            borderRadius={'2px'}
+            width="40px"
+            height="40px"
+            component="img"
+            borderRadius="2px"
             src={row.original?.url ?? 'https://demofree.sirv.com/nope-not-here.jpg'}
           />
         </Stack>
@@ -78,42 +81,35 @@ const ChapterList = () => {
       accessorKey: 'description',
       meta: {
         headStyle: {
-          padding: '0 8px',
+          padding: '0 16px',
         },
         cellStyle: {
-          width: '200px',
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          padding: '0 8px',
+          ...commonCellStyle,
+          width: 300,
         },
       },
     },
     {
-      header: 'Ngày tạo',
-      accessorKey: 'createdAt',
+      header: 'Trả phí',
+      accessorKey: 'isPremium',
       meta: {
+        width: 180,
+        headStyle: {
+          padding: '0 16px',
+        },
         cellStyle: {
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          textAlign: 'start',
+          ...commonCellStyle,
+          width: 180,
         },
       },
-      cell: ({ row }) => formatDate(row.original.createdAt as string),
-    },
-    {
-      header: 'Ngày cập nhật',
-      accessorKey: 'updatedAt',
-      meta: {
-        cellStyle: {
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          textAlign: 'start',
-        },
+      cell: ({ row }) => {
+        return (
+          <StatusTag
+            text={row.original.isPremium == true ? 'Có' : 'Không'}
+            color={row.original.isPremium == true ? 'green' : 'red'}
+          />
+        )
       },
-      cell: ({ row }) => formatDate(row.original.updatedAt as string),
     },
   ]
 

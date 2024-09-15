@@ -24,14 +24,16 @@ const BookList = () => {
       header: 'ID',
       accessorFn: (row, index) => index + 1,
       meta: {
-        width: 80,
+        width: 56,
         headStyle: {
-          padding: '0 16px',
+          padding: '0 24px',
         },
         cellStyle: {
-          ...commonCellStyle,
+          width: 56,
           textAlign: 'center',
-          width: 80,
+          fontSize: 14,
+          lineHeight: '20px',
+          fontWeight: 400,
           padding: '0 8px',
         },
       },
@@ -92,7 +94,7 @@ const BookList = () => {
       accessorKey: 'description',
       meta: {
         headStyle: {
-          padding: '0 8px',
+          padding: '0 16px',
         },
         cellStyle: {
           ...commonCellStyle,

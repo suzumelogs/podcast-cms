@@ -6,6 +6,7 @@ export type ChapterType = {
   name?: string
   description?: string
   url?: string
+  isPremium?: string | boolean
   bookId?: string
   createdAt?: string
   updatedAt?: string
@@ -32,6 +33,7 @@ export type ChapterDetailType = {
   name?: string
   description?: string
   url?: string | undefined
+  isPremium?: string | boolean
   bookId?: string
   createdAt?: string
   updatedAt?: string
@@ -52,25 +54,24 @@ export const ChapterCreateInputSchema = z.object({
     .string()
     .min(1, { message: 'Tên chương là bắt buộc' })
     .max(100, { message: 'Tên chương không được dài quá 100 ký tự' }),
-
   description: z
     .string()
     .min(1, { message: 'Mô tả là bắt buộc' })
     .max(500, { message: 'Mô tả không được dài quá 500 ký tự' }),
   file: z.instanceof(File).nullable(),
   url: z.string().optional(),
+  isPremium: z.boolean().optional(),
   bookId: z
     .string()
     .min(1, { message: 'Mã sách là bắt buộc' })
     .length(24, { message: 'bookId phải có độ dài 24 ký tự' })
-    .regex(/^[0-9a-fA-F]{24}$/, { message: 'Mã sách phải là một ObjectId hợp lệ' })
-    .optional(),
+    .regex(/^[0-9a-fA-F]{24}$/, { message: 'Mã sách phải là một ObjectId hợp lệ' }),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
 })
 
 export const ChapterUpdateInputSchema = ChapterCreateInputSchema.extend({
-  _id: z.string(),
+  _id: z.string().min(1, { message: 'ID chương là bắt buộc' }),
 })
 
 export type ChapterCreateInputType = TypeOf<typeof ChapterCreateInputSchema>
