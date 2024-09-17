@@ -1,5 +1,6 @@
 import { base } from '@/libs/config/theme'
 import InfoIcon from '@mui/icons-material/Info'
+import PanToolAltIcon from '@mui/icons-material/PanToolAlt'
 import { IconButton, Stack } from '@mui/material'
 import { RowData } from '@tanstack/react-table'
 import { usePathname, useRouter } from 'next/navigation'
@@ -28,9 +29,24 @@ function ActionCell<T extends RowData, TValue = unknown>({
     }
   }
 
+  const onSetTop = () => {
+    // Implement the logic to set the item to the top
+    console.log('Setting item to top:', _id)
+  }
+
   return (
     <Stack direction="row" justifyContent="center">
       {actionConfig.renderLeft && actionConfig.renderLeft(row)}
+
+      {actionConfig.onSetTop && (
+        <ButtonAction onClick={onSetTop}>
+          {actionConfig.setTopIcon || (
+            <IconButton>
+              <PanToolAltIcon style={{ fill: base.primary }} fontSize="small" />
+            </IconButton>
+          )}
+        </ButtonAction>
+      )}
 
       {hasDetail && (
         <ButtonAction onClick={onDetail}>

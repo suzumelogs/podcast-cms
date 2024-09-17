@@ -140,13 +140,13 @@ const EpisodeList = () => {
       header: 'Top',
       accessorKey: 'isTop',
       meta: {
-        width: 180,
+        width: 150,
         headStyle: {
           padding: '8px 16px',
         },
         cellStyle: {
           ...commonCellStyle,
-          width: 180,
+          width: 150,
         },
       },
       cell: ({ row }) => (
@@ -168,6 +168,7 @@ const EpisodeList = () => {
         onDetail: (_id) => {
           router.push(`/episodes/${_id}/detail`)
         },
+        onSetTop(_id, row) {},
       }}
     />
   )
