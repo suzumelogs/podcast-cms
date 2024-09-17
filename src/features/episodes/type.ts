@@ -6,7 +6,7 @@ export type EpisodeType = {
   title?: string
   album?: string
   artist?: string
-  artWork?: string
+  artwork?: string
   url?: string
   description?: string
   isPremium?: string | boolean
@@ -37,7 +37,7 @@ export type EpisodeDetailType = {
   title?: string
   album?: string
   artist?: string
-  artWork?: string | undefined
+  artwork?: string | undefined
   url?: string | undefined
   description?: string
   isPremium?: string | boolean
@@ -75,7 +75,7 @@ export const EpisodeCreateInputSchema = z.object({
     .min(1, { message: 'Mô tả là bắt buộc' })
     .max(500, { message: 'Mô tả không được dài quá 500 ký tự' }),
   file: z.instanceof(File).nullable(),
-  artWork: z.string().optional(),
+  artwork: z.string().optional(),
   audioFile: z.instanceof(File).nullable(),
   url: z.string().optional(),
   isPremium: z.boolean().optional(),

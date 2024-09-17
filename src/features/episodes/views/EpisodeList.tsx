@@ -53,7 +53,7 @@ const EpisodeList = () => {
     },
     {
       header: 'Hình ảnh',
-      accessorKey: 'artWork',
+      accessorKey: 'artwork',
       meta: {
         width: 100,
         headStyle: {
@@ -72,7 +72,7 @@ const EpisodeList = () => {
             height="40px"
             component="img"
             borderRadius="2px"
-            src={row.original?.artWork ?? 'https://demofree.sirv.com/nope-not-here.jpg'}
+            src={row.original?.artwork ?? 'https://demofree.sirv.com/nope-not-here.jpg'}
           />
         </Stack>
       ),

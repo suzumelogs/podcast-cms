@@ -8,6 +8,22 @@ import {
 } from '@/features/episodes'
 import request from '../config/axios'
 
+const formData = (data: EpisodeCreateInputType | EpisodeUpdateInputType | any): FormData => {
+  const formData = new FormData()
+  if ('title' in data) formData.append('title', data.title as string)
+  if ('album' in data) formData.append('album', data.album as string)
+  if ('artist' in data) formData.append('artist', data.artist as string)
+  if ('description' in data) formData.append('description', data.description as string)
+  if ('isPremium' in data) formData.append('isPremium', data.isPremium)
+  if ('isTop' in data) formData.append('isTop', data.isTop)
+  if ('artwork' in data && data.artwork) formData.append('artwork', data.artwork)
+  if ('file' in data && data.file) formData.append('file', data.file)
+  if ('url' in data && data.url) formData.append('url', data.url)
+  if ('audioFile' in data && data.audioFile) formData.append('audioFile', data.audioFile)
+  if ('chapterId' in data && data.chapterId) formData.append('chapterId', data.chapterId)
+  return formData
+}
+
 export const getListEpisodes = async (params: EpisodeListQueryInputType) => {
   const { page, limit, filter } = params
   try {
@@ -35,16 +51,8 @@ export const getEpisode = async (_id: string) => {
 
 export const createEpisode = async (data: EpisodeCreateInputType) => {
   try {
-    const formData = new FormData()
-    formData.append('title', data.title as string)
-    formData.append('album', data.album as string)
-    formData.append('artist', data.artist as string)
-    formData.append('description', data.description as string)
-    formData.append('chapterId', data.chapterId as string)
-    if (data.artWork) formData.append('artWork', data.artWork)
-    if (data.file) formData.append('file', data.file)
-
-    const response = await request.post('/episodes', formData)
+    const formDataReq = formData(data)
+    const response = await request.post('/episodes', formDataReq)
     return response.data
   } catch (error) {
     throw error
@@ -54,17 +62,8 @@ export const createEpisode = async (data: EpisodeCreateInputType) => {
 export const updateEpisode = async (data: EpisodeUpdateInputType) => {
   try {
     const { _id, ...dataRequest } = data
-
-    const formData = new FormData()
-    if (dataRequest.title) formData.append('title', dataRequest.title as string)
-    if (dataRequest.album) formData.append('album', dataRequest.album as string)
-    if (dataRequest.artist) formData.append('artist', dataRequest.artist as string)
-    if (dataRequest.description) formData.append('description', dataRequest.description as string)
-    if (dataRequest.chapterId) formData.append('chapterId', dataRequest.chapterId as string)
-    if (dataRequest.artWork) formData.append('artWork', dataRequest.artWork)
-    if (dataRequest.file) formData.append('file', dataRequest.file)
-
-    const response = await request.patch(`/episodes/${_id}`, formData)
+    const formDataReq = formData(dataRequest)
+    const response = await request.patch(`/episodes/${_id}`, formDataReq)
     return response.data
   } catch (error) {
     throw error

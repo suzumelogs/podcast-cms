@@ -56,7 +56,7 @@ const EpisodeDetail = () => {
           <DetailItem label="Audio" audio={{ src: data?.url as string, controls: true }} />
           <DetailItem
             image={{
-              src: data?.artWork as string,
+              src: data?.artwork as string,
               alt: 'Image chapter',
             }}
             label="Hình ảnh"
