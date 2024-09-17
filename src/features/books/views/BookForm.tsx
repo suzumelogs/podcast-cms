@@ -62,8 +62,6 @@ const BookForm = () => {
     }
 
     if (booksId) {
-      console.log(submitData)
-
       updateBook(submitData, { onSuccess: successCallback })
     } else {
       createBook(data, { onSuccess: successCallback })

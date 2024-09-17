@@ -4,7 +4,7 @@ import { DetailItem } from '@/features/article/components'
 import { Header } from '@/libs/components/Form/Layout/Header'
 import { Modal } from '@/libs/components/Modal'
 import { formatDate } from '@/utils/format'
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
 import { useState } from 'react'
@@ -35,9 +35,6 @@ const BookDetail = () => {
       <Header title="Chi tiết sách" editPath="edit" deleteFunction={handleOpenModal} />
 
       <Box>
-        <Typography variant="h6" gutterBottom>
-          Thông tin sách
-        </Typography>
         <Stack spacing={2}>
           <DetailItem label="ID" value={data?._id} isPending={isLoading} />
           <DetailItem label="Tên sách" value={data?.name} isPending={isLoading} />
