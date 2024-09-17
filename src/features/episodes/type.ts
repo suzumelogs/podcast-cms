@@ -7,7 +7,10 @@ export type EpisodeType = {
   album?: string
   artist?: string
   artWork?: string
+  url?: string
   description?: string
+  isPremium?: string | boolean
+  isTop?: string | boolean
   chapterId?: string
   createdAt?: string
   updatedAt?: string
@@ -35,7 +38,10 @@ export type EpisodeDetailType = {
   album?: string
   artist?: string
   artWork?: string | undefined
+  url?: string | undefined
   description?: string
+  isPremium?: string | boolean
+  isTop?: string | boolean
   chapterId?: string
   createdAt?: string
   updatedAt?: string
@@ -70,6 +76,10 @@ export const EpisodeCreateInputSchema = z.object({
     .max(500, { message: 'Mô tả không được dài quá 500 ký tự' }),
   file: z.instanceof(File).nullable(),
   artWork: z.string().optional(),
+  audioFile: z.instanceof(File).nullable(),
+  url: z.string().optional(),
+  isPremium: z.boolean().optional(),
+  isTop: z.boolean().optional(),
   chapterId: z
     .string()
     .min(1, { message: 'Mã tập là bắt buộc' })
@@ -81,7 +91,7 @@ export const EpisodeCreateInputSchema = z.object({
 })
 
 export const EpisodeUpdateInputSchema = EpisodeCreateInputSchema.extend({
-  _id: z.string(),
+  _id: z.string().min(1, { message: 'ID tập là bắt buộc' }),
 })
 
 export type EpisodeCreateInputType = TypeOf<typeof EpisodeCreateInputSchema>

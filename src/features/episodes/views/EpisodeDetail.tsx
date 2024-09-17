@@ -4,7 +4,7 @@ import { DetailItem } from '@/features/article/components'
 import { Header } from '@/libs/components/Form/Layout/Header'
 import { Modal } from '@/libs/components/Modal'
 import { formatDate } from '@/utils/format'
-import { Stack } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
 import { useState } from 'react'
@@ -14,9 +14,10 @@ const EpisodeDetail = () => {
   const { episodesId } = useParams()
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  const { deleteEpisode } = useDeleteEpisode()
+
   const handleOpenModal = () => setOpen(true)
   const handleCloseModal = () => setOpen(false)
-  const { deleteEpisode } = useDeleteEpisode()
 
   const handleDeleteEpisode = () => {
     deleteEpisode(episodesId as string, {
@@ -30,55 +31,39 @@ const EpisodeDetail = () => {
   }
 
   const { data, isLoading } = useEpisodeDetailQuery(episodesId as string)
-  return (
-    <Stack spacing={10}>
-      <Stack spacing={4}>
-        <Header title="Chi tiết" editPath="edit" deleteFunction={handleOpenModal} />
 
+  return (
+    <Stack spacing={4}>
+      <Header title="Chi tiết" editPath="edit" deleteFunction={handleOpenModal} />
+
+      <Box>
         <Stack spacing={2}>
-          <Stack spacing="1px">
-            <Stack direction="row" gap={4}>
-              <DetailItem label="ID" value={data?._id} isPending={isLoading} />
-            </Stack>
-            <Stack direction="row" gap={4}>
-              <DetailItem label="Tên tập" value={data?.title} isPending={isLoading} />
-            </Stack>
-            <Stack direction="row" gap={4}>
-              <DetailItem label="Album" value={data?.album} isPending={isLoading} />
-            </Stack>
-            <Stack direction="row" gap={4}>
-              <DetailItem label="Tác giả" value={data?.artist} isPending={isLoading} />
-            </Stack>
-            <Stack direction="row" gap={4}>
-              <DetailItem label="Mô tả" value={data?.description} isPending={isLoading} />
-            </Stack>
-            <Stack direction="row" gap={4}>
-              <DetailItem
-                label="Ngày tạo"
-                value={formatDate(data?.createdAt as string)}
-                isPending={isLoading}
-              />
-            </Stack>
-            <Stack direction="row" gap={4}>
-              <DetailItem
-                label="Ngày cập nhật"
-                value={formatDate(data?.updatedAt as string)}
-                isPending={isLoading}
-              />
-            </Stack>
-            <Stack direction="row" gap={4}>
-              <DetailItem
-                image={{
-                  src: data?.artWork as string,
-                  alt: 'Image chapter',
-                }}
-                label="Hình ảnh"
-                isPending={isLoading}
-              />
-            </Stack>
-          </Stack>
+          <DetailItem label="ID" value={data?._id} isPending={isLoading} />
+          <DetailItem label="Tên tập" value={data?.title} isPending={isLoading} />
+          <DetailItem label="Album" value={data?.album} isPending={isLoading} />
+          <DetailItem label="Tác giả" value={data?.artist} isPending={isLoading} />
+          <DetailItem label="Mô tả" value={data?.description} isPending={isLoading} />
+          <DetailItem
+            label="Ngày tạo"
+            value={formatDate(data?.createdAt as string)}
+            isPending={isLoading}
+          />
+          <DetailItem
+            label="Ngày cập nhật"
+            value={formatDate(data?.updatedAt as string)}
+            isPending={isLoading}
+          />
+          <DetailItem label="Audio" audio={{ src: data?.url as string, controls: true }} />
+          <DetailItem
+            image={{
+              src: data?.artWork as string,
+              alt: 'Image chapter',
+            }}
+            label="Hình ảnh"
+            isPending={isLoading}
+          />
         </Stack>
-      </Stack>
+      </Box>
 
       <Modal
         handleCloseModal={handleCloseModal}

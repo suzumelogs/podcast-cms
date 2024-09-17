@@ -72,7 +72,7 @@ function RawInputControl({
             <Stack
               height={labelHeight || 44}
               minWidth={120}
-              padding="4px 8px"
+              padding="0px 8px"
               bgcolor="base.white"
               justifyContent="center"
             >

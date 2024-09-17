@@ -1,6 +1,7 @@
 import { StatusColorType, StatusTag } from '@/libs/components/StatusTag'
 import { statusColors } from '@/libs/config/theme'
 import { Box, Skeleton, Stack, SxProps, Typography } from '@mui/material'
+import { useState } from 'react'
 import { YoutubeIframe } from '..'
 
 type DetailItemProps = {
@@ -21,6 +22,10 @@ type DetailItemProps = {
   image?: {
     src: string
     alt?: string
+  }
+  audio?: {
+    src: string
+    controls?: boolean
   }
 }
 
@@ -61,16 +66,33 @@ const DefaultContent = ({ value, sx }: { value: string | number | []; sx?: SxPro
 }
 
 const DetailItem = (props: DetailItemProps) => {
-  const { label, value, youtube, status, isPending, valueSx, labelSx, textUnderLine, image } = props
+  const {
+    label,
+    value,
+    youtube,
+    status,
+    isPending,
+    valueSx,
+    labelSx,
+    textUnderLine,
+    image,
+    audio,
+  } = props
+
+  const [loadingAudio, setLoadingAudio] = useState(true)
   const valueSxTextUnderLine = textUnderLine
     ? { color: statusColors.assistant, textDecoration: 'underline', textUnderlineOffset: '2px' }
     : {}
+
+  const handleAudioLoad = () => {
+    setLoadingAudio(false)
+  }
 
   return (
     <Stack spacing={1} direction="row" alignItems="stretch" height="fit-content">
       <Stack
         minWidth={120}
-        padding="4px 8px"
+        padding="0px 8px"
         bgcolor="base.white"
         justifyContent="center"
         sx={{ height: 44, ...labelSx }}
@@ -83,7 +105,7 @@ const DetailItem = (props: DetailItemProps) => {
       {isPending ? (
         <Skeleton variant="text" width={336} height={44} />
       ) : (
-        <Stack width={320} height="auto" justifyContent="center">
+        <Stack width={320} height="auto" justifyContent="center" alignItems={'center'}>
           {image && (
             <Box
               component="img"
@@ -102,6 +124,21 @@ const DetailItem = (props: DetailItemProps) => {
           {youtube && <YoutubeIframe youtubeId={youtube.url} style={{ marginLeft: 0 }} />}
 
           {status && <StatusTag color={status.color} text={status.text} width={status.width} />}
+
+          {audio && (
+            <Box>
+              {loadingAudio && <Skeleton sx={{ ml: 2 }} variant="text" width={336} height={44} />}
+              <div style={{ display: loadingAudio ? 'none' : 'block' }}>
+                <audio
+                  controls={audio.controls || true}
+                  style={{ width: '100%' }}
+                  onCanPlay={handleAudioLoad}
+                >
+                  <source src={audio.src} type="audio/mpeg" />
+                </audio>
+              </div>
+            </Box>
+          )}
 
           {value && <DefaultContent value={value} sx={{ ...valueSxTextUnderLine, ...valueSx }} />}
         </Stack>

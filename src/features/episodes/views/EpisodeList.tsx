@@ -1,7 +1,7 @@
 'use client'
 
+import { StatusTag } from '@/libs/components/StatusTag'
 import { ReactTable } from '@/libs/components/Table'
-import { formatDate } from '@/utils/format'
 import { Stack } from '@mui/material'
 import { ColumnDef } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
@@ -12,6 +12,13 @@ const EpisodeList = () => {
   const { tableData, totalPages } = useEpisodeListQuery()
   const router = useRouter()
 
+  const commonCellStyle = {
+    fontSize: 14,
+    lineHeight: '20px',
+    fontWeight: 400,
+    padding: '8px 16px', // Điều chỉnh padding để tạo khoảng cách đều giữa các cột
+  }
+
   const columns: ColumnDef<EpisodeType>[] = [
     {
       header: 'ID',
@@ -19,7 +26,7 @@ const EpisodeList = () => {
       meta: {
         width: 56,
         headStyle: {
-          padding: '0 24px',
+          padding: '8px 24px', // Điều chỉnh padding để cân bằng
         },
         cellStyle: {
           width: 56,
@@ -27,7 +34,7 @@ const EpisodeList = () => {
           fontSize: 14,
           lineHeight: '20px',
           fontWeight: 400,
-          padding: '0 8px',
+          padding: '8px', // Giữ khoảng cách cột này nhỏ hơn để không chiếm diện tích
         },
       },
     },
@@ -36,14 +43,11 @@ const EpisodeList = () => {
       accessorKey: 'title',
       meta: {
         headStyle: {
-          padding: '0 16px',
+          padding: '8px 16px', // Cân bằng padding với các cột khác
         },
         cellStyle: {
-          width: 200,
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          padding: '0 16px',
+          ...commonCellStyle,
+          width: 250,
         },
       },
     },
@@ -51,23 +55,23 @@ const EpisodeList = () => {
       header: 'Hình ảnh',
       accessorKey: 'artWork',
       meta: {
+        width: 100,
         headStyle: {
-          padding: '0 8px',
+          padding: '8px', // Giảm khoảng cách padding của cột hình ảnh
         },
         cellStyle: {
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          padding: '0 8px',
+          padding: '8px',
+          textAlign: 'center',
+          width: 100,
         },
       },
       cell: ({ row }) => (
-        <Stack flexDirection={'row'} alignItems={'center'} columnGap={1}>
+        <Stack flexDirection="row" alignItems="center" columnGap={1}>
           <Stack
-            width={'40px'}
-            height={'40px'}
-            component={'img'}
-            borderRadius={'2px'}
+            width="40px"
+            height="40px"
+            component="img"
+            borderRadius="2px"
             src={row.original?.artWork ?? 'https://demofree.sirv.com/nope-not-here.jpg'}
           />
         </Stack>
@@ -78,14 +82,11 @@ const EpisodeList = () => {
       accessorKey: 'album',
       meta: {
         headStyle: {
-          padding: '0 16px',
+          padding: '8px 16px',
         },
         cellStyle: {
+          ...commonCellStyle,
           width: 200,
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          padding: '0 16px',
         },
       },
     },
@@ -94,14 +95,11 @@ const EpisodeList = () => {
       accessorKey: 'artist',
       meta: {
         headStyle: {
-          padding: '0 16px',
+          padding: '8px 16px',
         },
         cellStyle: {
+          ...commonCellStyle,
           width: 200,
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          padding: '0 16px',
         },
       },
     },
@@ -110,42 +108,53 @@ const EpisodeList = () => {
       accessorKey: 'description',
       meta: {
         headStyle: {
-          padding: '0 8px',
+          padding: '8px 16px',
         },
         cellStyle: {
-          width: '200px',
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          padding: '0 8px',
+          ...commonCellStyle,
+          width: 200,
         },
       },
     },
     {
-      header: 'Ngày tạo',
-      accessorKey: 'createdAt',
+      header: 'Trả phí',
+      accessorKey: 'isPremium',
       meta: {
+        width: 180,
+        headStyle: {
+          padding: '8px 16px',
+        },
         cellStyle: {
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          textAlign: 'start',
+          ...commonCellStyle,
+          width: 180,
         },
       },
-      cell: ({ row }) => formatDate(row.original.createdAt as string),
+      cell: ({ row }) => (
+        <StatusTag
+          text={row.original.isPremium ? 'Có' : 'Không'}
+          color={row.original.isPremium ? 'green' : 'red'}
+        />
+      ),
     },
     {
-      header: 'Ngày cập nhật',
-      accessorKey: 'updatedAt',
+      header: 'Top',
+      accessorKey: 'isTop',
       meta: {
+        width: 180,
+        headStyle: {
+          padding: '8px 16px',
+        },
         cellStyle: {
-          fontSize: 14,
-          lineHeight: '20px',
-          fontWeight: 400,
-          textAlign: 'start',
+          ...commonCellStyle,
+          width: 180,
         },
       },
-      cell: ({ row }) => formatDate(row.original.updatedAt as string),
+      cell: ({ row }) => (
+        <StatusTag
+          text={row.original.isTop ? 'Có' : 'Không'}
+          color={row.original.isTop ? 'green' : 'red'}
+        />
+      ),
     },
   ]
 

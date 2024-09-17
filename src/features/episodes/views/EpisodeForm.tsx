@@ -2,7 +2,7 @@
 
 import { DetailItem } from '@/features/article/components'
 import { useChapterValueLabel } from '@/features/chapters/hooks/useChapterValueLabel'
-import { FormLayout, Input, Select, UploadImage } from '@/libs/components/Form'
+import { FormLayout, Input, RadioGroup, Select, UploadImage } from '@/libs/components/Form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Stack, Typography } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
@@ -11,6 +11,11 @@ import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useEpisodeCreate, useEpisodeDetail, useEpisodeUpdate } from '../hooks'
 import { EpisodeCreateInputSchema, EpisodeCreateInputType } from '../type'
+
+const options = [
+  { label: 'Có', value: 'true' },
+  { label: 'Không', value: 'false' },
+]
 
 const EpisodeForm = () => {
   const router = useRouter()
@@ -30,6 +35,9 @@ const EpisodeForm = () => {
       artist: '',
       description: '',
       file: null,
+      audioFile: null,
+      isPremium: true,
+      isTop: true,
       chapterId: '',
     },
     resolver: zodResolver(EpisodeCreateInputSchema),
@@ -37,13 +45,14 @@ const EpisodeForm = () => {
 
   useEffect(() => {
     if (episodeDetail) {
-      setValue('title', episodeDetail.title as string)
-      setValue('album', episodeDetail.album as string)
-      setValue('artist', episodeDetail.artist as string)
-      setValue('title', episodeDetail.title as string)
-      setValue('title', episodeDetail.title as string)
-      setValue('description', episodeDetail.description as string)
-      setValue('chapterId', episodeDetail.chapterId as string)
+      const { title, album, artist, description, isPremium, isTop, chapterId } = episodeDetail
+      setValue('title', title as string)
+      setValue('album', album as string)
+      setValue('artist', artist as string)
+      setValue('description', description as string)
+      setValue('isPremium', isPremium ? true : false)
+      setValue('isTop', isTop ? true : false)
+      setValue('chapterId', chapterId as string)
     }
   }, [setValue, episodeDetail])
 
@@ -76,7 +85,7 @@ const EpisodeForm = () => {
       submitLoading={isPendingCreate || isPendingUpdate}
     >
       <Stack direction="row">
-        <Stack spacing={1} width={{ xs: '100%', lg: '50%' }}>
+        <Stack spacing={2} width={{ xs: '100%', lg: '50%' }}>
           <Stack direction={{ xs: 'column', lg: 'row' }} gap={4} alignItems={{ lg: 'center' }}>
             <DetailItem
               label="ID"
@@ -149,7 +158,38 @@ const EpisodeForm = () => {
                 Hình ảnh
               </Typography>
             </Stack>
-            <UploadImage name="file" control={control} />
+            <UploadImage
+              name="file"
+              control={control}
+              content="Kéo và thả file hình ảnh vào đây hoặc nhấp để chọn"
+            />
+          </Stack>
+          <Stack direction={'row'} gap={1}>
+            <Stack
+              minWidth={120}
+              padding="4px 8px"
+              bgcolor="base.white"
+              justifyContent="center"
+              sx={{ height: 44 }}
+            >
+              <Typography variant="body2" color="grey.500">
+                Âm thanh
+              </Typography>
+            </Stack>
+            <UploadImage
+              name="audioFile"
+              control={control}
+              content="Kéo và thả file âm thanh vào đây hoặc nhấp để chọn"
+            />
+          </Stack>
+          <Stack direction={{ xs: 'column', lg: 'row' }} gap={4} marginTop={4}>
+            <RadioGroup
+              control={control}
+              name="isPremium"
+              label="Trả phí"
+              options={options}
+              defaultValue="true"
+            />
           </Stack>
         </Stack>
       </Stack>

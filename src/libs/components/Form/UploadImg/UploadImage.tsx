@@ -51,6 +51,7 @@ const UploadImage = ({
   controlProps,
   width = '100%',
   padding,
+  content,
   sx,
   ...props
 }: {
@@ -61,6 +62,7 @@ const UploadImage = ({
   controlProps?: any
   width?: string
   padding?: string
+  content?: string
   sx?: any
   [key: string]: any
 }) => {
@@ -100,7 +102,7 @@ const UploadImage = ({
       <DropzoneContainer {...getRootProps()}>
         <input {...getInputProps()} id={fieldName} hidden />
         {!image ? (
-          <DropzoneText variant="body2">Kéo và thả hình ảnh vào đây hoặc nhấp để chọn</DropzoneText>
+          <DropzoneText variant="body2">{content}</DropzoneText>
         ) : (
           <ImagePreview>
             <img
