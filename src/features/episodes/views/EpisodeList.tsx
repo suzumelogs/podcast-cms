@@ -168,7 +168,6 @@ const EpisodeList = () => {
         onDetail: (_id) => {
           router.push(`/episodes/${_id}/detail`)
         },
-        onSetTop(_id, row) {},
       }}
     />
   )
