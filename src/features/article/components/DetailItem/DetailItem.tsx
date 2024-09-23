@@ -102,7 +102,13 @@ const DetailItem = ({
       {isPending ? (
         <Skeleton variant="text" width={336} height={44} />
       ) : (
-        <Stack width={320} height="auto" justifyContent="center" alignItems="center">
+        <Stack
+          width={320}
+          height="auto"
+          justifyContent="center"
+          alignItems="center"
+          maxWidth={'fit-content'}
+        >
           {image && (
             <Box
               component="img"
@@ -115,7 +121,6 @@ const DetailItem = ({
                 aspectRatio: '16/9',
                 marginBottom: 2,
                 border: '1px solid rgba(0, 0, 0, 0.1)',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                 borderRadius: '4px',
               }}
             />
