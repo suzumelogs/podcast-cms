@@ -12,6 +12,7 @@ export type BookType = {
   url?: string
   isPremium?: string | boolean
   isTop10Year?: string | boolean
+  categoryId?: string
   createdAt?: string
   updatedAt?: string
 }
@@ -40,6 +41,7 @@ export type BookDetailType = {
   url?: string
   isPremium?: string | boolean
   isTop10Year?: string | boolean
+  categoryId?: string
   createdAt?: string
   updatedAt?: string
 }
@@ -80,6 +82,11 @@ export const BookCreateInputSchema = z.object({
   url: z.string().optional(),
   isPremium: z.boolean().optional(),
   isTop10Year: z.boolean().optional(),
+  categoryId: z
+    .string()
+    .min(1, { message: 'Mã danh mục là bắt buộc' })
+    .length(24, { message: 'categoryId phải có độ dài 24 ký tự' })
+    .regex(/^[0-9a-fA-F]{24}$/, { message: 'Mã danh mục phải là một ObjectId hợp lệ' }),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
 })

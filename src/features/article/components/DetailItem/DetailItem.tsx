@@ -6,7 +6,7 @@ import { YoutubeIframe } from '..'
 
 type DetailItemProps = {
   label: string
-  value?: string | number | []
+  value?: string | number | string[]
   isPending?: boolean
   labelSx?: SxProps
   textUnderLine?: boolean
@@ -29,7 +29,7 @@ type DetailItemProps = {
   }
 }
 
-const DefaultContent = ({ value, sx }: { value: string | number | []; sx?: SxProps }) => {
+const DefaultContent = ({ value, sx }: { value: string | number | string[]; sx?: SxProps }) => {
   if (Array.isArray(value)) {
     return (
       <Stack direction="row" width="100%" flexWrap="wrap" gap={1} fontWeight={400}>
@@ -65,28 +65,25 @@ const DefaultContent = ({ value, sx }: { value: string | number | []; sx?: SxPro
   )
 }
 
-const DetailItem = (props: DetailItemProps) => {
-  const {
-    label,
-    value,
-    youtube,
-    status,
-    isPending,
-    valueSx,
-    labelSx,
-    textUnderLine,
-    image,
-    audio,
-  } = props
-
+const DetailItem = ({
+  label,
+  value,
+  youtube,
+  status,
+  isPending,
+  valueSx,
+  labelSx,
+  textUnderLine,
+  image,
+  audio,
+}: DetailItemProps) => {
   const [loadingAudio, setLoadingAudio] = useState(true)
+
   const valueSxTextUnderLine = textUnderLine
     ? { color: statusColors.assistant, textDecoration: 'underline', textUnderlineOffset: '2px' }
     : {}
 
-  const handleAudioLoad = () => {
-    setLoadingAudio(false)
-  }
+  const handleAudioLoad = () => setLoadingAudio(false)
 
   return (
     <Stack spacing={1} direction="row" alignItems="stretch" height="fit-content">
@@ -105,7 +102,13 @@ const DetailItem = (props: DetailItemProps) => {
       {isPending ? (
         <Skeleton variant="text" width={336} height={44} />
       ) : (
-        <Stack width={320} height="auto" justifyContent="center" alignItems={'center'}>
+        <Stack
+          width={320}
+          height="auto"
+          justifyContent="center"
+          alignItems="center"
+          maxWidth={'fit-content'}
+        >
           {image && (
             <Box
               component="img"
@@ -113,10 +116,12 @@ const DetailItem = (props: DetailItemProps) => {
               alt={image.alt || 'Image'}
               sx={{
                 maxWidth: '100%',
-                maxHeight: 200,
+                maxHeight: 300,
                 objectFit: 'cover',
-                marginBottom: 1,
-                border: '1px solid #ccc',
+                aspectRatio: '16/9',
+                marginBottom: 2,
+                border: '1px solid rgba(0, 0, 0, 0.1)',
+                borderRadius: '4px',
               }}
             />
           )}

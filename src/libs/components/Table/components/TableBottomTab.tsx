@@ -1,5 +1,4 @@
 import { deleteAdmins } from '@/libs/api/admin'
-import { deleteRealEstates } from '@/libs/api/real-estate'
 import { SIDE_BAR_WIDTH } from '@/libs/components/Layout/Sidebar'
 import { Modal } from '@/libs/components/Modal'
 import { Paper, Stack } from '@mui/material'
@@ -21,39 +20,7 @@ export const defaultActionApi = {
     delete: deleteAdmins,
     title: '管理者削除',
   },
-  articles: {
-    delete: () => {},
-    title: '',
-  },
-  company: {
-    delete: () => {},
-    title: '',
-  },
-  '/': {
-    delete: deleteRealEstates,
-    title: '物件削除',
-  },
   users: {
-    delete: () => {},
-    title: '',
-  },
-  'movie-format': {
-    delete: () => {},
-    title: '',
-  },
-  'movie-type': {
-    delete: () => {},
-    title: '',
-  },
-  movies: {
-    delete: () => {},
-    title: '',
-  },
-  persons: {
-    delete: () => {},
-    title: '',
-  },
-  'person-movie': {
     delete: () => {},
     title: '',
   },
@@ -66,6 +33,10 @@ export const defaultActionApi = {
     title: '',
   },
   episodes: {
+    delete: () => {},
+    title: '',
+  },
+  categories: {
     delete: () => {},
     title: '',
   },

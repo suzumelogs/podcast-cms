@@ -3,14 +3,14 @@
 import { FilterBar, FilterColumn } from '@/libs/components/Table/FilterBar'
 import { ExVoid } from '@/libs/types/utils'
 import { Stack, Typography } from '@mui/material'
-import { MovieFormatSearchInputType } from '../type'
+import { CategorySearchInputType } from '../type'
 
-const MovieFormatFilter = () => {
-  const filterColumn: FilterColumn<ExVoid<MovieFormatSearchInputType>>[] = [
+const CategoryFilter = () => {
+  const filterColumn: FilterColumn<ExVoid<CategorySearchInputType>>[] = [
     {
-      field: 'search',
+      field: 'filter',
       type: 'text',
-      placeholder: 'Search',
+      placeholder: 'Tìm kiếm',
       defaultValue: '',
       sx: { width: 240 },
       fieldOptions: {
@@ -19,19 +19,20 @@ const MovieFormatFilter = () => {
       },
     },
   ]
+
   return (
     <Stack spacing={3}>
       <Typography color="mono.600" variant="h2">
-        List
+        Danh sách
       </Typography>
 
       <FilterBar
         columns={filterColumn}
-        createPath="movie-format/create"
+        createPath="categories/create"
         buttonSearchUnderButtonCreate
       />
     </Stack>
   )
 }
 
-export { MovieFormatFilter }
+export { CategoryFilter }

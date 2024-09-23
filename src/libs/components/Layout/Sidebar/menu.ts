@@ -1,5 +1,6 @@
 import BookmarksIcon from '@mui/icons-material/Bookmarks'
 import CategoryIcon from '@mui/icons-material/Category'
+import ImportContactsIcon from '@mui/icons-material/ImportContacts'
 import PaymentsIcon from '@mui/icons-material/Payments'
 import UserIcon from '@mui/icons-material/Person'
 import StackedLineChartIcon from '@mui/icons-material/StackedLineChart'
@@ -29,10 +30,16 @@ export const menus: MenuType[] = [
     active_icon: UserIcon,
   },
   {
-    href: '/books',
-    title: 'Sách',
+    href: '/categories',
+    title: 'Danh mục',
     icon: CategoryIcon,
     active_icon: CategoryIcon,
+  },
+  {
+    href: '/books',
+    title: 'Sách',
+    icon: ImportContactsIcon,
+    active_icon: ImportContactsIcon,
   },
   {
     href: '/chapters',

@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Movie Format',
+  title: 'Chỉnh sửa danh mục',
 }
 
 export default function Page({ children }: { children: React.ReactNode }) {

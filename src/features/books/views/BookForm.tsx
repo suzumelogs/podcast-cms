@@ -1,7 +1,8 @@
 'use client'
 
 import { DetailItem } from '@/features/article/components'
-import { FormLayout, Input, RadioGroup, UploadImage } from '@/libs/components/Form'
+import { useCategoryValueLabel } from '@/features/categories/hooks'
+import { FormLayout, Input, RadioGroup, Select, UploadImage } from '@/libs/components/Form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Stack, Typography } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
@@ -34,22 +35,25 @@ const BookForm = () => {
       description: '',
       file: null,
       isPremium: true,
+      categoryId: '',
     },
     resolver: zodResolver(BookCreateInputSchema),
   })
 
   useEffect(() => {
     if (bookDetail) {
-      const { name, author, description, isPremium } = bookDetail
+      const { name, author, description, isPremium, categoryId } = bookDetail
       setValue('name', name as string)
       setValue('author', author as string)
       setValue('description', description as string)
       setValue('isPremium', isPremium ? true : false)
+      setValue('categoryId', categoryId as string)
     }
   }, [setValue, bookDetail])
 
   const { mutate: createBook, isPending: isPendingCreate } = useBookCreate(setError)
   const { mutate: updateBook, isPending: isPendingUpdate } = useBookUpdate(setError)
+  const { data: CATEGORIES } = useCategoryValueLabel()
 
   const onSubmit: SubmitHandler<BookCreateInputType> = (data) => {
     const submitData = { ...data, _id: booksId as string }
@@ -120,6 +124,18 @@ const BookForm = () => {
             />
           </Stack>
 
+          <Stack direction={{ xs: 'column', lg: 'row' }} gap={4}>
+            <Select
+              control={control}
+              name="categoryId"
+              label="Danh mục"
+              labelLeft
+              placeholder="Danh mục"
+              options={CATEGORIES}
+              fullWidth
+            />
+          </Stack>
+
           <Stack direction="row" gap={1}>
             <Stack
               minWidth={120}
@@ -132,7 +148,11 @@ const BookForm = () => {
                 Hình ảnh
               </Typography>
             </Stack>
-            <UploadImage name="file" control={control} />
+            <UploadImage
+              name="file"
+              control={control}
+              content="Kéo và thả file hình ảnh vào đây hoặc nhấp để chọn"
+            />
           </Stack>
 
           <Stack direction={{ xs: 'column', lg: 'row' }} gap={4} marginTop={4}>
