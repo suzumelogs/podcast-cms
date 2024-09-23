@@ -17,6 +17,8 @@ export type ActionConfig<T extends RowData> = {
   renderLeft?: (row: Row<T>) => React.ReactNode
   renderRight?: (row: Row<T>) => React.ReactNode
   meta?: ColumnMeta<T, unknown>
+  onSetTop?: (_id: string | number, row: Row<T>) => void
+  setTopIcon?: React.ReactNode
 }
 
 export type Action<T extends RowData> = ActionConfig<T> | boolean

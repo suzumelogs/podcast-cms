@@ -11,6 +11,7 @@ export type BookType = {
   description?: string
   url?: string
   isPremium?: string | boolean
+  isTop10Year?: string | boolean
   createdAt?: string
   updatedAt?: string
 }
@@ -38,6 +39,7 @@ export type BookDetailType = {
   description?: string
   url?: string
   isPremium?: string | boolean
+  isTop10Year?: string | boolean
   createdAt?: string
   updatedAt?: string
 }
@@ -77,6 +79,7 @@ export const BookCreateInputSchema = z.object({
     ),
   url: z.string().optional(),
   isPremium: z.boolean().optional(),
+  isTop10Year: z.boolean().optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
 })

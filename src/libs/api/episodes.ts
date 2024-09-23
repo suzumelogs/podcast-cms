@@ -91,3 +91,12 @@ export const deleteEpisode = async (episodeId: string) => {
     throw error
   }
 }
+
+export const updateTopEpisode = async (episodeId: string) => {
+  try {
+    const response = await request.patch(`/episodes/${episodeId}/update/is-top`)
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}

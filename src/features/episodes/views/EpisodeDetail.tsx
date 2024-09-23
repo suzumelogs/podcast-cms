@@ -8,13 +8,14 @@ import { Box, Stack } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
 import { useState } from 'react'
-import { useDeleteEpisode, useEpisodeDetailQuery } from '../hooks'
+import { useDeleteEpisode, useEpisodeDetailQuery, useUpdateTopEpisode } from '../hooks'
 
 const EpisodeDetail = () => {
   const { episodesId } = useParams()
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const { deleteEpisode } = useDeleteEpisode()
+  const { updateTopEpisode } = useUpdateTopEpisode()
 
   const handleOpenModal = () => setOpen(true)
   const handleCloseModal = () => setOpen(false)
@@ -30,11 +31,35 @@ const EpisodeDetail = () => {
     })
   }
 
+  const handleUpdateTopEpisode = () => {
+    updateTopEpisode(episodesId as string, {
+      onSuccess: () => {
+        enqueueSnackbar('Cập nhật top 10 thành công', {
+          variant: 'success',
+        })
+        router.push('/episodes')
+      },
+      onError: (error) => {
+        // @ts-ignore
+        enqueueSnackbar(error?.response?.data?.message, {
+          variant: 'error',
+        })
+      },
+    })
+  }
+
   const { data, isLoading } = useEpisodeDetailQuery(episodesId as string)
 
   return (
     <Stack spacing={4}>
-      <Header title="Chi tiết" editPath="edit" deleteFunction={handleOpenModal} />
+      <Header
+        title="Chi tiết"
+        editPath="edit"
+        deleteFunction={handleOpenModal}
+        showButtonUpTop
+        updateTopFunction={handleUpdateTopEpisode}
+        titleTop={data?.isTop ? 'Xóa top 10' : 'Thêm top 10'}
+      />
 
       <Box>
         <Stack spacing={2}>
