@@ -16,6 +16,7 @@ const formData = (data: BookCreateInputType | BookUpdateInputType | any): FormDa
   if ('isPremium' in data) formData.append('isPremium', data.isPremium)
   if ('url' in data && data.url) formData.append('url', data.url)
   if ('file' in data && data.file) formData.append('file', data.file)
+  if ('categoryId' in data && data.categoryId) formData.append('categoryId', data.categoryId)
   return formData
 }
 
