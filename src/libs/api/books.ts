@@ -95,3 +95,12 @@ export const getBookValueLabels = async () => {
     throw error
   }
 }
+
+export const updateTop10YearBook = async (bookId: string) => {
+  try {
+    const response = await request.patch(`/books/${bookId}/update/is-top-10-year`)
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}

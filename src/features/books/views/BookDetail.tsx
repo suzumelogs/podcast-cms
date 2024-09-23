@@ -8,13 +8,14 @@ import { Box, Stack } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
 import { useState } from 'react'
-import { useBookDetailQuery, useDeleteBook } from '../hooks'
+import { useBookDetailQuery, useDeleteBook, useUpdateTop10YearBook } from '../hooks'
 
 const BookDetail = () => {
   const { booksId } = useParams()
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const { deleteBook } = useDeleteBook()
+  const { updateTop10YearBook } = useUpdateTop10YearBook()
 
   const handleOpenModal = () => setOpen(true)
   const handleCloseModal = () => setOpen(false)
@@ -28,11 +29,35 @@ const BookDetail = () => {
     })
   }
 
+  const handleUpdateTop10YearBook = () => {
+    updateTop10YearBook(booksId as string, {
+      onSuccess: () => {
+        enqueueSnackbar('Cập nhật top 10 thành công', {
+          variant: 'success',
+        })
+        router.push('/books')
+      },
+      onError: (error) => {
+        // @ts-ignore
+        enqueueSnackbar(error?.response?.data?.message, {
+          variant: 'error',
+        })
+      },
+    })
+  }
+
   const { data, isLoading } = useBookDetailQuery(booksId as string)
 
   return (
     <Stack spacing={4}>
-      <Header title="Chi tiết sách" editPath="edit" deleteFunction={handleOpenModal} />
+      <Header
+        title="Chi tiết sách"
+        editPath="edit"
+        deleteFunction={handleOpenModal}
+        showButtonUpTop
+        updateTopFunction={handleUpdateTop10YearBook}
+        titleTop={data?.isTop10Year ? 'Xóa top 10' : 'Thêm top 10'}
+      />
 
       <Box>
         <Stack spacing={2}>

@@ -124,6 +124,26 @@ const BookList = () => {
         )
       },
     },
+    {
+      header: 'Top',
+      accessorKey: 'isTop',
+      meta: {
+        width: 150,
+        headStyle: {
+          padding: '8px 16px',
+        },
+        cellStyle: {
+          ...commonCellStyle,
+          width: 150,
+        },
+      },
+      cell: ({ row }) => (
+        <StatusTag
+          text={row.original.isTop10Year ? 'Có' : 'Không'}
+          color={row.original.isTop10Year ? 'green' : 'red'}
+        />
+      ),
+    },
   ]
 
   return (
