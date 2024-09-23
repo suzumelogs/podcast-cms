@@ -4,6 +4,7 @@ import { Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import CopyIcon from 'public/assets/svgs/copy.svg'
 import { BreadcrumbType, Breadcrumbs } from '../../BreadCrumbs'
+import { ButtonUpTop } from '../../Table/styled'
 import { ButtonAction, ButtonDelete } from './styled'
 
 interface HeaderProps {
@@ -14,12 +15,25 @@ interface HeaderProps {
   isPending?: boolean
   pathArrCustom?: BreadcrumbType[]
   hiddenBreadcrumb?: boolean
+  showButtonUpTop?: boolean
+  updateTopFunction?: () => void
+  titleTop?: string
 }
 
 const Header = (props: HeaderProps) => {
   const router = useRouter()
-  const { title, editPath, deleteFunction, isPending, pathArrCustom, hiddenBreadcrumb, copyPath } =
-    props
+  const {
+    title,
+    editPath,
+    deleteFunction,
+    isPending,
+    pathArrCustom,
+    hiddenBreadcrumb,
+    copyPath,
+    showButtonUpTop,
+    updateTopFunction,
+    titleTop,
+  } = props
 
   if (hiddenBreadcrumb)
     return (
@@ -47,6 +61,11 @@ const Header = (props: HeaderProps) => {
             >
               複製
             </ButtonAction>
+          )}
+          {showButtonUpTop && (
+            <ButtonUpTop variant="contained" onClick={updateTopFunction}>
+              {titleTop}
+            </ButtonUpTop>
           )}
 
           {editPath && (
