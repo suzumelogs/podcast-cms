@@ -78,7 +78,11 @@ const EpisodeDetail = () => {
             value={formatDate(data?.updatedAt as string)}
             isPending={isLoading}
           />
-          <DetailItem label="Audio" audio={{ src: data?.url as string, controls: true }} />
+          <DetailItem
+            label="Audio"
+            audio={{ src: data?.url as string, controls: true }}
+            isPending={isLoading}
+          />
           <DetailItem
             image={{
               src: data?.artwork as string,

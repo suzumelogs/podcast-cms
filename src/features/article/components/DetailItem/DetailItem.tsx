@@ -130,18 +130,12 @@ const DetailItem = ({
 
           {status && <StatusTag color={status.color} text={status.text} width={status.width} />}
 
-          {audio && (
-            <Box>
-              {loadingAudio && <Skeleton sx={{ ml: 2 }} variant="text" width={336} height={44} />}
-              <div style={{ display: loadingAudio ? 'none' : 'block' }}>
-                <audio
-                  controls={audio.controls || true}
-                  style={{ width: '100%' }}
-                  onCanPlay={handleAudioLoad}
-                >
-                  <source src={audio.src} type="audio/mpeg" />
-                </audio>
-              </div>
+          {audio && !isPending && (
+            <Box flex={1}>
+              <audio controls>
+                <source src={audio.src} type="audio/mpeg" />
+                Your browser does not support the audio element.
+              </audio>
             </Box>
           )}
 

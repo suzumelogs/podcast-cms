@@ -16,7 +16,7 @@ const EpisodeList = () => {
     fontSize: 14,
     lineHeight: '20px',
     fontWeight: 400,
-    padding: '8px 16px', // Điều chỉnh padding để tạo khoảng cách đều giữa các cột
+    padding: '8px 16px',
   }
 
   const columns: ColumnDef<EpisodeType>[] = [
@@ -26,7 +26,7 @@ const EpisodeList = () => {
       meta: {
         width: 56,
         headStyle: {
-          padding: '8px 24px', // Điều chỉnh padding để cân bằng
+          padding: '8px 24px',
         },
         cellStyle: {
           width: 56,
@@ -34,7 +34,7 @@ const EpisodeList = () => {
           fontSize: 14,
           lineHeight: '20px',
           fontWeight: 400,
-          padding: '8px', // Giữ khoảng cách cột này nhỏ hơn để không chiếm diện tích
+          padding: '8px',
         },
       },
     },
@@ -43,11 +43,11 @@ const EpisodeList = () => {
       accessorKey: 'title',
       meta: {
         headStyle: {
-          padding: '8px 16px', // Cân bằng padding với các cột khác
+          padding: '8px 16px',
         },
         cellStyle: {
           ...commonCellStyle,
-          width: 250,
+          width: 150,
         },
       },
     },
@@ -57,7 +57,7 @@ const EpisodeList = () => {
       meta: {
         width: 100,
         headStyle: {
-          padding: '8px', // Giảm khoảng cách padding của cột hình ảnh
+          padding: '8px',
         },
         cellStyle: {
           padding: '8px',
@@ -86,7 +86,7 @@ const EpisodeList = () => {
         },
         cellStyle: {
           ...commonCellStyle,
-          width: 200,
+          width: 150,
         },
       },
     },
@@ -99,7 +99,7 @@ const EpisodeList = () => {
         },
         cellStyle: {
           ...commonCellStyle,
-          width: 200,
+          width: 150,
         },
       },
     },
@@ -112,7 +112,7 @@ const EpisodeList = () => {
         },
         cellStyle: {
           ...commonCellStyle,
-          width: 200,
+          width: 150,
         },
       },
     },
@@ -126,7 +126,7 @@ const EpisodeList = () => {
         },
         cellStyle: {
           ...commonCellStyle,
-          width: 180,
+          width: 150,
         },
       },
       cell: ({ row }) => (

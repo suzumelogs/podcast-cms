@@ -3,6 +3,7 @@
 import { DetailItem } from '@/features/article/components'
 import { useChapterValueLabel } from '@/features/chapters/hooks/useChapterValueLabel'
 import { FormLayout, Input, RadioGroup, Select, UploadImage } from '@/libs/components/Form'
+import { UploadAudio } from '@/libs/components/Form/UploadImg/UploadAudio'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Stack, Typography } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
@@ -176,7 +177,7 @@ const EpisodeForm = () => {
                 Âm thanh
               </Typography>
             </Stack>
-            <UploadImage
+            <UploadAudio
               name="audioFile"
               control={control}
               content="Kéo và thả file âm thanh vào đây hoặc nhấp để chọn"
