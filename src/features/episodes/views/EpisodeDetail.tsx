@@ -69,6 +69,14 @@ const EpisodeDetail = () => {
           <DetailItem label="Tác giả" value={data?.artist} isPending={isLoading} />
           <DetailItem label="Mô tả" value={data?.description} isPending={isLoading} />
           <DetailItem
+            status={{
+              text: data?.isPremium ? 'Có' : 'Không',
+              color: data?.isPremium ? 'green' : 'red',
+            }}
+            label="Trả phí"
+            isPending={isLoading}
+          />
+          <DetailItem
             label="Ngày tạo"
             value={formatDate(data?.createdAt as string)}
             isPending={isLoading}
