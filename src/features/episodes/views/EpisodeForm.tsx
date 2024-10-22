@@ -6,6 +6,7 @@ import { FormLayout, Input, RadioGroup, Select, UploadImage } from '@/libs/compo
 import { UploadAudio } from '@/libs/components/Form/UploadImg/UploadAudio'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Stack, Typography } from '@mui/material'
+import { useQueryClient } from '@tanstack/react-query'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
 import { useEffect } from 'react'
@@ -20,6 +21,7 @@ const options = [
 
 const EpisodeForm = () => {
   const router = useRouter()
+  const queryClient = useQueryClient()
   const { episodesId } = useParams()
   const { data: episodeDetail } = useEpisodeDetail(episodesId as string)
 
@@ -35,11 +37,10 @@ const EpisodeForm = () => {
       album: '',
       artist: '',
       description: '',
-      file: null,
-      audioFile: null,
       isPremium: true,
       isTop: true,
       chapterId: '',
+      url: undefined,
     },
     resolver: zodResolver(EpisodeCreateInputSchema),
   })
@@ -65,6 +66,7 @@ const EpisodeForm = () => {
     const submitData = { ...data, _id: episodesId as string }
 
     const successCallback = () => {
+      queryClient.invalidateQueries()
       enqueueSnackbar(episodesId ? 'Cập nhật tập thành công' : 'Thêm mới tập thành công', {
         variant: 'success',
       })
@@ -160,7 +162,7 @@ const EpisodeForm = () => {
               </Typography>
             </Stack>
             <UploadImage
-              name="file"
+              name="artwork"
               control={control}
               content="Kéo và thả file hình ảnh vào đây hoặc nhấp để chọn"
             />
@@ -178,7 +180,7 @@ const EpisodeForm = () => {
               </Typography>
             </Stack>
             <UploadAudio
-              name="audioFile"
+              name="url"
               control={control}
               content="Kéo và thả file âm thanh vào đây hoặc nhấp để chọn"
             />

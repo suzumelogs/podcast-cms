@@ -4,6 +4,7 @@ import { DetailItem } from '@/features/article/components'
 import { Header } from '@/libs/components/Form/Layout/Header'
 import { Modal } from '@/libs/components/Modal'
 import { formatDate } from '@/utils/format'
+import { generateMediaUrl } from '@/utils/media'
 import { Box, Stack } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
@@ -61,7 +62,7 @@ const ChapterDetail = () => {
           />
           <DetailItem
             image={{
-              src: data?.url as string,
+              src: generateMediaUrl(data?.url as string, 'image'),
               alt: 'Image chapter',
             }}
             label="Hình ảnh"

@@ -58,7 +58,6 @@ export const ChapterCreateInputSchema = z.object({
     .string()
     .min(1, { message: 'Mô tả là bắt buộc' })
     .max(500, { message: 'Mô tả không được dài quá 500 ký tự' }),
-  file: z.instanceof(File).nullable(),
   url: z.string().optional(),
   isPremium: z.boolean().optional(),
   bookId: z

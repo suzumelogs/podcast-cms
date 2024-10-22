@@ -74,9 +74,7 @@ export const EpisodeCreateInputSchema = z.object({
     .string()
     .min(1, { message: 'Mô tả là bắt buộc' })
     .max(500, { message: 'Mô tả không được dài quá 500 ký tự' }),
-  file: z.instanceof(File).nullable(),
   artwork: z.string().optional(),
-  audioFile: z.instanceof(File).nullable(),
   url: z.string().optional(),
   isPremium: z.boolean().optional(),
   isTop: z.boolean().optional(),

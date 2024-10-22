@@ -47,8 +47,7 @@ export const getBook = async (_id: string) => {
 
 export const createBook = async (data: BookCreateInputType) => {
   try {
-    const formDataReq = formData(data)
-    const response = await request.post('/books', formDataReq)
+    const response = await request.post('/books', data)
     return response.data
   } catch (error) {
     throw error
@@ -59,7 +58,7 @@ export const updateBook = async (data: BookUpdateInputType) => {
   try {
     const { _id, ...dataRequest } = data
     const formDataReq = formData(dataRequest)
-    const response = await request.patch(`/books/${_id}`, formDataReq)
+    const response = await request.patch(`/books/${_id}`, dataRequest)
     return response.data
   } catch (error) {
     throw error

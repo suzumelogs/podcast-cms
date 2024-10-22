@@ -51,8 +51,7 @@ export const getEpisode = async (_id: string) => {
 
 export const createEpisode = async (data: EpisodeCreateInputType) => {
   try {
-    const formDataReq = formData(data)
-    const response = await request.post('/episodes', formDataReq)
+    const response = await request.post('/episodes', data)
     return response.data
   } catch (error) {
     throw error
@@ -62,8 +61,7 @@ export const createEpisode = async (data: EpisodeCreateInputType) => {
 export const updateEpisode = async (data: EpisodeUpdateInputType) => {
   try {
     const { _id, ...dataRequest } = data
-    const formDataReq = formData(dataRequest)
-    const response = await request.patch(`/episodes/${_id}`, formDataReq)
+    const response = await request.patch(`/episodes/${_id}`, dataRequest)
     return response.data
   } catch (error) {
     throw error

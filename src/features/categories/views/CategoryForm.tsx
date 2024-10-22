@@ -25,7 +25,7 @@ const CategoryForm = () => {
   } = useForm<CategoryCreateInputType>({
     defaultValues: {
       name: '',
-      file: null,
+      url: undefined,
     },
     resolver: zodResolver(CategoryCreateInputSchema),
   })
@@ -81,7 +81,7 @@ const CategoryForm = () => {
             <Input
               control={control}
               name="name"
-              label="Tên sách"
+              label="Tên danh mục"
               labelLeft
               placeholder="Tên sách"
               fullWidth
@@ -101,7 +101,7 @@ const CategoryForm = () => {
               </Typography>
             </Stack>
             <UploadImage
-              name="file"
+              name="url"
               control={control}
               content="Kéo và thả file hình ảnh vào đây hoặc nhấp để chọn"
             />

@@ -46,8 +46,7 @@ export const getChapter = async (_id: string) => {
 
 export const createChapter = async (data: ChapterCreateInputType) => {
   try {
-    const formDataReq = formData(data)
-    const response = await request.post('/chapters', formDataReq)
+    const response = await request.post('/chapters', data)
     return response.data
   } catch (error) {
     throw error
@@ -57,8 +56,7 @@ export const createChapter = async (data: ChapterCreateInputType) => {
 export const updateChapter = async (data: ChapterUpdateInputType) => {
   try {
     const { _id, ...dataRequest } = data
-    const formDataReq = formData(dataRequest)
-    const response = await request.patch(`/chapters/${_id}`, formDataReq)
+    const response = await request.patch(`/chapters/${_id}`, dataRequest)
     return response.data
   } catch (error) {
     throw error

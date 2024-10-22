@@ -33,9 +33,9 @@ const BookForm = () => {
       name: '',
       author: '',
       description: '',
-      file: null,
       isPremium: true,
       categoryId: '',
+      url: '',
     },
     resolver: zodResolver(BookCreateInputSchema),
   })
@@ -149,7 +149,7 @@ const BookForm = () => {
               </Typography>
             </Stack>
             <UploadImage
-              name="file"
+              name="url"
               control={control}
               content="Kéo và thả file hình ảnh vào đây hoặc nhấp để chọn"
             />

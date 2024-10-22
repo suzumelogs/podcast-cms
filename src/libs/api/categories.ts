@@ -43,8 +43,7 @@ export const getCategory = async (_id: string) => {
 
 export const createCategory = async (data: CategoryCreateInputType) => {
   try {
-    const formDataReq = formData(data)
-    const response = await request.post('/categories', formDataReq)
+    const response = await request.post('/categories', data)
     return response.data
   } catch (error) {
     throw error
@@ -54,8 +53,7 @@ export const createCategory = async (data: CategoryCreateInputType) => {
 export const updateCategory = async (data: CategoryUpdateInputType) => {
   try {
     const { _id, ...dataRequest } = data
-    const formDataReq = formData(dataRequest)
-    const response = await request.patch(`/categories/${_id}`, formDataReq)
+    const response = await request.patch(`/categories/${_id}`, dataRequest)
     return response.data
   } catch (error) {
     throw error

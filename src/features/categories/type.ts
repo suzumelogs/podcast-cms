@@ -51,16 +51,6 @@ export const CategoryCreateInputSchema = z.object({
     .string()
     .min(1, { message: 'Tên danh mục là bắt buộc' })
     .max(100, { message: 'Tên danh mục không được dài quá 100 ký tự' }),
-  file: z
-    .any()
-    .refine(
-      (file) => file?.size <= MAX_FILE_SIZE,
-      `Hình ảnh là bắt buộc và kích thước hình ảnh tối đa là 5MB.`,
-    )
-    .refine(
-      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-      'Chỉ hỗ trợ các định dạng .jpg, .jpeg, .png và .webp.',
-    ),
   url: z.string().optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),

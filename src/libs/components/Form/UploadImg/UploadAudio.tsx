@@ -1,6 +1,8 @@
+import { uploadAudio } from '@/libs/api/form'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-import { Box, IconButton, Typography } from '@mui/material'
+import { Box, CircularProgress, IconButton, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { useMutation } from '@tanstack/react-query'
 import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useController } from 'react-hook-form'
@@ -69,17 +71,27 @@ const UploadAudio = ({
     fieldState: { error },
   } = useController({ name, control, defaultValue })
 
-  const [audio, setAudio] = useState<File | null>(value ?? null)
+  const [audio, setAudio] = useState<string | null>(value ?? null)
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: uploadAudio,
+    onSuccess: async (data) => {
+      setAudio(data.path)
+      onChange(data.path)
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
         const file = acceptedFiles[0]
-        setAudio(file)
-        onChange(file)
+        mutate(file)
       }
     },
-    [onChange],
+    [onChange, mutate],
   )
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -104,14 +116,24 @@ const UploadAudio = ({
             {content || 'Drag and drop audio file here or click to select'}
           </DropzoneText>
         ) : (
-          <AudioPreview>
-            <audio controls src={URL.createObjectURL(audio)} style={{ width: '100%' }}>
-              Your browser does not support the audio element.
-            </audio>
-            <RemoveButton color="error" onClick={handleRemoveAudio}>
-              <DeleteOutlineIcon />
-            </RemoveButton>
-          </AudioPreview>
+          <>
+            {isPending ? (
+              <CircularProgress size={24} />
+            ) : (
+              <AudioPreview>
+                <audio
+                  controls
+                  src={`${process.env.NEXT_PUBLIC_API_URL}/streams/audio?path=${audio}`}
+                  style={{ width: '100%' }}
+                >
+                  Your browser does not support the audio element.
+                </audio>
+                <RemoveButton color="error" onClick={handleRemoveAudio}>
+                  <DeleteOutlineIcon />
+                </RemoveButton>
+              </AudioPreview>
+            )}
+          </>
         )}
       </DropzoneContainer>
       {error && (

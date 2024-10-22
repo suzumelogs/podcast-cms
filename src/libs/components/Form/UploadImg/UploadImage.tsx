@@ -1,6 +1,9 @@
+import { uploadImage } from '@/libs/api/form'
+import { generateMediaUrl } from '@/utils/media'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import { Box, IconButton, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { useMutation } from '@tanstack/react-query'
 import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useController } from 'react-hook-form'
@@ -71,14 +74,24 @@ const UploadImage = ({
     fieldState: { error },
   } = useController({ name, control, defaultValue })
 
-  const [image, setImage] = useState<File | null>(value ?? null)
+  const [image, setImage] = useState<string | null>(value ?? null)
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: uploadImage,
+    onSuccess: (data) => {
+      setImage(generateMediaUrl(data.path, 'image'))
+      onChange(data.path)
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
         const file = acceptedFiles[0]
-        setImage(file)
-        onChange(file)
+        mutate(file)
       }
     },
     [onChange],
@@ -105,11 +118,7 @@ const UploadImage = ({
           <DropzoneText variant="body2">{content}</DropzoneText>
         ) : (
           <ImagePreview>
-            <img
-              src={URL.createObjectURL(image)}
-              alt="Preview"
-              style={{ width: '100%', height: 'auto' }}
-            />
+            <img src={image} alt="Preview" style={{ width: '100%', height: 'auto' }} />
             <RemoveButton color="error" onClick={handleRemoveImage}>
               <DeleteOutlineIcon />
             </RemoveButton>

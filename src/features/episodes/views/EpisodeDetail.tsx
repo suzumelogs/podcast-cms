@@ -4,6 +4,7 @@ import { DetailItem } from '@/features/article/components'
 import { Header } from '@/libs/components/Form/Layout/Header'
 import { Modal } from '@/libs/components/Modal'
 import { formatDate } from '@/utils/format'
+import { generateMediaUrl } from '@/utils/media'
 import { Box, Stack } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
@@ -86,14 +87,16 @@ const EpisodeDetail = () => {
             value={formatDate(data?.updatedAt as string)}
             isPending={isLoading}
           />
-          <DetailItem
-            label="Audio"
-            audio={{ src: data?.url as string, controls: true }}
-            isPending={isLoading}
-          />
+          {data?.url && (
+            <DetailItem
+              label="Audio"
+              audio={{ src: generateMediaUrl(data?.url as string, 'audio'), controls: true }}
+              isPending={isLoading}
+            />
+          )}
           <DetailItem
             image={{
-              src: data?.artwork as string,
+              src: generateMediaUrl(data?.artwork as string, 'image'),
               alt: 'Image chapter',
             }}
             label="Hình ảnh"

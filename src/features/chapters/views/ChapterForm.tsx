@@ -32,7 +32,7 @@ const ChapterForm = () => {
     defaultValues: {
       name: '',
       description: '',
-      file: null,
+      url: undefined,
       isPremium: true,
       bookId: '',
     },
@@ -135,7 +135,7 @@ const ChapterForm = () => {
                 Hình ảnh
               </Typography>
             </Stack>
-            <UploadImage name="file" control={control} />
+            <UploadImage name="url" control={control} />
           </Stack>
 
           <Stack direction={{ xs: 'column', lg: 'row' }} gap={4} marginTop={4}>

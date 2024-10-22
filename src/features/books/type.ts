@@ -69,16 +69,6 @@ export const BookCreateInputSchema = z.object({
     .string()
     .min(1, { message: 'Mô tả là bắt buộc' })
     .max(500, { message: 'Mô tả không được dài quá 500 ký tự' }),
-  file: z
-    .any()
-    .refine(
-      (file) => file?.size <= MAX_FILE_SIZE,
-      `Hình ảnh là bắt buộc và kích thước hình ảnh tối đa là 5MB.`,
-    )
-    .refine(
-      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-      'Chỉ hỗ trợ các định dạng .jpg, .jpeg, .png và .webp.',
-    ),
   url: z.string().optional(),
   isPremium: z.boolean().optional(),
   isTop10Year: z.boolean().optional(),

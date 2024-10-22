@@ -2,6 +2,7 @@
 
 import { StatusTag } from '@/libs/components/StatusTag'
 import { ReactTable } from '@/libs/components/Table'
+import { generateMediaUrl } from '@/utils/media'
 import { Stack } from '@mui/material'
 import { ColumnDef } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
@@ -84,7 +85,11 @@ const BookList = () => {
             height="40px"
             component="img"
             borderRadius="2px"
-            src={row.original?.url ?? 'https://demofree.sirv.com/nope-not-here.jpg'}
+            src={
+              row.original?.url
+                ? generateMediaUrl(row.original?.url, 'image')
+                : 'https://demofree.sirv.com/nope-not-here.jpg'
+            }
           />
         </Stack>
       ),
