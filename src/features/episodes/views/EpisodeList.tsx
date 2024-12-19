@@ -171,7 +171,8 @@ const EpisodeList = () => {
       action={{
         disabledDetail: false,
         onDetail: (_id) => {
-          router.push(`/episodes/${_id}/detail`)
+          const url = `/episodes/${_id}/detail`
+          window.open(url, '_blank')
         },
       }}
     />
