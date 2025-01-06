@@ -8,9 +8,9 @@ import { BookSearchInputType } from '../type'
 const BookFilter = () => {
   const filterColumn: FilterColumn<ExVoid<BookSearchInputType>>[] = [
     {
-      field: 'filter',
+      field: 'name',
       type: 'text',
-      placeholder: 'Tìm kiếm',
+      placeholder: 'Tìm kiếm theo tên sách',
       defaultValue: '',
       sx: { width: 240 },
       fieldOptions: {
@@ -18,6 +18,37 @@ const BookFilter = () => {
         hasLine: true,
       },
     },
+    {
+      field: 'author',
+      type: 'text',
+      placeholder: 'Tìm kiếm theo tên tác giả',
+      defaultValue: '',
+      sx: { width: 240 },
+
+    },
+    {
+      field: 'isTop10Year',
+      type: 'select',
+      options: [
+        { label: 'Top 10 năm', value: "true" },
+        { label: 'Không top 10 năm', value: "false" },
+      ],
+      placeholder: 'Tìm kiếm theo top 10 năm',
+      defaultValue: '',
+      sx: { width: 240 },
+    },
+    {
+      field: 'isPremium',
+      type: 'select',
+      options: [
+        { label: 'Trả phí', value: "true" },
+        { label: 'Miễn phí', value: "false" },
+      ],
+      placeholder: 'Tìm kiếm theo trả phí',
+      defaultValue: '',
+      sx: { width: 240 },
+    },
+
   ]
 
   return (

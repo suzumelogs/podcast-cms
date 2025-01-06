@@ -17,13 +17,14 @@ const formData = (data: CategoryCreateInputType | CategoryUpdateInputType | any)
 }
 
 export const getListCategories = async (params: CategoryListQueryInputType) => {
-  const { page, limit, filter } = params
+  const { page, limit, name } = params
   try {
-    const response = await request.get<CategoryListType>('/categories', {
+    const response = await request.get<CategoryListType>('/categories/all/pagination', {
       params: {
         page,
         limit,
-        filter,
+        name,
+
       },
     })
     return response.data

@@ -8,15 +8,26 @@ import { ChapterSearchInputType } from '../type'
 const ChapterFilter = () => {
   const filterColumn: FilterColumn<ExVoid<ChapterSearchInputType>>[] = [
     {
-      field: 'filter',
+      field: 'name',
       type: 'text',
-      placeholder: 'Tìm kiếm',
+      placeholder: 'Tìm kiếm theo tên chương',
       defaultValue: '',
       sx: { width: 240 },
       fieldOptions: {
         searchIcon: true,
         hasLine: true,
       },
+    },
+    {
+      field: 'isPremium',
+      type: 'select',
+      options: [
+        { label: 'Trả phí', value: "true" },
+        { label: 'Miễn phí', value: "false" },
+      ],
+      placeholder: 'Tìm kiếm theo trả phí',
+      defaultValue: '',
+      sx: { width: 240 },
     },
   ]
 

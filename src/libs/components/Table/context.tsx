@@ -88,7 +88,6 @@ export function TableProvider<TData, Input>({
 
   const handleChangeParams = useCallback(
     (newParams: MakePaginationOptional<Input>, mergeParams = true, resetPaginationMeta = true) => {
-      // remove properties with undefined or empty string value
       const validate = (p: MakePaginationOptional<Input>) =>
         Object.entries(p).reduce((acc, [key, value]) => {
           if (value !== undefined && (value as unknown) !== '' && value !== null) {
@@ -97,10 +96,11 @@ export function TableProvider<TData, Input>({
           }
           return acc
         }, {} as MakePaginationOptional<Input>)
-
+      
       const _update = (prev: Input) => {
         return (mergeParams ? validate({ ...prev, ...newParams }) : validate(newParams)) as Input
       }
+
 
       setParams(_update)
 

@@ -128,8 +128,7 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
 
       handleFilter(
         column,
-        `{"name": {"$regex": "${value}", "$options": "i"}}` ||
-          `{"title": {"$regex": "${value}", "$options": "i"}}`,
+        value
       )
     })
   }

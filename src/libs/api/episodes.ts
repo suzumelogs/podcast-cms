@@ -25,14 +25,9 @@ const formData = (data: EpisodeCreateInputType | EpisodeUpdateInputType | any): 
 }
 
 export const getListEpisodes = async (params: EpisodeListQueryInputType) => {
-  const { page, limit, filter } = params
   try {
-    const response = await request.get<EpisodeListType>('/episodes', {
-      params: {
-        page,
-        limit,
-        filter,
-      },
+    const response = await request.get<EpisodeListType>('/episodes/all/pagination', {
+      params
     })
     return response.data
   } catch (error) {

@@ -8,11 +8,11 @@ export const useCategoryListQuery = () => {
     CategoryType,
     CategorySearchInputType
   >()
-  const { page, limit, filter } = input
+  const { page, limit, name } = input
   const { sort_by, column } = sortOptions || {}
 
   const data = useQuery({
-    queryKey: ['category-list', page, filter, limit, sort_by, column],
+    queryKey: ['category-list', page, name, limit, sort_by, column],
     queryFn: () => getListCategories({ ...input, limit, ...sortOptions }),
   })
 

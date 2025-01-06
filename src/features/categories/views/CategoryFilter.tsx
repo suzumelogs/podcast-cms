@@ -8,9 +8,9 @@ import { CategorySearchInputType } from '../type'
 const CategoryFilter = () => {
   const filterColumn: FilterColumn<ExVoid<CategorySearchInputType>>[] = [
     {
-      field: 'filter',
+      field: 'name',
       type: 'text',
-      placeholder: 'Tìm kiếm',
+      placeholder: 'Tìm kiếm theo tên',
       defaultValue: '',
       sx: { width: 240 },
       fieldOptions: {

@@ -8,25 +8,17 @@ import {
 } from '@/features/chapters'
 import request from '../config/axios'
 
-const formData = (data: ChapterCreateInputType | ChapterUpdateInputType | any): FormData => {
-  const formData = new FormData()
-  if ('name' in data) formData.append('name', data.name as string)
-  if ('description' in data) formData.append('description', data.description as string)
-  if ('isPremium' in data) formData.append('isPremium', data.isPremium)
-  if ('url' in data && data.url) formData.append('url', data.url)
-  if ('file' in data && data.file) formData.append('file', data.file)
-  if ('bookId' in data && data.bookId) formData.append('bookId', data.bookId)
-  return formData
-}
+
 
 export const getListChapters = async (params: ChapterListQueryInputType) => {
-  const { page, limit, filter } = params
+  const { page, limit, name, isPremium } = params
   try {
-    const response = await request.get<ChapterListType>('/chapters', {
+    const response = await request.get<ChapterListType>('/chapters/all/pagination', {
       params: {
         page,
         limit,
-        filter,
+        name,
+        isPremium
       },
     })
     return response.data

@@ -18,9 +18,12 @@ export type BookType = {
 }
 
 export type BookSearchInputType = PaginationType & {
-  filter?: string
+  name?: string
   page?: string
   next?: string
+  author?: string
+  isPremium?: boolean
+  isTop10Year?: boolean
 }
 
 export type BookListQueryInputType = BookSearchInputType & {

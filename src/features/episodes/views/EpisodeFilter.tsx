@@ -8,15 +8,44 @@ import { EpisodeSearchInputType } from '../type'
 const EpisodeFilter = () => {
   const filterColumn: FilterColumn<ExVoid<EpisodeSearchInputType>>[] = [
     {
-      field: 'filter',
+      field: 'name',
       type: 'text',
-      placeholder: 'Tìm kiếm',
+      placeholder: 'Tìm kiếm theo tên tập',
       defaultValue: '',
       sx: { width: 240 },
       fieldOptions: {
         searchIcon: true,
         hasLine: true,
       },
+    },
+    {
+      field: 'author',
+      type: 'text',
+      placeholder: 'Tìm kiếm theo tác giả',
+      defaultValue: '',
+      sx: { width: 240 },
+    },
+    {
+      field: 'isTop',
+      type: 'select',
+      options: [
+        { label: 'Top', value: "true" },
+        { label: 'Không top', value: "false" },
+      ],
+      placeholder: 'Tìm kiếm theo top',
+      defaultValue: '',
+      sx: { width: 240 },
+    },
+    {
+      field: 'isPremium',
+      type: 'select',
+      options: [
+        { label: 'Trả phí', value: "true" },
+        { label: 'Miễn phí', value: "false" },
+      ],
+      placeholder: 'Tìm kiếm theo trả phí',
+      defaultValue: '',
+      sx: { width: 240 },
     },
   ]
 

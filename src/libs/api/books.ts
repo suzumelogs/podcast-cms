@@ -21,13 +21,14 @@ const formData = (data: BookCreateInputType | BookUpdateInputType | any): FormDa
 }
 
 export const getListBooks = async (params: BookListQueryInputType) => {
-  const { page, limit, filter } = params
+  const { page, limit, name, author, isPremium, isTop10Year } = params
   try {
-    const response = await request.get<BookListType>('/books', {
+    const response = await request.get<BookListType>('/books/all/pagination', {
       params: {
         page,
         limit,
-        filter,
+        name,
+        author, isPremium, isTop10Year
       },
     })
     return response.data

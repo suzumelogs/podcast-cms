@@ -1,8 +1,7 @@
 import { PaginationType } from '@/libs/types/pagination'
 import { TypeOf, z } from 'zod'
 
-const MAX_FILE_SIZE = 5000000
-const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
+
 
 export type CategoryType = {
   _id?: string
@@ -13,9 +12,9 @@ export type CategoryType = {
 }
 
 export type CategorySearchInputType = PaginationType & {
-  filter?: string
   page?: string
   next?: string
+  name?: string
 }
 
 export type CategoryListQueryInputType = CategorySearchInputType & {

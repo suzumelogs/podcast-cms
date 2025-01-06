@@ -17,7 +17,10 @@ export type EpisodeType = {
 }
 
 export type EpisodeSearchInputType = PaginationType & {
-  filter?: string
+  name?: string
+  author?: string
+  isPremium: boolean
+  isTop: boolean
   page?: string
   next?: string
 }

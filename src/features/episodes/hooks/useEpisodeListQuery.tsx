@@ -8,11 +8,11 @@ export const useEpisodeListQuery = () => {
     EpisodeType,
     EpisodeSearchInputType
   >()
-  const { page, limit, filter } = input
+  const { page, limit, name, author, isPremium, isTop } = input
   const { sort_by, column } = sortOptions || {}
 
   const data = useQuery({
-    queryKey: ['episode-list', page, filter, limit, sort_by, column],
+    queryKey: ['episode-list', page, name, author, limit, sort_by, column, isPremium, isTop],
     queryFn: () => getListEpisodes({ ...input, limit, ...sortOptions }),
   })
 

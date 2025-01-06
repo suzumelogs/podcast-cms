@@ -8,11 +8,11 @@ export const useChapterListQuery = () => {
     ChapterType,
     ChapterSearchInputType
   >()
-  const { page, limit, filter } = input
+  const { page, limit, name, isPremium } = input
   const { sort_by, column } = sortOptions || {}
 
   const data = useQuery({
-    queryKey: ['chapter-list', page, filter, limit, sort_by, column],
+    queryKey: ['chapter-list', page, name, limit, sort_by, column, isPremium],
     queryFn: () => getListChapters({ ...input, limit, ...sortOptions }),
   })
 
