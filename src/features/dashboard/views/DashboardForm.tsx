@@ -3,8 +3,11 @@
 import { Box, Grid, Stack, Typography } from '@mui/material'
 import { LineChart } from '@mui/x-charts'
 import { BarChart } from '@mui/x-charts/BarChart'
+import { useStatisticals } from '../hooks'
 
 const DashboardForm = () => {
+  const { data } = useStatisticals()
+    
   return (
     <Stack height="100%" gap={2}>
       <Grid container spacing={2}>
@@ -22,7 +25,7 @@ const DashboardForm = () => {
             }}
           >
             <Typography>Danh mục</Typography>
-            <Typography>125</Typography>
+            <Typography>{data?.categoryCount}</Typography>
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
@@ -39,7 +42,7 @@ const DashboardForm = () => {
             }}
           >
             <Typography>Sách</Typography>
-            <Typography>125</Typography>
+            <Typography>{data?.bookCount}</Typography>
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
@@ -56,7 +59,7 @@ const DashboardForm = () => {
             }}
           >
             <Typography>Chương</Typography>
-            <Typography>125</Typography>
+            <Typography>{data?.chapterCount}</Typography>
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
@@ -73,7 +76,7 @@ const DashboardForm = () => {
             }}
           >
             <Typography>Tập</Typography>
-            <Typography>125</Typography>
+            <Typography>{data?.episodeCount}</Typography>
           </Box>
         </Grid>
       </Grid>
