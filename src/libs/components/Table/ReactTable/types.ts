@@ -29,6 +29,7 @@ export type PaginationProps = {
   paginationParams?: PaginationParams
   handleChangePagination?: (paginationParams: Partial<PaginationParams>) => void
   manualPagination?: boolean
+  totalPages?: number
 }
 
 export interface TableProperties<T extends RowData> extends TableOptions<T> {
@@ -66,6 +67,8 @@ export interface ReactTableContextValue<T> {
   hiddenPagination?: boolean
   onCopy?: (id: string | number) => void
   next: number
+  totalPages: number
+  total: number
 }
 
 export type PaginationParams = {

@@ -96,11 +96,10 @@ export function TableProvider<TData, Input>({
           }
           return acc
         }, {} as MakePaginationOptional<Input>)
-      
+
       const _update = (prev: Input) => {
         return (mergeParams ? validate({ ...prev, ...newParams }) : validate(newParams)) as Input
       }
-
 
       setParams(_update)
 
@@ -123,6 +122,7 @@ export function TableProvider<TData, Input>({
           paginationParams: pagination,
           pageCount: data?.limit,
           total: data?.total,
+          totalPages: data?.totalPages,
           handleChangePagination,
           manualPagination: true,
         },

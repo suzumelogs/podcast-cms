@@ -11,7 +11,7 @@ export const PAGINATION_HEIGHT = 66
 
 const TablePagination = () => {
   const { pageCount, pageIndex, setPageIndex, handleChangePagination } = usePaginationHandler()
-  const { instance, hiddenPagination, next } = useReactTableContext()
+  const { instance, hiddenPagination, next, total, totalPages } = useReactTableContext()
   const isShowPagination = !hiddenPagination || instance.getSelectedRowModel().flatRows.length !== 0
 
   return (
@@ -30,7 +30,7 @@ const TablePagination = () => {
       <Stack flex={1} alignItems="center" justifyContent="center">
         <Pagination
           page={pageIndex + 1}
-          count={next}
+          count={totalPages}
           onChange={(_, page) => {
             setPageIndex(page - 1)
             typeof handleChangePagination === 'function' &&

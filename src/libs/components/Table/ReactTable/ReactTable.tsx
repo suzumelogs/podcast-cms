@@ -49,6 +49,7 @@ function ReactTableWithRef<T extends RowData>(
     freeContainerHeight,
     hiddenPagination,
     next,
+    total,
     ...useTableOptions
   } = props
   const columns = useColumns(originalColumns, action, selection)
@@ -79,6 +80,8 @@ function ReactTableWithRef<T extends RowData>(
     pageCount: paginationProps?.pageCount,
   })
 
+  console.log('instance', paginationProps)
+
   useImperativeHandle(ref, () => instance, [instance])
 
   const hasRowClick = typeof onRowClick === 'function' && !disabledRowClick
@@ -100,6 +103,8 @@ function ReactTableWithRef<T extends RowData>(
       hiddenPagination,
       onCopy,
       next,
+      total: paginationProps?.total ?? 0,
+      totalPages: paginationProps?.totalPages ?? 0,
     }),
     [
       instance,
@@ -113,6 +118,8 @@ function ReactTableWithRef<T extends RowData>(
       hiddenPagination,
       onCopy,
       next,
+      paginationProps?.total ?? 0,
+      paginationProps?.totalPages ?? 0,
     ],
   )
 
