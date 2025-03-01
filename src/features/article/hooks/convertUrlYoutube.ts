@@ -13,7 +13,5 @@ export function convertUrlYoutube(url: string) {
     }
 
     return videoId ? videoId : 'error'
-  } catch (err) {
-    console.log(err)
-  }
+  } catch (err) {}
 }

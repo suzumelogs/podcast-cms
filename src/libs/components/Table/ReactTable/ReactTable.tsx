@@ -49,7 +49,6 @@ function ReactTableWithRef<T extends RowData>(
     freeContainerHeight,
     hiddenPagination,
     next,
-    total,
     ...useTableOptions
   } = props
   const columns = useColumns(originalColumns, action, selection)
@@ -77,10 +76,8 @@ function ReactTableWithRef<T extends RowData>(
       sortingFn: 'alphanumericCaseSensitive',
       sortDescFirst: false,
     },
-    pageCount: paginationProps?.pageCount,
+    pageCount: paginationProps?.totalPages,
   })
-
-  console.log('instance', paginationProps)
 
   useImperativeHandle(ref, () => instance, [instance])
 
@@ -89,6 +86,9 @@ function ReactTableWithRef<T extends RowData>(
   useEffect(() => {
     if (hiddenPagination && !loading) instance.setPageSize(data.length)
   }, [hiddenPagination, loading, data.length, instance])
+
+  const total = paginationProps?.total ?? 0
+  const totalPages = paginationProps?.totalPages ?? 0
 
   const value = useMemo(
     () => ({
@@ -103,8 +103,8 @@ function ReactTableWithRef<T extends RowData>(
       hiddenPagination,
       onCopy,
       next,
-      total: paginationProps?.total ?? 0,
-      totalPages: paginationProps?.totalPages ?? 0,
+      total,
+      totalPages,
     }),
     [
       instance,
@@ -118,8 +118,8 @@ function ReactTableWithRef<T extends RowData>(
       hiddenPagination,
       onCopy,
       next,
-      paginationProps?.total ?? 0,
-      paginationProps?.totalPages ?? 0,
+      total,
+      totalPages,
     ],
   )
 

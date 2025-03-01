@@ -69,7 +69,10 @@ export function TableProvider<TData, Input>({
   const [filterOptions, setFilterOptions] = useState<Record<keyof Input, unknown> | undefined>()
   const [sortOptions, setSortOptions] = useState<SortParams | undefined>()
   const handleChangePagination = useCallback((paginationParams: Partial<PaginationParams>) => {
-    setPagination((pre) => ({ ...pre, ...paginationParams }))
+    setPagination((pre) => ({
+      page: paginationParams.page || pre.page,
+      limit: paginationParams.limit || pre.limit,
+    }))
   }, [])
 
   const resetPagination = useCallback(

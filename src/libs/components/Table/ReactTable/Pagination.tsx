@@ -10,9 +10,8 @@ import { usePaginationHandler } from './hooks'
 export const PAGINATION_HEIGHT = 66
 
 const TablePagination = () => {
-  const { pageCount, pageIndex, setPageIndex, handleChangePagination } = usePaginationHandler()
-  const { instance, hiddenPagination, next, total, totalPages } = useReactTableContext()
-  const isShowPagination = !hiddenPagination || instance.getSelectedRowModel().flatRows.length !== 0
+  const { pageIndex, handleChangePagination, setPageIndex } = usePaginationHandler()
+  const { instance, hiddenPagination, totalPages } = useReactTableContext()
 
   return (
     <Stack

@@ -29,11 +29,11 @@ export const usePaginationHandler = () => {
       paginationParams &&
       (paginationParams.page !== pageIndex + 1 || paginationParams?.limit !== pageSize)
     ) {
-      setPageIndex(paginationParams.page - 1)
+      setPageIndex(paginationParams.page)
       setPageSize(paginationParams.limit)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setPageIndex, paginationParams, setPageSize, manualPagination])
+  }, [paginationParams, setPageSize, manualPagination])
 
   return {
     pageCount: instance.getPageCount(),
