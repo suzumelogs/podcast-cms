@@ -23,7 +23,7 @@ const CategoryFilter = () => {
   return (
     <Stack spacing={3}>
       <Typography color="mono.600" variant="h2">
-        Danh sách
+        Danh sách danh mục
       </Typography>
 
       <FilterBar

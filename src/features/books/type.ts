@@ -1,9 +1,6 @@
 import { PaginationType } from '@/libs/types/pagination'
 import { TypeOf, z } from 'zod'
 
-const MAX_FILE_SIZE = 5000000
-const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
-
 export type BookType = {
   _id?: string
   name?: string
@@ -22,8 +19,7 @@ export type BookSearchInputType = PaginationType & {
   page?: string
   next?: string
   author?: string
-  isPremium?: boolean
-  isTop10Year?: boolean
+  categoryId?: string
 }
 
 export type BookListQueryInputType = BookSearchInputType & {

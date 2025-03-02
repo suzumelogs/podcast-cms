@@ -8,26 +8,10 @@ import {
 } from '@/features/episodes'
 import request from '../config/axios'
 
-const formData = (data: EpisodeCreateInputType | EpisodeUpdateInputType | any): FormData => {
-  const formData = new FormData()
-  if ('title' in data) formData.append('title', data.title as string)
-  if ('album' in data) formData.append('album', data.album as string)
-  if ('artist' in data) formData.append('artist', data.artist as string)
-  if ('description' in data) formData.append('description', data.description as string)
-  if ('isPremium' in data) formData.append('isPremium', data.isPremium)
-  if ('isTop' in data) formData.append('isTop', data.isTop)
-  if ('artwork' in data && data.artwork) formData.append('artwork', data.artwork)
-  if ('file' in data && data.file) formData.append('file', data.file)
-  if ('url' in data && data.url) formData.append('url', data.url)
-  if ('audioFile' in data && data.audioFile) formData.append('audioFile', data.audioFile)
-  if ('chapterId' in data && data.chapterId) formData.append('chapterId', data.chapterId)
-  return formData
-}
-
 export const getListEpisodes = async (params: EpisodeListQueryInputType) => {
   try {
     const response = await request.get<EpisodeListType>('/episodes/all/pagination', {
-      params
+      params,
     })
     return response.data
   } catch (error) {

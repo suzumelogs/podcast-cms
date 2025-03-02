@@ -8,17 +8,16 @@ import {
 } from '@/features/chapters'
 import request from '../config/axios'
 
-
-
 export const getListChapters = async (params: ChapterListQueryInputType) => {
-  const { page, limit, name, isPremium } = params
+  const { page, limit, name, bookId, categoryId } = params
   try {
     const response = await request.get<ChapterListType>('/chapters/all/pagination', {
       params: {
         page,
         limit,
         name,
-        isPremium
+        bookId,
+        categoryId,
       },
     })
     return response.data

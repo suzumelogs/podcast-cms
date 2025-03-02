@@ -21,14 +21,15 @@ const formData = (data: BookCreateInputType | BookUpdateInputType | any): FormDa
 }
 
 export const getListBooks = async (params: BookListQueryInputType) => {
-  const { page, limit, name, author, isPremium, isTop10Year } = params
+  const { page, limit, name, author, categoryId } = params
   try {
     const response = await request.get<BookListType>('/books/all/pagination', {
       params: {
         page,
         limit,
         name,
-        author, isPremium, isTop10Year
+        author,
+        categoryId,
       },
     })
     return response.data
@@ -58,7 +59,6 @@ export const createBook = async (data: BookCreateInputType) => {
 export const updateBook = async (data: BookUpdateInputType) => {
   try {
     const { _id, ...dataRequest } = data
-    const formDataReq = formData(dataRequest)
     const response = await request.patch(`/books/${_id}`, dataRequest)
     return response.data
   } catch (error) {

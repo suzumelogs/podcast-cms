@@ -1,11 +1,16 @@
 'use client'
 
+import { useBookValueLabel } from '@/features/books/hooks'
+import { useCategoryValueLabel } from '@/features/categories/hooks'
 import { FilterBar, FilterColumn } from '@/libs/components/Table/FilterBar'
 import { ExVoid } from '@/libs/types/utils'
 import { Stack, Typography } from '@mui/material'
 import { ChapterSearchInputType } from '../type'
 
 const ChapterFilter = () => {
+  const { data: categories } = useCategoryValueLabel()
+  const { data: books } = useBookValueLabel()
+
   const filterColumn: FilterColumn<ExVoid<ChapterSearchInputType>>[] = [
     {
       field: 'name',
@@ -19,13 +24,18 @@ const ChapterFilter = () => {
       },
     },
     {
-      field: 'isPremium',
+      field: 'categoryId',
       type: 'select',
-      options: [
-        { label: 'Trả phí', value: "true" },
-        { label: 'Miễn phí', value: "false" },
-      ],
-      placeholder: 'Tìm kiếm theo trả phí',
+      options: categories,
+      placeholder: 'Tìm kiếm theo danh mục',
+      defaultValue: '',
+      sx: { width: 240 },
+    },
+    {
+      field: 'bookId',
+      type: 'select',
+      options: books,
+      placeholder: 'Tìm kiếm theo sách',
       defaultValue: '',
       sx: { width: 240 },
     },

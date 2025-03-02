@@ -1,11 +1,18 @@
 'use client'
 
+import { useBookValueLabel } from '@/features/books/hooks'
+import { useCategoryValueLabel } from '@/features/categories/hooks'
+import { useChapterValueLabel } from '@/features/chapters/hooks/useChapterValueLabel'
 import { FilterBar, FilterColumn } from '@/libs/components/Table/FilterBar'
 import { ExVoid } from '@/libs/types/utils'
 import { Stack, Typography } from '@mui/material'
 import { EpisodeSearchInputType } from '../type'
 
 const EpisodeFilter = () => {
+  const { data: categories } = useCategoryValueLabel()
+  const { data: books } = useBookValueLabel()
+  const { data: chapters } = useChapterValueLabel()
+
   const filterColumn: FilterColumn<ExVoid<EpisodeSearchInputType>>[] = [
     {
       field: 'name',
@@ -26,24 +33,26 @@ const EpisodeFilter = () => {
       sx: { width: 240 },
     },
     {
-      field: 'isTop',
+      field: 'categoryId',
       type: 'select',
-      options: [
-        { label: 'Top', value: "true" },
-        { label: 'Không top', value: "false" },
-      ],
-      placeholder: 'Tìm kiếm theo top',
+      options: categories,
+      placeholder: 'Tìm kiếm theo danh mục',
       defaultValue: '',
       sx: { width: 240 },
     },
     {
-      field: 'isPremium',
+      field: 'bookId',
       type: 'select',
-      options: [
-        { label: 'Trả phí', value: "true" },
-        { label: 'Miễn phí', value: "false" },
-      ],
-      placeholder: 'Tìm kiếm theo trả phí',
+      options: books,
+      placeholder: 'Tìm kiếm theo sách',
+      defaultValue: '',
+      sx: { width: 240 },
+    },
+    {
+      field: 'chapterId',
+      type: 'select',
+      options: chapters,
+      placeholder: 'Tìm kiếm theo chương',
       defaultValue: '',
       sx: { width: 240 },
     },

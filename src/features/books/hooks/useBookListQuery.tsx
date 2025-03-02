@@ -5,11 +5,11 @@ import { BookSearchInputType, BookType } from '../type'
 
 export const useBookListQuery = () => {
   const { input, getTableData, sortOptions } = useTableContext<BookType, BookSearchInputType>()
-  const { page, limit, name, author, isPremium, isTop10Year } = input
+  const { page, limit, name, author, categoryId } = input
   const { sort_by, column } = sortOptions || {}
 
   const data = useQuery({
-    queryKey: ['book-list', page, name, limit, sort_by, column, author, isPremium, isTop10Year],
+    queryKey: ['book-list', page, name, limit, sort_by, column, author, categoryId],
     queryFn: () => getListBooks({ ...input, limit, ...sortOptions }),
   })
 
