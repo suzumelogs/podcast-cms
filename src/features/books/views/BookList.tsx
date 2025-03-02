@@ -48,7 +48,7 @@ const BookList = () => {
         },
         cellStyle: {
           ...commonCellStyle,
-          width: 250,
+          width: 200,
         },
       },
     },
@@ -75,7 +75,7 @@ const BookList = () => {
         cellStyle: {
           padding: '0 8px',
           textAlign: 'center',
-          width: 100,
+          width: 50,
         },
       },
       cell: ({ row }) => (
@@ -103,7 +103,6 @@ const BookList = () => {
         },
         cellStyle: {
           ...commonCellStyle,
-          width: 300,
         },
       },
     },

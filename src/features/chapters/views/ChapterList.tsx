@@ -48,7 +48,7 @@ const ChapterList = () => {
         },
         cellStyle: {
           ...commonCellStyle,
-          width: 250,
+          width: 200,
         },
       },
     },
@@ -62,7 +62,7 @@ const ChapterList = () => {
         cellStyle: {
           padding: '0 8px',
           textAlign: 'center',
-          width: 100,
+          width: 50,
         },
       },
       cell: ({ row }) => (
@@ -90,7 +90,6 @@ const ChapterList = () => {
         },
         cellStyle: {
           ...commonCellStyle,
-          width: 300,
         },
       },
     },
