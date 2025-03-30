@@ -13,11 +13,8 @@ export type ChapterType = {
 }
 
 export type ChapterSearchInputType = PaginationType & {
-  name?: string
   page?: string
   next?: string
-  bookId?: string
-  categoryId?: string
 }
 
 export type ChapterListQueryInputType = ChapterSearchInputType & {

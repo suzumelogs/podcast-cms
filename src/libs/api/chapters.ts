@@ -5,20 +5,15 @@ import {
   ChapterListType,
   ChapterUpdateInputType,
   QueryInputChapterDetailType,
+  TChapterSearch,
 } from '@/features/chapters'
 import request from '../config/axios'
+import { cleanParams } from './episodes'
 
-export const getListChapters = async (params: ChapterListQueryInputType) => {
-  const { page, limit, name, bookId, categoryId } = params
+export const getListChapters = async (params: ChapterListQueryInputType & TChapterSearch) => {
   try {
     const response = await request.get<ChapterListType>('/chapters/all/pagination', {
-      params: {
-        page,
-        limit,
-        name,
-        bookId,
-        categoryId,
-      },
+      params: cleanParams(params),
     })
     return response.data
   } catch (error) {

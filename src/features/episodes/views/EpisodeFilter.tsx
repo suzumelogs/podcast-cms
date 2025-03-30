@@ -33,7 +33,6 @@ const EpisodeFilter: React.FC<TEpisodeFilterProps> = ({ setSearch }) => {
   useEffect(() => {
     setValue('bookId', null)
     setValue('chapterId', null)
-    console.log('DEBUG BOOK ID', watch('bookId'))
   }, [watch('categoryId')])
 
   useEffect(() => {

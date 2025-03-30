@@ -259,6 +259,11 @@ const defaultTheme: Theme = createTheme({
             '&::placeholder': {
               color: mono[200],
             },
+            '&.Mui-disabled': {
+              background: mono[50],
+              color: mono[200],
+              opacity: 0.5,
+            },
           },
           '&.Mui-error': {
             '&.Mui-focused fieldset': {

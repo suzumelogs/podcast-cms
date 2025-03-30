@@ -6,11 +6,25 @@ import { generateMediaUrl } from '@/utils/media'
 import { Stack } from '@mui/material'
 import { ColumnDef } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useChapterListQuery } from '../hooks'
 import { ChapterType } from '../type'
+import { ChapterFilter } from './ChapterFilter'
+
+export type TChapterSearch = {
+  categoryId: string | null
+  bookId: string | null
+  name: string | null
+}
 
 const ChapterList = () => {
-  const { tableData, totalPages } = useChapterListQuery()
+  const [search, setSearch] = useState<TChapterSearch>({
+    categoryId: null,
+    bookId: null,
+    name: null,
+  })
+
+  const { tableData, totalPages } = useChapterListQuery(search)
   const router = useRouter()
 
   const commonCellStyle = {
@@ -118,17 +132,21 @@ const ChapterList = () => {
   ]
 
   return (
-    <ReactTable
-      {...tableData}
-      columns={columns}
-      next={totalPages}
-      action={{
-        disabledDetail: false,
-        onDetail: (_id) => {
-          router.push(`/chapters/${_id}/detail`)
-        },
-      }}
-    />
+    <Stack gap={8} flexDirection="column">
+      <ChapterFilter search={search} setSearch={setSearch} />
+
+      <ReactTable
+        {...tableData}
+        columns={columns}
+        next={totalPages}
+        action={{
+          disabledDetail: false,
+          onDetail: (_id) => {
+            router.push(`/chapters/${_id}/detail`)
+          },
+        }}
+      />
+    </Stack>
   )
 }
 
