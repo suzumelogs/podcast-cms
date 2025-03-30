@@ -5,13 +5,28 @@ import { ReactTable } from '@/libs/components/Table'
 import { generateMediaUrl } from '@/utils/media'
 import { Stack } from '@mui/material'
 import { ColumnDef } from '@tanstack/react-table'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useEpisodeListQuery } from '../hooks'
 import { EpisodeType } from '../type'
+import { EpisodeFilter } from './EpisodeFilter'
+
+export type TSearch = {
+  bookId: string | null
+  categoryId: string | null
+  chapterId: string | null
+  name: string | null
+  author: string | null
+}
 
 const EpisodeList = () => {
-  const { tableData, totalPages } = useEpisodeListQuery()
-  const router = useRouter()
+  const [search, setSearch] = useState<TSearch>({
+    bookId: null,
+    categoryId: null,
+    chapterId: null,
+    name: null,
+    author: null,
+  })
+  const { tableData, totalPages } = useEpisodeListQuery(search)
 
   const commonCellStyle = {
     fontSize: 14,
@@ -164,18 +179,22 @@ const EpisodeList = () => {
   ]
 
   return (
-    <ReactTable
-      {...tableData}
-      columns={columns}
-      next={totalPages}
-      action={{
-        disabledDetail: false,
-        onDetail: (_id) => {
-          const url = `/episodes/${_id}/detail`
-          window.open(url, '_blank')
-        },
-      }}
-    />
+    <Stack gap={8} flexDirection="column">
+      <EpisodeFilter search={search} setSearch={setSearch} />
+
+      <ReactTable
+        {...tableData}
+        columns={columns}
+        next={totalPages}
+        action={{
+          disabledDetail: false,
+          onDetail: (_id) => {
+            const url = `/episodes/${_id}/detail`
+            window.open(url, '_blank')
+          },
+        }}
+      />
+    </Stack>
   )
 }
 

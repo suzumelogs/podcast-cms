@@ -88,9 +88,13 @@ export const deleteBook = async (bookId: string) => {
   }
 }
 
-export const getBookValueLabels = async () => {
+export const getBookValueLabels = async (categoryId?: string | null) => {
   try {
-    const response = await request.get('/books/value-labels/book')
+    const response = await request.get('/books/value-labels/book', {
+      params: {
+        categoryId,
+      },
+    })
     return response.data
   } catch (error) {
     throw error

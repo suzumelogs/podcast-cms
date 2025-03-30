@@ -63,6 +63,7 @@ export type FilterBarProps<F extends FieldValues> = {
   createBtnText?: string
   buttonSearchUnderButtonCreate?: boolean
   isDisabledCreate?: boolean
+  onReset?: (field: keyof F) => void
 }
 
 function getColumnByField<F extends FieldValues>(columns: FilterColumn<F>[], field: keyof F) {
@@ -105,7 +106,7 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
   isDisabledCreate = false,
 }: FilterBarProps<FilterInput>) {
   const { handleChangeParams } = useTableContext<TData, FilterInput>()
-  const { handleSubmit, register, control } = useForm<FilterInput>({})
+  const { handleSubmit, register, control, reset } = useForm<FilterInput>({})
   const route = useRouter()
   const hasCreateFn = typeof onCreate === 'function'
 
@@ -126,10 +127,7 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
     Object.entries(data).forEach(([name, value]) => {
       const column = getColumnByField(columns, name as keyof FilterInput)
 
-      handleFilter(
-        column,
-        value
-      )
+      handleFilter(column, value)
     })
   }
 

@@ -2,13 +2,14 @@ import { getListEpisodes } from '@/libs/api/episodes'
 import { useTableContext } from '@/libs/components/Table'
 import { useQuery } from '@tanstack/react-query'
 import { EpisodeSearchInputType, EpisodeType } from '../type'
+import { TSearch } from '../views'
 
-export const useEpisodeListQuery = () => {
+export const useEpisodeListQuery = ({ bookId, categoryId, chapterId, name, author }: TSearch) => {
   const { input, getTableData, sortOptions } = useTableContext<
     EpisodeType,
     EpisodeSearchInputType
   >()
-  const { page, limit, name, author, bookId, categoryId, chapterId } = input
+  const { page, limit } = input
   const { sort_by, column } = sortOptions || {}
 
   const data = useQuery({
@@ -24,7 +25,18 @@ export const useEpisodeListQuery = () => {
       categoryId,
       chapterId,
     ],
-    queryFn: () => getListEpisodes({ ...input, limit, ...sortOptions }),
+    queryFn: () =>
+      getListEpisodes({
+        author,
+        name,
+        page,
+        limit,
+        bookId,
+        categoryId,
+        chapterId,
+        sortBy: sort_by,
+        column,
+      }),
   })
 
   return {

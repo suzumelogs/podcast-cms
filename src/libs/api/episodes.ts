@@ -5,13 +5,22 @@ import {
   EpisodeListType,
   EpisodeUpdateInputType,
   QueryInputEpisodeDetailType,
+  TSearch,
 } from '@/features/episodes'
 import request from '../config/axios'
 
-export const getListEpisodes = async (params: EpisodeListQueryInputType) => {
+export const cleanParams = (params: Record<string, any>) => {
+  return Object.fromEntries(
+    Object.entries(params).filter(
+      ([_, value]) => value !== null && value !== undefined && value !== '',
+    ),
+  )
+}
+
+export const getListEpisodes = async (params: EpisodeListQueryInputType & TSearch) => {
   try {
     const response = await request.get<EpisodeListType>('/episodes/all/pagination', {
-      params,
+      params: cleanParams(params),
     })
     return response.data
   } catch (error) {
